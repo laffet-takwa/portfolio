@@ -37,10 +37,34 @@ also update the prefix in `useScreenshotSources`.
 | --- | --- |
 | `beta-ai-soc` | `beta-ai-soc` |
 | `shopsphere-ecommerce` | `shopsphere` |
+| `finova` | `finova` |
 | `logistics-platform` | `logistics-platform` |
 | `odoo-invoice-automation` | `odoo-invoice-automation` |
 | `donation-event-platform` | `donation-event-platform` |
 | `time-tracking-app` | `time-tracking-app` |
+
+## Optimising before publishing
+
+Repository screenshots are captured at 2x (2880px wide, sometimes 5000px
+tall) and weigh several megabytes per project, while the portfolio only renders
+them as ~300-600px card previews. Downscale and re-encode before committing:
+
+```bash
+npm install --no-save sharp
+node scripts/optimize-screenshots.mjs --in=<repo>/docs/screenshots \
+                                      --out=public/projects/<folder> \
+                                      --width=1100 --quality=68
+```
+
+Tall phone captures can be capped as well, which crops the never-rendered tail:
+
+```bash
+node scripts/optimize-screenshots.mjs --in=<repo>/docs/screenshots/mobile \
+                                      --out=public/projects/<folder> \
+                                      --width=560 --height=1400 --quality=70
+```
+
+Finova's 35 screenshots went from 8.7 MB to 457 KB that way.
 
 ## Suggested format
 

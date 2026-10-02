@@ -265,6 +265,105 @@ export const projects: Project[] = [
     published: true,
     year: '2026',
     role: { en: 'Backend / Distributed Systems Engineer', fr: 'Ingénieur Back-end / Systèmes distribués' },
+    screenshotFolder: 'finova',
+    screenshots: [
+      {
+        id: 'login',
+        caption: { en: 'Sign in', fr: 'Connexion' },
+        src: '/projects/finova/01-login.webp',
+      },
+      {
+        id: 'register',
+        caption: { en: 'Registration', fr: 'Inscription' },
+        src: '/projects/finova/02-register.webp',
+      },
+      {
+        id: 'dashboard',
+        caption: {
+          en: 'Dashboard — total balance, 30-day cash flow and recent activity',
+          fr: 'Tableau de bord — solde total, flux de trésorerie sur 30 jours et activité récente',
+        },
+        src: '/projects/finova/03-dashboard.webp',
+      },
+      {
+        id: 'open-account',
+        caption: { en: 'Opening a checking or savings account', fr: 'Ouverture d’un compte courant ou d’épargne' },
+        src: '/projects/finova/04-accounts-new-account.webp',
+      },
+      {
+        id: 'account-detail',
+        caption: {
+          en: 'Account detail — balance history reconstructed from real ledger movements',
+          fr: 'Détail du compte — historique de solde reconstruit à partir des mouvements réels',
+        },
+        src: '/projects/finova/05-account-detail.webp',
+      },
+      {
+        id: 'transfer',
+        caption: {
+          en: 'Send money — recipient verification, then the amount and the idempotency key',
+          fr: 'Envoi d’argent — vérification du destinataire, puis montant et clé d’idempotence',
+        },
+        src: '/projects/finova/06-transfer.webp',
+      },
+      {
+        id: 'transfer-review',
+        caption: {
+          en: 'Step 3 of 4 — the review screen that carries the idempotency key through confirmation',
+          fr: 'Étape 3 sur 4 — l’écran de revue qui porte la clé d’idempotence jusqu’à la confirmation',
+        },
+        src: '/projects/finova/07-transfer-review.webp',
+      },
+      {
+        id: 'security',
+        caption: {
+          en: 'Security centre — two-factor shown as “Not enabled” rather than a green tick',
+          fr: 'Centre de sécurité — double authentification affichée « non activée » plutôt qu’une coche verte',
+        },
+        src: '/projects/finova/08-security.webp',
+      },
+      {
+        id: 'settings',
+        caption: { en: 'Profile settings', fr: 'Paramètres du profil' },
+        src: '/projects/finova/09-settings.webp',
+      },
+      {
+        id: 'settings-notifications',
+        caption: { en: 'Notification preferences', fr: 'Préférences de notification' },
+        src: '/projects/finova/10-settings-notifications.webp',
+      },
+      {
+        id: 'not-found',
+        caption: { en: 'Not-found route', fr: 'Route introuvable' },
+        src: '/projects/finova/11-not-found.webp',
+      },
+      {
+        id: 'dashboard-mobile',
+        caption: {
+          en: 'Mobile — redesigned as a drawer and single-column cards',
+          fr: 'Mobile — repensée en tiroir et en cartes sur une colonne',
+        },
+        src: '/projects/finova/12-dashboard-mobile.webp',
+      },
+      {
+        id: 'transfer-mobile',
+        caption: { en: 'Mobile — transfer flow', fr: 'Mobile — parcours de virement' },
+        src: '/projects/finova/13-transfer-mobile.webp',
+      },
+      {
+        id: 'transactions-mobile',
+        caption: {
+          en: 'Mobile — filters expanded and the table turned into cards',
+          fr: 'Mobile — filtres déployés et tableau transformé en cartes',
+        },
+        src: '/projects/finova/14-transactions-filters-mobile.webp',
+      },
+      {
+        id: 'security-mobile',
+        caption: { en: 'Mobile — security centre', fr: 'Mobile — centre de sécurité' },
+        src: '/projects/finova/15-security-mobile.webp',
+      },
+    ],
   },
 
   /* ---------------------------------------------------------- 04 */
