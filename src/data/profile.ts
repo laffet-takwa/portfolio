@@ -19,7 +19,7 @@ export const profile: Profile = {
   email: 'takwa.laffet@esprit.tn',
   linkedin: 'https://www.linkedin.com/in/takwa-laffet-883239211/',
   github: 'https://github.com/takwa-laffet',
-  portfolioUrl: 'https://takwa-laffet.github.io/myportfoflio/',
+  portfolioUrl: 'https://laffet-takwa.github.io/portfolio/',
   handles: { github: 'takwa-laffet', linkedin: 'takwa-laffet-883239211' },
   resumes: [
     {

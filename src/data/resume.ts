@@ -43,8 +43,8 @@ const LINKS = {
   },
   portfolio: {
     label: 'Portfolio',
-    display: 'takwa-laffet.github.io/myportfoflio',
-    url: 'https://takwa-laffet.github.io/myportfoflio/',
+    display: 'laffet-takwa.github.io/portfolio',
+    url: 'https://laffet-takwa.github.io/portfolio/',
   },
 };
 
