@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>Takwa Laffet | Cybersecurity Engineer &amp; Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Takwa Laffet is a Cybersecurity Engineer and Full-Stack Developer from Tunisia focused on secure software, cybersecurity, DevOps, cloud and modern web technologies."
+    />
+    <meta
+      name="keywords"
+      content="Cybersecurity Engineer, Full-Stack Developer, DevOps, DevSecOps, React, Java, Spring Boot, Docker, Kubernetes, AWS, Wazuh, Tunisia"
+    />
+    <meta name="author" content="Takwa Laffet" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#050a18" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#eef2f9" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Takwa Laffet" />
+    <meta property="og:title" content="Takwa Laffet | Cybersecurity Engineer &amp; Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Takwa Laffet is a Cybersecurity Engineer and Full-Stack Developer from Tunisia focused on secure software, cybersecurity, DevOps, cloud and modern web technologies."
+    />
+    <meta property="og:url" content="https://takwa-laffet.dev/" />
+    <meta property="og:image" content="/og-cover.svg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Takwa Laffet | Cybersecurity Engineer &amp; Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Portfolio of Takwa Laffet — Cybersecurity Engineer, Full-Stack Developer and DevOps / DevSecOps Engineer."
+    />
+    <meta name="twitter:image" content="/og-cover.svg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Takwa Laffet",
+        "jobTitle": "Cybersecurity Engineer",
+        "url": "https://takwa-laffet.dev/",
+        "email": "mailto:takwa.laffet@esprit.tn",
+        "address": { "@type": "PostalAddress", "addressCountry": "TN" },
+        "sameAs": [
+          "https://www.linkedin.com/in/takwa-laffet-883239211/",
+          "https://github.com/laffet-takwa"
+        ],
+        "knowsLanguage": ["en", "fr"],
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "ESPRIT" },
+          { "@type": "CollegeOrUniversity", "name": "ISET Kébili" }
+        ]
+      }
+    </script>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('tl.theme');
+          var mode = stored === 'light' || stored === 'dark' ? stored : 'system';
+          var resolved =
+            mode === 'system'
+              ? window.matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark'
+              : mode;
+          var root = document.documentElement;
+          root.classList.toggle('dark', resolved === 'dark');
+          root.classList.toggle('light', resolved === 'light');
+          root.dataset.theme = resolved;
+          root.style.colorScheme = resolved;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      This portfolio requires JavaScript. Please reach Takwa Laffet at
+      takwa.laffet@esprit.tn or https://www.linkedin.com/in/takwa-laffet-883239211/
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

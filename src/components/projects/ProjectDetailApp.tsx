@@ -1,0 +1,299 @@
+import type { ReactNode } from 'react';
+import { getProjectById, publishedProjects } from '../../data/projects';
+import { useI18n } from '../../i18n/useI18n';
+import { useWindowManager } from '../../context/WindowManagerProvider';
+import { resolveText, type IconName, type Project } from '../../types';
+import { Button, EmptyState, Tag } from '../ui/Primitives';
+import { Icon } from '../ui/Icon';
+
+function Block({
+  title,
+  icon,
+  children,
+}: {
+  title: string;
+  icon: IconName;
+  children: ReactNode;
+}) {
+  return (
+    <section className="border-t border-[var(--border)] pt-4">
+      <h3 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted">
+        <Icon name={icon} size={14} className="text-accent" />
+        {title}
+      </h3>
+      <div className="text-[13px] leading-relaxed text-secondary">{children}</div>
+    </section>
+  );
+}
+
+function ScreenshotPlaceholder({ project, caption }: { project: Project; caption: string }) {
+  return (
+    <figure className="overflow-hidden rounded-xl border border-[var(--border)]">
+      <div
+        className="relative flex h-36 items-center justify-center sm:h-44"
+        style={{
+          background:
+            'linear-gradient(140deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%)',
+        }}
+      >
+        <span aria-hidden="true" className="text-3xl opacity-40">
+          <Icon name={project.icon ?? 'folder'} size={30} />
+        </span>
+        <span className="absolute bottom-2 right-2 rounded-md bg-[var(--window-solid)]/80 px-1.5 py-0.5 text-[10px] text-muted">
+          {project.image ? '' : '16:10'}
+        </span>
+      </div>
+      <figcaption className="border-t border-[var(--border)] px-3 py-2 text-[11px] text-muted">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
+export function ProjectDetailApp({ projectId }: { projectId?: string }) {
+  const { t, locale } = useI18n();
+  const { openWindow, closeWindow } = useWindowManager();
+  const project = getProjectById(projectId);
+
+  if (!project) {
+    return (
+      <div className="p-6">
+        <EmptyState
+          icon={<Icon name="image" size={14} />}
+          title={t.projects.projectNotFound}
+          action={
+            <Button variant="primary" size="sm" onClick={() => openWindow('projects')}>
+              {t.detail.backToProjects}
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
+
+  const others = publishedProjects.filter((item) => item.id !== project.id).slice(0, 4);
+  const features = (project.features ?? []).map((feature) => resolveText(feature, locale));
+  const screenshots = project.screenshots ?? [];
+
+  const openSibling = (id: string) => openWindow('project-detail', { projectId: id });
+
+  return (
+    <div className="scroll-thin h-full overflow-y-auto">
+      {/* Hero */}
+      <header className="relative overflow-hidden border-b border-[var(--border)] px-4 py-6 sm:px-7">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/18 via-transparent to-transparent" />
+        <div className="relative">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-accent">
+                {project.id}
+              </p>
+              <h2 className="mt-1 text-lg font-bold leading-snug tracking-tight text-ink sm:text-xl">
+                {project.title}
+              </h2>
+              {project.subtitle ? (
+                <p className="mt-1 text-[13px] text-secondary">
+                  {resolveText(project.subtitle, locale)}
+                </p>
+              ) : null}
+            </div>
+            {project.year ? (
+              <span className="shrink-0 rounded-lg border border-[var(--border)] px-2 py-1 font-mono text-[11px] text-muted">
+                {project.year}
+              </span>
+            ) : null}
+          </div>
+
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {project.category.map((category) => (
+              <Tag key={category} tone="accent">
+                {category}
+              </Tag>
+            ))}
+            {project.role ? <Tag>{resolveText(project.role, locale)}</Tag> : null}
+          </div>
+
+          {/* Links */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.github ? (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-2 text-xs font-medium text-secondary transition-colors hover:border-accent/60 hover:text-ink"
+              >
+                <Icon name="git-branch" size={14} />
+                {t.projects.github}
+              </a>
+            ) : (
+              <span
+                title={t.detail.linkUnavailable}
+                aria-disabled="true"
+                className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-2 text-xs font-medium text-muted opacity-55"
+              >
+                <Icon name="git-branch" size={14} />
+                {t.projects.github} · {t.common.comingSoon}
+              </span>
+            )}
+            {project.demo ? (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-2 text-xs font-medium text-secondary transition-colors hover:border-accent/60 hover:text-ink"
+              >
+                <Icon name="external-link" size={14} />
+                {t.projects.demo}
+              </a>
+            ) : (
+              <span
+                title={t.detail.linkUnavailable}
+                aria-disabled="true"
+                className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-2 text-xs font-medium text-muted opacity-55"
+              >
+                <Icon name="external-link" size={14} />
+                {t.projects.demo} · {t.common.comingSoon}
+              </span>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Body */}
+      <div className="mx-auto flex max-w-4xl flex-col gap-5 px-4 py-6 sm:px-7">
+        <p className="text-[14px] leading-relaxed text-secondary">
+          {resolveText(project.longDescription || project.description, locale)}
+        </p>
+
+        {project.problem ? (
+          <Block title={t.detail.problem} icon="help">
+            <p>{resolveText(project.problem, locale)}</p>
+          </Block>
+        ) : null}
+
+        {project.solution ? (
+          <Block title={t.detail.solution} icon="lightbulb">
+            <p>{resolveText(project.solution, locale)}</p>
+          </Block>
+        ) : null}
+
+        {project.architecture || project.architectureFlow ? (
+          <Block title={t.detail.architecture} icon="layers">
+            {project.architecture ? <p>{resolveText(project.architecture, locale)}</p> : null}
+            {project.architectureFlow && project.architectureFlow.length > 0 ? (
+              <ol
+                aria-label={t.detail.flowLabel}
+                className="mt-3 flex flex-col items-stretch gap-0"
+              >
+                {project.architectureFlow.map((node, index) => (
+                  <li key={node} className="flex flex-col items-center">
+                    <span className="w-full rounded-lg border border-[var(--border)] bg-[var(--hover-surface)] px-3 py-2 text-center font-mono text-xs text-ink">
+                      {node}
+                    </span>
+                    {index < project.architectureFlow!.length - 1 ? (
+                      <Icon name="chevron-down" size={15} className="my-1 text-muted" />
+                    ) : null}
+                  </li>
+                ))}
+              </ol>
+            ) : null}
+          </Block>
+        ) : null}
+
+        {features.length > 0 ? (
+          <Block title={t.detail.features} icon="check-circle">
+            <ul className="grid gap-1.5 sm:grid-cols-2">
+              {features.map((feature) => (
+                <li key={feature} className="flex gap-2">
+                  <span aria-hidden="true" className="mt-[3px] text-[10px] text-[var(--success)]">
+                    ▸
+                  </span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </Block>
+        ) : null}
+
+        {project.technologies.length > 0 ? (
+          <Block title={t.detail.technologies} icon="wrench">
+            <ul className="flex flex-wrap gap-1.5">
+              {project.technologies.map((tech) => (
+                <li key={tech}>
+                  <span className="inline-flex items-center rounded-md border border-[var(--border)] bg-[var(--hover-surface)] px-2 py-1 text-[11px] text-secondary">
+                    {tech}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Block>
+        ) : null}
+
+        {screenshots.length > 0 ? (
+          <Block title={t.detail.screenshots} icon="image">
+            <div className="grid gap-3 sm:grid-cols-2">
+              {screenshots.map((shot) => (
+                <ScreenshotPlaceholder
+                  key={shot.id}
+                  project={project}
+                  caption={resolveText(shot.caption, locale)}
+                />
+              ))}
+            </div>
+            <p className="mt-2 text-[11px] text-muted">{t.detail.screenshotHint}</p>
+          </Block>
+        ) : null}
+
+        {others.length > 0 ? (
+          <section className="border-t border-[var(--border)] pt-4">
+            <h3 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-muted">
+              {t.detail.otherProjects}
+            </h3>
+            <ul className="flex flex-col gap-1.5">
+              {others.map((item) => (
+                <li key={item.id}>
+                  <button
+                    type="button"
+                    onClick={() => openSibling(item.id)}
+                    className="flex w-full items-center gap-2.5 rounded-lg border border-[var(--border)] px-3 py-2 text-left transition-colors hover:border-accent/60 hover:bg-accent-soft"
+                  >
+                    <Icon name={item.icon ?? 'folder'} size={16} />
+                    <span className="min-w-0 flex-1 truncate text-[13px] text-secondary">
+                      {item.title}
+                    </span>
+                    <Icon name="arrow-right" size={14} className="text-muted" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => {
+                  closeWindow('project-detail');
+                  openWindow('projects');
+                }}
+              >
+                <Icon name="arrow-left" size={13} /> {t.detail.backToProjects}
+              </Button>
+            </div>
+          </section>
+        ) : (
+          <div className="border-t border-[var(--border)] pt-4">
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => {
+                closeWindow('project-detail');
+                openWindow('projects');
+              }}
+            >
+              <Icon name="arrow-left" size={13} /> {t.detail.backToProjects}
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
