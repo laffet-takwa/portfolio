@@ -4,6 +4,7 @@ import { useI18n } from '../../i18n/useI18n';
 import { useWindowManager } from '../../context/WindowManagerProvider';
 import type { ProjectScreenshot, IconName, Locale, Project } from '../../types';
 import { resolveText } from '../../types';
+import { assetUrl } from '../../lib/assets';
 import { Button, EmptyState, Tag } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
 
@@ -31,11 +32,11 @@ function useScreenshotSources(project: Project): Record<string, string> {
         if (cancelled) return;
 
         const candidates = shot.src
-          ? [shot.src]
+          ? [assetUrl(shot.src)]
           : IMAGE_EXTENSIONS.map((ext) => {
               const stem = `${String(index + 1).padStart(2, '0')}-${shot.id}`;
               const folder = project.screenshotFolder ?? project.id;
-              return `/projects/${folder}/${folder}-${stem}.${ext}`;
+              return assetUrl(`/projects/${folder}/${folder}-${stem}.${ext}`);
             });
 
         for (const url of candidates) {

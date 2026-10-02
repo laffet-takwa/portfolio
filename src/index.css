@@ -202,23 +202,20 @@ body {
   opacity: var(--grid-opacity);
 }
 
-/* Flowing light streaks â€” slow, subtle, GPU friendly */
+/* Flowing light pools: soft by construction, never filtered.
+   A `filter: blur()` on a layer this large made Chrome rasterize it black on
+   several GPU and software paths, which blacked out most of the desktop.
+   Radial gradients give the same falloff with no filter and no oversized
+   composited surface; the base gradient shows through where the rotated layer
+   does not reach. */
 .wallpaper::after {
   content: '';
   position: absolute;
-  inset: -30%;
+  inset: -12%;
   background:
-    conic-gradient(
-      from 0deg at 50% 50%,
-      transparent 0deg,
-      var(--wallpaper-glow-1) 40deg,
-      transparent 90deg,
-      transparent 180deg,
-      var(--wallpaper-glow-2) 220deg,
-      transparent 270deg
-    );
-  filter: blur(90px);
-  opacity: 0.55;
+    radial-gradient(46% 46% at 30% 32%, var(--wallpaper-glow-1) 0%, transparent 70%),
+    radial-gradient(40% 40% at 70% 68%, var(--wallpaper-glow-2) 0%, transparent 70%);
+  opacity: 0.9;
   animation: drift 42s linear infinite;
 }
 

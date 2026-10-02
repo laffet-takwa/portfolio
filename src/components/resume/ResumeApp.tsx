@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { profile } from '../../data/profile';
+import { assetUrl } from '../../lib/assets';
 import { useI18n } from '../../i18n/useI18n';
 import { Button } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
@@ -39,7 +40,7 @@ export function ResumeApp() {
 
   useEffect(() => {
     let cancelled = false;
-    const file = `/resume/Takwa_Laffet_CV_${active.toUpperCase()}.pdf`;
+    const file = assetUrl(`/resume/Takwa_Laffet_CV_${active.toUpperCase()}.pdf`);
     setChecking(true);
     fetch(file, { method: 'HEAD' })
       .then((response) => {

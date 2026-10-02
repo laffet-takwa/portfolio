@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { profile } from '../../data/profile';
 import { useI18n } from '../../i18n/useI18n';
 import { resolveText, type IconName } from '../../types';
+import { assetUrl } from '../../lib/assets';
 import { Icon } from '../ui/Icon';
 import { Button, Tag } from '../ui/Primitives';
 
@@ -151,7 +152,7 @@ const opportunities: Array<{ icon: IconName; label: string }> = [
               const resume =
                 profile.resumes.find((item) => item.locale === locale) ?? profile.resumes[0];
               const link = document.createElement('a');
-              link.href = resume.file;
+              link.href = assetUrl(resume.file);
               link.download = resume.fileName;
               document.body.appendChild(link);
               link.click();
