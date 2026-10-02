@@ -49,7 +49,6 @@ const en = {
         role1: 'Cybersecurity Engineer',
         role2: 'Full-Stack Developer',
         role3: 'DevOps / DevSecOps',
-        heroHint: 'Select an application to begin',
         jumpToProjects: 'View Projects',
         jumpToResume: 'Download CV',
         jumpToContact: 'Contact Me',

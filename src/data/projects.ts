@@ -368,6 +368,92 @@ export const projects: Project[] = [
 
   /* ---------------------------------------------------------- 04 */
   {
+    id: 'fleetflow',
+    title: 'FleetFlow',
+    subtitle: {
+      en: 'Smart logistics and delivery platform on an event-driven backbone',
+      fr: 'Plateforme logistique et de livraison intelligente sur un socle piloté par les événements',
+    },
+    category: ['Full-Stack', 'Microservices', 'Distributed Systems', 'Backend', 'Cloud-Native'],
+    icon: 'map-pin',
+    description: {
+      en: 'Smart logistics and delivery platform: eight Spring Boot services behind a single API gateway with a Vue 3 single-page front end, covering customer ordering, warehouse inventory, last-mile delivery and live tracking. Order, inventory and delivery changes travel over Kafka, and position updates are streamed to the browser over Server-Sent Events.',
+      fr: 'Plateforme logistique et de livraison intelligente : huit services Spring Boot derrière une unique API Gateway, avec un front end SPA Vue 3, couvrant la commande client, l’inventaire des entrepôts, la livraison du dernier kilomètre et le suivi en direct. Les changements de commande, de stock et de livraison circulent via Kafka, et les mises à jour de position sont diffusées au navigateur en Server-Sent Events.',
+    },
+    highlight: {
+      en: 'The browser only ever talks to the gateway, and every state change reaches tracking, inventory and notifications as a Kafka event instead of a synchronous call chain.',
+      fr: 'Le navigateur ne parle qu’à la gateway, et chaque changement d’état atteint le suivi, le stock et les notifications via un événement Kafka plutôt que par une chaîne d’appels synchrones.',
+    },
+    longDescription: {
+      en: 'FleetFlow is built around the delivery itself rather than around a screen. A customer places an order, the warehouse reserves stock, a driver is assigned and picks the parcel up — and each of those transitions has to reach the tracking map, the notification feed and the operations console at the same time. Rather than chaining synchronous calls that fail together, every service publishes a JSON event envelope on one of nine explicitly provisioned Kafka topics, and the consumers react. The tracking service keeps location history in MongoDB, caches hot state in Redis and pushes each new position to the browser over a Server-Sent Events stream, so the map moves without polling. Consumers de-duplicate on the event id, and a correlation id minted at the gateway is echoed on every response, carried inside the envelope and restored on the consuming side, so one customer order can be followed across all eight services. The SPA ships three shells — operations, driver and customer — behind route guards that resolve against the JWT role. Docker Compose brings the whole platform up with one command, creating the datastores, the Kafka topics and the demo identities, and holding the gateway until every downstream service reports healthy.',
+      fr: 'FleetFlow est construit autour de la livraison elle-même plutôt qu autour d’un écran. Un client passe commande, l’entrepôt réserve du stock, un chauffeur est affecté et prend le colis en charge — et chacune de ces transitions doit atteindre en même temps la carte de suivi, le fil de notifications et la console d’opérations. Plutôt que d’enchaîner des appels synchrones qui tombent ensemble, chaque service publie une enveloppe d’événement JSON sur l’un des neuf topics Kafka provisionnés explicitement, et les consommateurs réagissent. Le service de tracking conserve l’historique des positions dans MongoDB, met en cache l’état chaud dans Redis et pousse chaque nouvelle position vers le navigateur via un flux Server-Sent Events, si bien que la carte bouge sans interrogation périodique. Les consommateurs dédupliquent sur l’identifiant d’événement, et un correlation id émis par la gateway est renvoyé sur chaque réponse, transporté dans l’enveloppe puis restauré côté consommateur : une seule commande client peut ainsi être suivie à travers les huit services. La SPA embarque trois coquilles — opérations, chauffeur et client — derrière des gardes de route qui se résolvent sur le rôle du JWT. Docker Compose fait monter toute la plateforme en une seule commande, créant les bases, les topics Kafka et les identités de démonstration, et retenant la gateway jusqu’à ce que chaque service en aval soit sain.',
+    },
+    problem: {
+      en: 'Delivery operations cut across customers, orders, stock, drivers and vehicles, and each of them moves on its own schedule. A picked-up parcel has to reach tracking, the customer and the notification feed at once. A warehouse that cannot reserve stock has to say so before the order is accepted, not after. And a driver phone on a patchy mobile network still has to report where the parcel actually is.',
+      fr: 'Les opérations de livraison traversent les clients, les commandes, le stock, les chauffeurs et les véhicules, et chacun évolue à son propre rythme. Un colis pris en charge doit atteindre en même temps le suivi, le client et le fil de notifications. Un entrepôt incapable de réserver du stock doit le signaler avant que la commande ne soit acceptée, pas après. Et un téléphone de chauffeur sur un réseau mobile instable doit tout de même remonter la position réelle du colis.',
+    },
+    solution: {
+      en: 'Eight Spring Boot services, each owning its own database, sit behind a Spring Cloud gateway that authenticates with JWT and handles CORS and routing. They exchange state changes as event envelopes on nine Kafka topics declared by a script, with auto-creation disabled so a typo fails loudly instead of silently creating a new topic. Idempotency comes from the event id rather than from convention, and correlation ids link logs, events and HTTP calls into one trace. Position updates are pushed to the browser over Server-Sent Events, while role-based routing gives ADMIN, OPERATIONS, DRIVER and CUSTOMER genuinely different screens.',
+      fr: 'Huit services Spring Boot, chacun propriétaire de sa base, se placent derrière une Spring Cloud Gateway qui authentifie par JWT et gère le CORS et le routage. Ils échangent leurs changements d’état sous forme d’enveloppes d’événements sur neuf topics Kafka déclarés par un script, l’autocréation étant désactivée pour qu’une faute de frappe échoue bruyamment au lieu de créer silencieusement un nouveau topic. L’idempotence vient de l’identifiant d’événement plutôt que d’une convention, et les correlation ids relient logs, événements et appels HTTP en une seule trace. Les mises à jour de position sont poussées au navigateur en Server-Sent Events, tandis que le routage par rôle offre à ADMIN, OPERATIONS, DRIVER et CUSTOMER des écrans réellement différents.',
+    },
+    architecture: {
+      en: 'Vue 3 SPA (TypeScript, Pinia, Vue Router, Leaflet) → API gateway (JWT filter, CORS, routing) → eight Spring Boot services (auth, customer, order, warehouse, delivery, tracking, notification), each with its own PostgreSQL database, plus MongoDB 7 and Redis 7 for location history. Kafka 3.8 in KRaft mode carries the domain events between them, with an optional Eureka registry, and an optional ELK stack fed by every service collects the correlated logs. Docker Compose brings the whole platform up with one command.',
+      fr: 'SPA Vue 3 (TypeScript, Pinia, Vue Router, Leaflet) → API gateway (filtre JWT, CORS, routage) → huit services Spring Boot (auth, customer, order, warehouse, delivery, tracking, notification), chacun avec sa base PostgreSQL, plus MongoDB 7 et Redis 7 pour l’historique des positions. Kafka 3.8 en mode KRaft transporte les événements de domaine entre eux, avec un registre Eureka optionnel, et une pile ELK optionnelle alimentée par chaque service collecte les logs corrélés. Docker Compose fait monter toute la plateforme en une seule commande.',
+    },
+    architectureFlow: [
+      'Vue 3 SPA — TypeScript · Pinia · Leaflet',
+      'API Gateway — JWT filter · CORS · routing',
+      'Spring Boot services — auth · order · warehouse · delivery · tracking',
+      'Kafka 3.8 — order.* · inventory.* · delivery.*',
+      'PostgreSQL 16 · MongoDB 7 · Redis · ELK',
+    ],
+    features: [
+      { en: 'Storefront with catalogue browsing, order placement and live map tracking', fr: 'Boutique avec navigation du catalogue, passage de commande et suivi sur carte en direct' },
+      { en: 'Operations console for the order pipeline, inventory, warehouses, drivers, vehicles and analytics', fr: 'Console d’opérations pour le pipeline de commandes, le stock, les entrepôts, les chauffeurs, les véhicules et les analyses' },
+      { en: 'Driver app with assigned deliveries and assigned → picked up → in transit → delivered transitions', fr: 'Application chauffeur avec livraisons assignées et transitions assignée → prise en charge → en transit → livrée' },
+      { en: 'Event-driven backbone carrying order, inventory and delivery changes over Kafka', fr: 'Socle piloté par les événements transportant les changements de commande, de stock et de livraison via Kafka' },
+      { en: 'Live position updates streamed to the browser over Server-Sent Events', fr: 'Mises à jour de position diffusées au navigateur en Server-Sent Events' },
+      { en: 'Role-based access — ADMIN, OPERATIONS, DRIVER, CUSTOMER — with JWT auth and per-role routing', fr: 'Accès par rôle — ADMIN, OPERATIONS, DRIVER, CUSTOMER — avec authentification JWT et routage par rôle' },
+      { en: 'Data owned per service: PostgreSQL each, with MongoDB and Redis for location history', fr: 'Données possédées par service : PostgreSQL pour chacun, avec MongoDB et Redis pour l’historique des positions' },
+      { en: 'Idempotent consumers de-duplicating on the event id', fr: 'Consommateurs idempotents dédupliquant sur l’identifiant d’événement' },
+      { en: 'Correlation ids threaded through logs, event envelopes and HTTP calls', fr: 'Correlation ids traversant les logs, les enveloppes d’événements et les appels HTTP' },
+      { en: 'Explicitly provisioned Kafka topics with partition counts matched to ordering needs', fr: 'Topics Kafka provisionnés explicitement avec des partitions calées sur les besoins d’ordre' },
+      { en: 'Optional ELK stack with Filebeat forwarding Docker logs to Kibana', fr: 'Pile ELK optionnelle avec Filebeat qui transmet les logs Docker à Kibana' },
+      { en: 'One-command local stack with seeded demo identities and health-gated startup', fr: 'Pile locale en une commande avec identités de démonstration et démarrage conditionné au health check' },
+      { en: 'Testcontainers-backed integration tests against real datastores', fr: 'Tests d’intégration avec Testcontainers sur de vraies bases de données' },
+    ],
+    technologies: [
+      'Java 17',
+      'Spring Boot 3',
+      'Spring Cloud',
+      'Spring Security',
+      'JJWT',
+      'PostgreSQL',
+      'MongoDB',
+      'Redis',
+      'Kafka',
+      'Eureka',
+      'Flyway',
+      'Vue 3',
+      'TypeScript',
+      'Vite',
+      'Pinia',
+      'Tailwind CSS',
+      'Leaflet',
+      'Docker',
+      'Testcontainers',
+      'OpenAPI',
+    ],
+    github: 'https://github.com/laffet-takwa/FleetFlow',
+    demo: '',
+    featured: true,
+    published: true,
+    year: '2026',
+    role: { en: 'Backend / Distributed Systems Engineer', fr: 'Ingénieur Back-end / Systèmes distribués' },
+  },
+
+  /* ---------------------------------------------------------- 05 */
+  {
     id: 'nexora-erp',
     title: 'Nexora ERP',
     subtitle: {
@@ -442,7 +528,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
   },
 
-  /* ---------------------------------------------------------- 05 */
+  /* ---------------------------------------------------------- 06 */
   {
     id: 'shopsphere',
     title: 'ShopSphere',
@@ -554,7 +640,7 @@ export const projects: Project[] = [
     ],
   },
 
-  /* ---------------------------------------------------------- 06 */
+  /* ---------------------------------------------------------- 07 */
   {
     id: 'logistics-platform',
     title: 'Logistics & Delivery Management Platform',
@@ -622,7 +708,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack / Distributed Systems Developer', fr: 'Développeur Full-Stack / Systèmes distribués' },
   },
 
-  /* ---------------------------------------------------------- 07 */
+  /* ---------------------------------------------------------- 08 */
   {
     id: 'odoo-invoice-automation',
     title: 'Odoo Invoice Automation',
@@ -670,7 +756,7 @@ export const projects: Project[] = [
     role: { en: 'Software Engineer Intern / PFE Developer', fr: 'Stagiaire ingénieur logiciel / Développeur PFE' },
   },
 
-  /* ---------------------------------------------------------- 08 */
+  /* ---------------------------------------------------------- 09 */
   {
     id: 'donation-event-platform',
     title: 'Donation & Event Management Platform',
@@ -717,7 +803,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
   },
 
-  /* ---------------------------------------------------------- 09 */
+  /* ---------------------------------------------------------- 10 */
   {
     id: 'time-tracking-app',
     title: 'Time-Tracking Application',

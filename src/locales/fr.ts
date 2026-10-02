@@ -55,7 +55,7 @@ const fr: Dictionary = {
     role1: 'Ingénieur Cybersécurité',
     role2: 'Développeur Full-Stack',
     role3: 'DevOps / DevSecOps',
-    heroHint: 'Sélectionnez une application pour commencer',
+    
     jumpToProjects: 'Voir les projets',
     jumpToResume: 'Télécharger le CV',
     jumpToContact: 'Me contacter',

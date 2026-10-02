@@ -165,12 +165,6 @@ export function DesktopHome() {
           </ul>
         ) : null}
       </div>
-
-      {!isMobile ? (
-        <div className="pointer-events-auto absolute bottom-[72px] right-8 hidden flex-col items-end gap-1 text-[11px] text-muted xl:flex">
-          <span>{t.desktop.heroHint}</span>
-        </div>
-      ) : null}
     </section>
   );
 }
