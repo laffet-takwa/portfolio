@@ -114,6 +114,81 @@ export const projects: Project[] = [
 
   /* ---------------------------------------------------------- 02 */
   {
+    id: 'focus',
+    title: 'Foucs',
+    subtitle: {
+      en: 'Floating-doc productivity workspace',
+      fr: 'Espace de productivité en document flottant',
+    },
+    category: ['Full-Stack', 'Frontend'],
+    icon: 'sparkle',
+    description: {
+      en: 'A privacy-focused productivity web app that merges note-taking, Kanban task management and Scrum project planning into a single floating document workspace, with real-time Supabase synchronization and row-level security.',
+      fr: 'Une application web de productivité axée sur la confidentialité, qui réunit prise de notes, gestion de tâches Kanban et planification de projets Scrum dans un unique document flottant, avec synchronisation temps réel via Supabase et sécurité au niveau des lignes.',
+    },
+    highlight: {
+      en: 'Notes, tasks and project boards sharing one document, one auth layer and one glassmorphic surface.',
+      fr: 'Notes, tâches et tableaux projet partageant un seul document, une seule couche d’authentification et une seule surface glassmorphique.',
+    },
+    longDescription: {
+      en: 'Most productivity tools split your work across separate silos: notes in one app, tasks in another, project boards in a third. Foucs takes the opposite approach and treats them as three views over the same document. The notes module is built on a Quill rich text editor with a formatting toolbar, drag-and-drop image uploads with interactive resizing, a searchable history sidebar and PDF export. The To-Do module adds a drag-and-drop Kanban board with colour-coded priorities, custom categories, due dates and completion tracking. The Scrum module layers customizable columns on top so cards can be dragged between To Do, In Progress and Done. Underneath, Supabase provides authentication, PostgreSQL storage and realtime reads, and row-level security policies keep every note private to its owner instead of relying on the interface to hide it.',
+      fr: 'La plupart des outils de productivité dispersent votre travail : les notes dans une application, les tâches dans une autre, les tableaux projet dans une troisième. Foucs prend la voie inverse et les traite comme trois vues du même document. Le module notes repose sur un éditeur de texte riche Quill avec barre d’outils, téléversement d’images par glisser-déposer avec redimensionnement interactif, une barre latérale d’historique consultable et l’export PDF. Le module To-Do ajoute un tableau Kanban par glisser-déposer avec priorités codées par couleur, catégories personnalisées, dates d’échéance et suivi d’achèvement. Le module Scrum empile des colonnes personnalisables pour faire glisser les cartes entre To Do, In Progress et Done. En dessous, Supabase fournit l’authentification, le stockage PostgreSQL et les lectures temps réel, et les politiques de sécurité au niveau des lignes garantissent que chaque note reste privée pour son propriétaire plutôt que de reposer sur l’interface pour la masquer.',
+    },
+    problem: {
+      en: 'Capture, organize and plan are three different activities that live in three different tools. Context is lost at every hand-off, and no single tool knows what you wrote, what you have to do and what your project status actually is.',
+      fr: 'Capturer, organiser et planifier sont trois activités distinctes dispersées dans trois outils distincts. Le contexte se perd à chaque passage, et aucun outil ne sait à la fois ce que vous avez écrit, ce qu’il reste à faire et quel est l’état réel de votre projet.',
+    },
+    solution: {
+      en: 'Build one React application where the note editor, the Kanban task board and the Scrum project board are views over the same authenticated document, persisted in Supabase and protected by row-level security policies.',
+      fr: 'Construire une seule application React où l’éditeur de notes, le tableau Kanban et le tableau Scrum sont des vues du même document authentifié, persisté dans Supabase et protégé par des politiques de sécurité au niveau des lignes.',
+    },
+    architecture: {
+      en: 'React 18 SPA (TypeScript, React Router) → Supabase client for Auth, Postgres and Realtime → PostgreSQL tables for notes, categories, tasks, Scrum columns and cards, with row-level security policies enforced in the database and Quill handling rich text rendering.',
+      fr: 'SPA React 18 (TypeScript, React Router) → client Supabase pour Auth, Postgres et Realtime → tables PostgreSQL pour les notes, catégories, tâches, colonnes Scrum et cartes, avec des politiques de sécurité au niveau des lignes appliquées en base et Quill pour le rendu du texte riche.',
+    },
+    architectureFlow: [
+      'React 18 SPA — TypeScript · React Router',
+      'Tailwind CSS + Framer Motion glassmorphic UI',
+      'Supabase client — Auth · Postgres · Realtime',
+      'PostgreSQL with row-level security',
+      'Quill rich editor · PDF export',
+    ],
+    features: [
+      { en: 'Rich text note editor built on Quill with a formatting toolbar', fr: 'Éditeur de notes en texte riche basé sur Quill avec barre d’outils' },
+      { en: 'Drag-and-drop image upload with interactive resizing', fr: 'Téléversement d’images par glisser-déposer avec redimensionnement interactif' },
+      { en: 'Real-time note synchronization across sessions', fr: 'Synchronisation des notes en temps réel entre les sessions' },
+      { en: 'PDF export of notes', fr: 'Export des notes en PDF' },
+      { en: 'Searchable note history sidebar', fr: 'Barre latérale d’historique des notes consultable' },
+      { en: 'To-Do Kanban board with drag and drop and colour-coded priorities', fr: 'Tableau Kanban To-Do par glisser-déposer avec priorités codées par couleur' },
+      { en: 'Custom task categories with due dates and completion tracking', fr: 'Catégories de tâches personnalisées avec dates d’échéance et suivi d’achèvement' },
+      { en: 'Scrum board with customizable columns and drag-and-drop cards', fr: 'Tableau Scrum avec colonnes personnalisables et cartes en glisser-déposer' },
+      { en: 'Glassmorphic interface with backdrop blur and animated light rays', fr: 'Interface glassmorphique avec flou d’arrière-plan et rayons lumineux animés' },
+      { en: 'Floating navigation dock with physics-based animations', fr: 'Dock de navigation flottant avec animations fondées sur la physique' },
+      { en: 'Email/password and OAuth authentication with protected routes', fr: 'Authentification e-mail/mot de passe et OAuth avec routes protégées' },
+      { en: 'Row-level security policies keeping every note private to its owner', fr: 'Politiques de sécurité au niveau des lignes gardant chaque note privée pour son propriétaire' },
+    ],
+    technologies: [
+      'React',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'Supabase',
+      'React Router',
+      'Framer Motion',
+      'Quill',
+      'PostgreSQL',
+      'Row Level Security',
+    ],
+    github: 'https://github.com/laffet-takwa/focus',
+    demo: '',
+    featured: false,
+    published: true,
+    year: '2026',
+    role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+  },
+
+  /* ---------------------------------------------------------- 03 */
+  {
     id: 'finova',
     title: 'Finova',
     subtitle: {
@@ -184,7 +259,7 @@ export const projects: Project[] = [
       'Elasticsearch',
       'Testcontainers',
     ],
-    github: '',
+    github: 'https://github.com/laffet-takwa/Finova',
     demo: '',
     featured: true,
     published: true,
@@ -192,7 +267,83 @@ export const projects: Project[] = [
     role: { en: 'Backend / Distributed Systems Engineer', fr: 'Ingénieur Back-end / Systèmes distribués' },
   },
 
-  /* ---------------------------------------------------------- 03 */
+  /* ---------------------------------------------------------- 04 */
+  {
+    id: 'nexora-erp',
+    title: 'Nexora ERP',
+    subtitle: {
+      en: 'CRM, sales, finance and inventory on a modular ERP',
+      fr: 'CRM, ventes, finance et stocks sur un ERP modulaire',
+    },
+    category: ['ERP', 'Full-Stack', 'Backend'],
+    icon: 'database',
+    description: {
+      en: 'A modular ERP MVP pairing a Laravel 12 REST API with a React front end: customers and catalog, orders with constrained status transitions, invoices generated from confirmed orders, inventory movements, reports, audit logs and administration.',
+      fr: 'Un MVP d’ERP modulaire associant une API REST Laravel 12 à un front end React : clients et catalogue, commandes à transitions de statut contraintes, factures générées à partir des commandes confirmées, mouvements de stock, rapports, journaux d’audit et administration.',
+    },
+    highlight: {
+      en: 'TND amounts stored as DECIMAL(12,3), stock deducted only on completion, and every privileged action written to an audit log.',
+      fr: 'Montants en TND stockés en DECIMAL(12,3), stock déduit uniquement à la clôture, et chaque action privilégiée consignée dans un journal d’audit.',
+    },
+    longDescription: {
+      en: 'Nexora covers the operational chain a small company actually runs on, from the first customer call to the paid invoice. Public registration always creates an employee and only an administrator can assign elevated roles, so privilege escalation cannot happen through the API itself. Order status changes go through constrained transitions rather than free-form updates, and stock is deducted when an order is completed rather than when it is created — otherwise a cancelled order would leave phantom shortages. Invoices are generated from confirmed orders and payments are checked against locked invoice balances so a payment cannot be recorded twice. Amounts use DECIMAL(12,3) to keep TND precision intact, order and invoice numbers are generated server-side, and a scheduled job flags overdue invoices daily. Inventory movements are typed: in and out use a quantity delta, an adjustment sets a new target stock including zero, and a transfer records a move between two named locations without touching total on-hand stock.',
+      fr: 'Nexora couvre la chaîne opérationnelle qu’une petite entreprise déroule réellement, du premier appel client à la facture payée. L’inscription publique crée toujours un employé et seul un administrateur peut attribuer des rôles élevés : l’élévation de privilèges ne peut donc pas passer par l’API elle-même. Les changements de statut des commandes suivent des transitions contraintes plutôt que des mises à jour libres, et le stock est déduit à la clôture d’une commande plutôt qu’à sa création — sinon une commande annulée laisserait des pénuries fantômes. Les factures sont générées à partir des commandes confirmées et les paiements sont contrôlés par rapport à des soldes de facture verrouillés, afin qu’un paiement ne puisse pas être enregistré deux fois. Les montants utilisent DECIMAL(12,3) pour préserver la précision du TND, les numéros de commande et de facture sont générés côté serveur, et une tâche planifiée signale chaque jour les factures échues. Les mouvements de stock sont typés : « in » et « out » utilisent un delta de quantité, un ajustement fixe un stock cible incluant zéro, et un transfert enregistre un déplacement entre deux emplacements nommés sans modifier le stock total en main.',
+    },
+    problem: {
+      en: 'CRM, invoicing and stock usually end up as three disconnected tools that disagree with each other. Sales confirm an order, accounting issues an invoice by hand, and nobody notices the warehouse is already out of the product being sold.',
+      fr: 'Le CRM, la facturation et le stock finissent souvent par être trois outils déconnectés qui se contredisent. Les ventes confirment une commande, la comptabilité édite une facture à la main, et personne ne remarque que le produit vendu est déjà en rupture dans l’entrepôt.',
+    },
+    solution: {
+      en: 'Model the whole chain in one Laravel application behind a versioned REST API — order, invoice, payment and stock movement as linked records — and expose it through a React front end, with role-gated administration and an audit trail for every privileged action.',
+      fr: 'Modéliser toute la chaîne dans une seule application Laravel derrière une API REST versionnée — commande, facture, paiement et mouvement de stock comme enregistrements liés — et l’exposer via un front end React, avec une administration à accès par rôle et une piste d’audit pour chaque action privilégiée.',
+    },
+    architecture: {
+      en: 'React 19 + TypeScript (Vite) → REST API under /api/v1 → Laravel 12 controllers, form requests and services → Eloquent ORM → MySQL 8, authenticated with Laravel Sanctum bearer tokens and covered by PHPUnit feature tests running against an in-memory SQLite database.',
+      fr: 'React 19 + TypeScript (Vite) → API REST sous /api/v1 → contrôleurs, form requests et services Laravel 12 → ORM Eloquent → MySQL 8, authentifiés par des jetons bearer Laravel Sanctum et couverts par des tests fonctionnels PHPUnit exécutés sur une base SQLite en mémoire.',
+    },
+    architectureFlow: [
+      'React 19 + TypeScript client — Vite',
+      'REST API /api/v1 — Laravel 12 · Sanctum',
+      'Domain services — orders · invoices · inventory',
+      'Eloquent ORM + migrations',
+      'MySQL 8 · audit log',
+    ],
+    features: [
+      { en: 'Employee-only public registration with admin-assigned roles', fr: 'Inscription publique limitée aux employés, rôles attribués par un administrateur' },
+      { en: 'CRM and catalog with search, filtering and pagination', fr: 'CRM et catalogue avec recherche, filtrage et pagination' },
+      { en: 'Orders with constrained status transitions', fr: 'Commandes avec transitions de statut contraintes' },
+      { en: 'Stock deducted on order completion, not on creation', fr: 'Stock déduit à la clôture de la commande, pas à sa création' },
+      { en: 'Invoices generated from confirmed orders with server-side numbering', fr: 'Factures générées à partir des commandes confirmées avec numérotation côté serveur' },
+      { en: 'Payments checked against locked invoice balances', fr: 'Paiements contrôlés par rapport à des soldes de facture verrouillés' },
+      { en: 'Typed inventory movements: in, out, adjustment and inter-location transfer', fr: 'Mouvements de stock typés : entrée, sortie, ajustement et transfert inter-emplacements' },
+      { en: 'Stock history and low-stock reporting', fr: 'Historique du stock et rapports de stock bas' },
+      { en: 'Dashboard with sales, product, customer and finance reports', fr: 'Tableau de bord avec rapports ventes, produits, clients et finance' },
+      { en: 'User and role administration with audit logs', fr: 'Administration des utilisateurs et des rôles avec journaux d’audit' },
+      { en: 'Administrator-managed settings grouped by key/value', fr: 'Paramètres administrés par groupe clé/valeur' },
+      { en: 'In-app notifications with read state', fr: 'Notifications in-app avec état de lecture' },
+      { en: 'Daily scheduled job flagging overdue invoices', fr: 'Tâche planifiée quotidienne signalant les factures échues' },
+    ],
+    technologies: [
+      'PHP',
+      'Laravel 12',
+      'Laravel Sanctum',
+      'MySQL',
+      'Eloquent ORM',
+      'React',
+      'TypeScript',
+      'Vite',
+      'REST API',
+      'PHPUnit',
+    ],
+    github: 'https://github.com/laffet-takwa/Nexora-ERP',
+    demo: '',
+    featured: false,
+    published: true,
+    year: '2026',
+    role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+  },
+
+  /* ---------------------------------------------------------- 05 */
   {
     id: 'shopsphere',
     title: 'ShopSphere',
@@ -253,7 +404,7 @@ export const projects: Project[] = [
       'Docker',
       'Microservices',
     ],
-    github: '',
+    github: 'https://github.com/laffet-takwa/shopsphere-ecommerce',
     demo: '',
     featured: true,
     published: true,
@@ -304,7 +455,7 @@ export const projects: Project[] = [
     ],
   },
 
-  /* ---------------------------------------------------------- 04 */
+  /* ---------------------------------------------------------- 06 */
   {
     id: 'logistics-platform',
     title: 'Logistics & Delivery Management Platform',
@@ -372,7 +523,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack / Distributed Systems Developer', fr: 'Développeur Full-Stack / Systèmes distribués' },
   },
 
-  /* ---------------------------------------------------------- 05 */
+  /* ---------------------------------------------------------- 07 */
   {
     id: 'odoo-invoice-automation',
     title: 'Odoo Invoice Automation',
@@ -420,7 +571,7 @@ export const projects: Project[] = [
     role: { en: 'Software Engineer Intern / PFE Developer', fr: 'Stagiaire ingénieur logiciel / Développeur PFE' },
   },
 
-  /* ---------------------------------------------------------- 06 */
+  /* ---------------------------------------------------------- 08 */
   {
     id: 'donation-event-platform',
     title: 'Donation & Event Management Platform',
@@ -467,7 +618,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
   },
 
-  /* ---------------------------------------------------------- 07 */
+  /* ---------------------------------------------------------- 09 */
   {
     id: 'time-tracking-app',
     title: 'Time-Tracking Application',
