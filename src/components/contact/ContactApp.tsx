@@ -17,17 +17,48 @@ export function ContactApp() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [sent, setSent] = useState(false);
 
-  const opportunities: Array<{ icon: IconName; label: string }> = [
+const opportunities: Array<{ icon: IconName; label: string }> = [
     { icon: 'shield', label: t.contact.opportunities.cybersecurity },
     { icon: 'code', label: t.contact.opportunities.fullStack },
     { icon: 'cloud', label: t.contact.opportunities.devops },
-    { icon: 'lock', label: t.contact.opportunities.devsecops },
+    { icon: 'cpu', label: t.contact.opportunities.ai },
   ];
 
-  const channels: Array<{ icon: IconName; label: string; value: string; href: string }> = [
-    { icon: 'mail', label: t.common.email, value: profile.email, href: `mailto:${profile.email}` },
-    { icon: 'briefcase', label: t.contact.linkedin, value: 'linkedin.com/in/takwa-laffet', href: profile.linkedin },
-    { icon: 'git-branch', label: t.contact.github, value: 'github.com/laffet-takwa', href: profile.github },
+  const channels: Array<{
+    icon: IconName;
+    label: string;
+    value: string;
+    href: string;
+    external: boolean;
+  }> = [
+    {
+      icon: 'mail',
+      label: t.common.email,
+      value: profile.email,
+      href: `mailto:${profile.email}`,
+      external: false,
+    },
+    {
+      icon: 'briefcase',
+      label: t.contact.linkedin,
+      value: `linkedin.com/in/${profile.handles.linkedin}`,
+      href: profile.linkedin,
+      external: true,
+    },
+    {
+      icon: 'git-branch',
+      label: t.contact.github,
+      value: `github.com/${profile.handles.github}`,
+      href: profile.github,
+      external: true,
+    },
+    {
+      icon: 'globe',
+      label: t.contact.portfolio,
+      value: profile.portfolioUrl.replace(/^https?:\/\//, ''),
+      href: profile.portfolioUrl,
+      external: true,
+    },
   ];
 
   const update = (field: keyof typeof form) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -85,11 +116,11 @@ export function ContactApp() {
             </h4>
             <ul className="flex flex-col gap-2">
               {channels.map((channel) => (
-                <li key={channel.label}>
+<li key={channel.label}>
                   <a
                     href={channel.href}
-                    target={channel.href.startsWith('mailto:') ? undefined : '_blank'}
-                    rel="noreferrer noopener"
+                    target={channel.external ? '_blank' : undefined}
+                    rel={channel.external ? 'noreferrer noopener' : undefined}
                     className="group flex items-center gap-3 rounded-lg border border-[var(--border)] px-3 py-2.5 transition-colors hover:border-accent/60 hover:bg-accent-soft"
                   >
                     <Icon name={channel.icon} size={16} className="text-accent" />
@@ -108,10 +139,27 @@ export function ContactApp() {
             </ul>
           </section>
 
-          <div className="flex flex-wrap gap-1.5">
+<div className="flex flex-wrap gap-1.5">
             <Tag tone="accent"><Icon name="check-circle" size={12} /> {resolveText(profile.availability, locale)}</Tag>
             <Tag><Icon name="map-pin" size={12} /> {resolveText(profile.location, locale)}</Tag>
           </div>
+
+          <Button
+            variant="primary"
+            icon={<Icon name="download" size={15} />}
+            onClick={() => {
+              const resume =
+                profile.resumes.find((item) => item.locale === locale) ?? profile.resumes[0];
+              const link = document.createElement('a');
+              link.href = resume.file;
+              link.download = resume.fileName;
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+            }}
+          >
+            {t.contact.downloadCv}
+          </Button>
         </div>
 
         {/* Form */}
@@ -192,8 +240,8 @@ export function ContactApp() {
               {t.contact.send}
             </Button>
 
-            <p aria-live="polite" className="min-h-[1rem] text-center text-[11px] text-[var(--success)]">
-              {sent ? t.contact.formIntro : ''}
+<p aria-live="polite" className="min-h-[1rem] text-center text-[11px] text-[var(--success)]">
+              {sent ? t.contact.formOpened : ''}
             </p>
           </form>
         </section>

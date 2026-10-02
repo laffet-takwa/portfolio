@@ -1,10 +1,68 @@
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { getProjectById, publishedProjects } from '../../data/projects';
 import { useI18n } from '../../i18n/useI18n';
 import { useWindowManager } from '../../context/WindowManagerProvider';
-import { resolveText, type IconName, type Project } from '../../types';
+import type { ProjectScreenshot, IconName, Locale, Project } from '../../types';
+import { resolveText } from '../../types';
 import { Button, EmptyState, Tag } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
+
+const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp'];
+
+/**
+ * Resolves each declared screenshot to a real image.
+ *
+ * An explicit `src` always wins. Otherwise the file is looked up by
+ * convention — `/projects/<project-id>/<project-id>-NN-<shot-id>.<ext>` — so
+ * dropping a correctly named image into the folder is enough to publish it,
+ * with no code change and no broken image while the file is absent.
+ */
+function useScreenshotSources(project: Project): Record<string, string> {
+  const shots = project.screenshots ?? [];
+  const signature = `${project.id}:${shots.map((shot) => shot.id).join(',')}`;
+  const [sources, setSources] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    let cancelled = false;
+    const found: Record<string, string> = {};
+
+    const resolve = async () => {
+      for (const [index, shot] of shots.entries()) {
+        if (cancelled) return;
+
+        const candidates = shot.src
+          ? [shot.src]
+          : IMAGE_EXTENSIONS.map((ext) => {
+              const stem = `${String(index + 1).padStart(2, '0')}-${shot.id}`;
+              const folder = project.screenshotFolder ?? project.id;
+              return `/projects/${folder}/${folder}-${stem}.${ext}`;
+            });
+
+        for (const url of candidates) {
+          try {
+            const response = await fetch(url, { method: 'HEAD' });
+            const type = response.headers.get('content-type') ?? '';
+            if (response.ok && type.startsWith('image/')) {
+              found[shot.id] = url;
+              break;
+            }
+          } catch {
+            /* candidate missing — try the next extension */
+          }
+        }
+      }
+      if (!cancelled) setSources(found);
+    };
+
+    void resolve();
+    return () => {
+      cancelled = true;
+    };
+    // `signature` collapses the dependency to "which shots are declared".
+  }, [signature]);
+
+  return sources;
+}
 
 function Block({
   title,
@@ -26,7 +84,35 @@ function Block({
   );
 }
 
-function ScreenshotPlaceholder({ project, caption }: { project: Project; caption: string }) {
+function Screenshot({
+  shot,
+  project,
+  locale,
+  src,
+}: {
+  shot: ProjectScreenshot;
+  project: Project;
+  locale: Locale;
+  src?: string;
+}) {
+  const caption = resolveText(shot.caption, locale);
+
+  if (src) {
+    return (
+      <figure className="overflow-hidden rounded-xl border border-[var(--border)]">
+        <img
+          src={src}
+          alt={caption}
+          loading="lazy"
+          className="h-36 w-full object-cover sm:h-44"
+        />
+        <figcaption className="border-t border-[var(--border)] px-3 py-2 text-[11px] text-muted">
+          {caption}
+        </figcaption>
+      </figure>
+    );
+  }
+
   return (
     <figure className="overflow-hidden rounded-xl border border-[var(--border)]">
       <div
@@ -38,9 +124,6 @@ function ScreenshotPlaceholder({ project, caption }: { project: Project; caption
       >
         <span aria-hidden="true" className="text-3xl opacity-40">
           <Icon name={project.icon ?? 'folder'} size={30} />
-        </span>
-        <span className="absolute bottom-2 right-2 rounded-md bg-[var(--window-solid)]/80 px-1.5 py-0.5 text-[10px] text-muted">
-          {project.image ? '' : '16:10'}
         </span>
       </div>
       <figcaption className="border-t border-[var(--border)] px-3 py-2 text-[11px] text-muted">
@@ -71,9 +154,10 @@ export function ProjectDetailApp({ projectId }: { projectId?: string }) {
     );
   }
 
-  const others = publishedProjects.filter((item) => item.id !== project.id).slice(0, 4);
+const others = publishedProjects.filter((item) => item.id !== project.id).slice(0, 4);
   const features = (project.features ?? []).map((feature) => resolveText(feature, locale));
   const screenshots = project.screenshots ?? [];
+  const sources = useScreenshotSources(project);
 
   const openSibling = (id: string) => openWindow('project-detail', { projectId: id });
 
@@ -161,9 +245,16 @@ export function ProjectDetailApp({ projectId }: { projectId?: string }) {
 
       {/* Body */}
       <div className="mx-auto flex max-w-4xl flex-col gap-5 px-4 py-6 sm:px-7">
-        <p className="text-[14px] leading-relaxed text-secondary">
+<p className="text-[14px] leading-relaxed text-secondary">
           {resolveText(project.longDescription || project.description, locale)}
         </p>
+
+        {project.highlight ? (
+          <p className="flex items-start gap-2.5 rounded-xl border border-[color-mix(in_srgb,var(--accent)_35%,transparent)] bg-accent-soft px-3.5 py-3 text-[13px] font-medium leading-relaxed text-accent">
+            <Icon name="star" size={15} className="mt-[2px] shrink-0" />
+            <span>{resolveText(project.highlight, locale)}</span>
+          </p>
+        ) : null}
 
         {project.problem ? (
           <Block title={t.detail.problem} icon="help">
@@ -229,18 +320,13 @@ export function ProjectDetailApp({ projectId }: { projectId?: string }) {
           </Block>
         ) : null}
 
-        {screenshots.length > 0 ? (
+{screenshots.length > 0 ? (
           <Block title={t.detail.screenshots} icon="image">
             <div className="grid gap-3 sm:grid-cols-2">
               {screenshots.map((shot) => (
-                <ScreenshotPlaceholder
-                  key={shot.id}
-                  project={project}
-                  caption={resolveText(shot.caption, locale)}
-                />
+                <Screenshot key={shot.id} shot={shot} project={project} locale={locale} src={sources[shot.id]} />
               ))}
             </div>
-            <p className="mt-2 text-[11px] text-muted">{t.detail.screenshotHint}</p>
           </Block>
         ) : null}
 

@@ -8,14 +8,33 @@ import type { IconName } from '../types/icons';
  */
 export const profile: Profile = {
   name: 'Takwa Laffet',
-  roles: ['Cybersecurity Engineer', 'Full-Stack Developer', 'DevOps / DevSecOps Engineer'],
+  roles: ['Cybersecurity Engineer', 'Full-Stack Developer', 'DevOps / DevSecOps'],
+  headline: 'Cybersecurity Engineer | Full-Stack Developer | DevOps / DevSecOps',
+  tagline: {
+    en: 'Building secure, scalable and intelligent digital solutions across software engineering, cloud, cybersecurity and AI.',
+    fr: 'Concevoir des solutions numériques sécurisées, évolutives et intelligentes : génie logiciel, cloud, cybersécurité et IA.',
+  },
   location: { en: 'Tunisia', fr: 'Tunisie' },
   availability: { en: 'Available immediately', fr: 'Disponible immédiatement' },
   email: 'takwa.laffet@esprit.tn',
   linkedin: 'https://www.linkedin.com/in/takwa-laffet-883239211/',
-  github: 'https://github.com/laffet-takwa',
-  resumeFile: '/resume/Takwa_Laffet_CV.pdf',
-  resumeFileName: 'Takwa_Laffet_CV.pdf',
+  github: 'https://github.com/takwa-laffet',
+  portfolioUrl: 'https://takwa-laffet.github.io/myportfoflio/',
+  handles: { github: 'takwa-laffet', linkedin: 'takwa-laffet-883239211' },
+  resumes: [
+    {
+      locale: 'en',
+      label: 'English',
+      file: '/resume/Takwa_Laffet_CV_EN.pdf',
+      fileName: 'Takwa_Laffet_CV_EN.pdf',
+    },
+    {
+      locale: 'fr',
+      label: 'Français',
+      file: '/resume/Takwa_Laffet_CV_FR.pdf',
+      fileName: 'Takwa_Laffet_CV_FR.pdf',
+    },
+  ],
 };
 
 /**
@@ -98,6 +117,7 @@ export const desktopIconAppIds = [
   'skills',
   'experience',
   'education',
+  'certifications',
   'resume',
   'contact',
   'terminal',

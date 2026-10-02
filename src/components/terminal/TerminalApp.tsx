@@ -185,7 +185,10 @@ function execute(
       out('text', `  ${t.terminal.outputs.emailLabel}: ${profile.email}`);
       out('text', `  ${t.terminal.outputs.linkedinLabel}: ${profile.linkedin}`);
       out('text', `  ${t.terminal.outputs.githubLabel}: ${profile.github}`);
-      out('text', `  ${t.terminal.outputs.resumeLabel}: ${profile.resumeFileName}`);
+      out('text', `  ${t.terminal.outputs.portfolioLabel}: ${profile.portfolioUrl}`);
+      profile.resumes.forEach((resume) => {
+        out('text', `  ${resume.label}: ${resume.fileName}`);
+      });
       break;
     }
 

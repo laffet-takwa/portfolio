@@ -11,6 +11,7 @@ import { Taskbar } from './components/taskbar/Taskbar';
 import { MobileNav } from './components/taskbar/MobileNav';
 import { StartMenu } from './components/start-menu/StartMenu';
 import { SearchOverlay } from './components/start-menu/SearchOverlay';
+import { CursorGlow } from './components/ui/CursorGlow';
 import { Icon } from './components/ui/Icon';
 
 function Shell() {
@@ -74,6 +75,7 @@ function Shell() {
       </a>
 
       <Wallpaper />
+      <CursorGlow />
 
       {homeVisible ? (
         <main id="main-content" className="relative z-[1] h-full" aria-label={t.a11y.desktop}>

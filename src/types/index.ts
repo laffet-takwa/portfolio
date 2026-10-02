@@ -93,6 +93,8 @@ export interface Project {
   category: string[];
   description: TText;
   longDescription: TText;
+  /** One-line takeaway rendered on the card and at the top of the detail view. */
+  highlight?: TText;
   problem?: TText;
   solution?: TText;
   architecture?: TText;
@@ -106,6 +108,8 @@ export interface Project {
   github?: string;
   demo?: string;
   featured?: boolean;
+  /** Folder under /projects/ holding the screenshots. Defaults to `id`. */
+  screenshotFolder?: string;
   screenshots?: ProjectScreenshot[];
   /** Draft entries stay hidden until real content is added. */
   published?: boolean;
@@ -131,7 +135,16 @@ export interface ExperienceEntry {
   location: TText;
   period: string;
   type: TText;
+  /** Project or product this work belongs to. */
+  project?: TText;
+  /** One or two sentences shown before the card is expanded. */
+  summary?: TText;
+  /** Two to four bullets visible in the collapsed state. */
   highlights: TText[];
+  /** Full contribution list revealed by the "details" toggle. */
+  contributions?: TText[];
+  /** Ways of working, e.g. Scrum, CRISP-DM. */
+  methodologies?: string[];
   technologies: string[];
 }
 
@@ -140,9 +153,23 @@ export interface ExperienceEntry {
 export interface EducationEntry {
   id: string;
   degree: TText;
+  /** Official diploma name or English equivalent, shown under the degree. */
+  degreeAlt?: TText;
   school: string;
+  /** Full institution name. */
+  schoolDetail?: TText;
   period: string;
   note?: TText;
+}
+
+/* ---------------- Languages ---------------- */
+
+export type LanguageLevel = 'native' | 'c2' | 'c1' | 'b2' | 'b1' | 'a2';
+
+export interface LanguageEntry {
+  id: string;
+  name: string;
+  level: LanguageLevel;
 }
 
 /* ---------------- Certifications ---------------- */
@@ -152,18 +179,36 @@ export interface CertificationEntry {
   name: string;
   issuer: TText;
   group: 'cisco' | 'linux' | 'cloud' | 'other';
+  /** Only set when a real verification link already exists. */
+  url?: string;
 }
 
 /* ---------------- Profile ---------------- */
 
+/** One published CV. The PDF is optional — the app detects it at runtime. */
+export interface ResumeVariant {
+  /** Matches the site locale that should be selected by default. */
+  locale: Locale;
+  label: string;
+  file: string;
+  fileName: string;
+}
+
 export interface Profile {
   name: string;
   roles: string[];
+  /** Single-line positioning statement used by the hero. */
+  headline: string;
+  /** Short supporting sentence under the hero. */
+  tagline: TText;
   location: TText;
   availability: TText;
   email: string;
   linkedin: string;
   github: string;
-  resumeFile: string;
-  resumeFileName: string;
+  portfolioUrl: string;
+  /** Handles shown next to the icons, without the domain. */
+  handles: { github: string; linkedin: string };
+  /** Published CVs, most recent language first. */
+  resumes: ResumeVariant[];
 }

@@ -1,4 +1,4 @@
-import profileIllustration from '../../assets/profile-placeholder.svg';
+import profilePhoto from '../../assets/takwa laffet.jpg';
 
 interface AvatarProps {
   size?: number;
@@ -7,11 +7,11 @@ interface AvatarProps {
   status?: 'available' | 'none';
   statusLabel?: string;
   className?: string;
-  /** Corner radius of the illustration frame. */
+  /** Corner radius of the photo frame. */
   rounded?: string;
 }
 
-/** Neutral profile illustration — deliberately not a photograph. */
+/** Profile photograph. */
 export function Avatar({
   size = 96,
   label,
@@ -26,7 +26,7 @@ export function Avatar({
       style={{ width: size, height: size }}
     >
       <img
-        src={profileIllustration}
+        src={profilePhoto}
         alt={label}
         width={size}
         height={size}

@@ -14,8 +14,10 @@ const MAX_TAGS = 5;
 export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
   const { t, locale, fmt } = useI18n();
   const description = resolveText(project.description, locale);
+  const highlight = resolveText(project.highlight, locale);
   const visibleTags = project.technologies.slice(0, MAX_TAGS);
   const overflow = project.technologies.length - visibleTags.length;
+  const hasLinks = Boolean(project.github || project.demo);
 
   return (
     <article
@@ -90,7 +92,7 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-3 p-4">
-        <h3
+<h3
           className={[
             'font-semibold leading-snug text-ink transition-colors group-hover:text-accent',
             featured ? 'text-lg' : 'text-[15px]',
@@ -98,6 +100,13 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
         >
           {project.title}
         </h3>
+
+        {highlight ? (
+          <p className="flex items-start gap-1.5 text-[12px] font-medium leading-snug text-accent">
+            <Icon name="star" size={13} className="mt-[3px] shrink-0" />
+            <span>{highlight}</span>
+          </p>
+        ) : null}
 
         <p
           className={[
@@ -138,7 +147,7 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
             <Icon name="arrow-right" size={13} />
           </button>
 
-          {project.github ? (
+{project.github ? (
             <a
               href={project.github}
               target="_blank"
@@ -148,7 +157,7 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
               <Icon name="git-branch" size={13} />
               {t.projects.github}
             </a>
-          ) : (
+          ) : hasLinks ? (
             <span
               title={t.detail.linkUnavailable}
               aria-disabled="true"
@@ -157,7 +166,7 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
               <Icon name="git-branch" size={13} />
               {t.projects.github}
             </span>
-          )}
+          ) : null}
 
           {project.demo ? (
             <a
@@ -169,7 +178,7 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
               <Icon name="external-link" size={13} />
               {t.projects.demo}
             </a>
-          ) : (
+          ) : project.github ? (
             <span
               title={t.detail.linkUnavailable}
               aria-disabled="true"
@@ -178,7 +187,7 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
               <Icon name="external-link" size={13} />
               {t.projects.demo}
             </span>
-          )}
+          ) : null}
         </div>
       </div>
     </article>

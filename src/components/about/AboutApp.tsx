@@ -1,7 +1,8 @@
 import { profile } from '../../data/profile';
 import { education } from '../../data/education';
+import { languages } from '../../data/languages';
 import { useI18n } from '../../i18n/useI18n';
-import { resolveText, type IconName } from '../../types';
+import { resolveText, type IconName, type LanguageLevel } from '../../types';
 import { Icon } from '../ui/Icon';
 import { Tag } from '../ui/Primitives';
 import { Avatar } from '../ui/Avatar';
@@ -24,6 +25,8 @@ export function AboutApp() {
     { icon: 'globe', label: t.about.focus.cloudPlatforms },
     { icon: 'zap', label: t.about.focus.automation },
   ];
+
+  const levelLabel = (level: LanguageLevel): string => t.languages[level];
 
   return (
     <div className="scroll-thin h-full overflow-y-auto px-4 py-5 sm:px-7 sm:py-7">
@@ -92,6 +95,33 @@ export function AboutApp() {
           </ul>
         </section>
 
+{/* Languages */}
+        <section aria-labelledby="about-languages-heading">
+          <h4
+            id="about-languages-heading"
+            className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted"
+          >
+            {t.languages.title}
+          </h4>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {languages.map((language) => (
+              <li
+                key={language.id}
+                className="flex items-center justify-between gap-3 rounded-lg border border-[var(--border)] bg-[var(--hover-surface)] px-3 py-2"
+              >
+                <span className="flex min-w-0 items-center gap-2.5">
+                  <Icon name="globe" size={15} className="shrink-0 text-accent" />
+                  <span className="truncate text-[13px] font-medium text-ink">{language.name}</span>
+                </span>
+                <Tag tone={language.level === 'native' ? 'accent' : 'outline'}>
+                  {levelLabel(language.level)}
+                </Tag>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-[11px] text-muted">{t.languages.subtitle}</p>
+        </section>
+
         {/* Education snapshot */}
         <section>
           <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">
@@ -103,11 +133,16 @@ export function AboutApp() {
                 key={entry.id}
                 className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-lg border border-[var(--border)] px-3 py-2.5"
               >
-                <div className="min-w-0">
+<div className="min-w-0">
                   <p className="text-[13px] font-medium text-ink">
                     {resolveText(entry.degree, locale)}
                   </p>
-                  <p className="text-xs text-muted">{entry.school}</p>
+                  {entry.degreeAlt ? (
+                    <p className="mt-0.5 text-[11px] leading-relaxed text-muted">
+                      {resolveText(entry.degreeAlt, locale)}
+                    </p>
+                  ) : null}
+                  <p className="mt-0.5 text-xs text-muted">{entry.school}</p>
                 </div>
                 <p className="font-mono text-xs text-secondary">{entry.period}</p>
               </li>

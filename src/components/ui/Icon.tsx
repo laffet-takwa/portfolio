@@ -301,6 +301,19 @@ const SHAPES: Record<IconName, ReactNode> = {
     </>
   ),
   download: <path d="M12 3.5v11M7.5 10.5L12 15l4.5-4.5M4 19.5h16" />,
+  printer: (
+    <>
+      <path d="M7 8.5V4.5h10v4" />
+      <rect x="3.5" y="8.5" width="17" height="7.5" rx="2" />
+      <path d="M7 14h10v6H7z" />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 6.8V12l3.4 2" />
+    </>
+  ),
   sparkle: (
     <>
       <path d="M11 3l1.7 4.3L17 9l-4.3 1.7L11 15l-1.7-4.3L5 9l4.3-1.7z" />

@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "build:cv": "node scripts/build-cv-pdf.mjs",
     "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false",
     "lint": "tsc -b"
   },

@@ -57,6 +57,8 @@ export type IconName =
   | 'git-branch'
   | 'send'
   | 'download'
+  | 'printer'
+  | 'clock'
   | 'sparkle';
 
 export const ICON_NAMES: IconName[] = [
@@ -67,5 +69,5 @@ export const ICON_NAMES: IconName[] = [
   'info', 'school', 'star', 'external-link', 'help', 'lightbulb', 'layers', 'wrench',
   'image', 'chevron-down', 'arrow-right', 'arrow-left', 'cpu', 'landmark',
   'shopping-cart', 'radar', 'receipt', 'archive', 'link', 'git-branch', 'send',
-  'download', 'sparkle',
+  'download', 'printer', 'clock', 'sparkle',
 ];

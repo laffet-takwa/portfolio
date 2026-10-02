@@ -1,12 +1,13 @@
 import { education } from '../../data/education';
-import { certifications } from '../../data/certifications';
 import { useI18n } from '../../i18n/useI18n';
 import { resolveText } from '../../types';
-import { Tag } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
+import { Button, Tag } from '../ui/Primitives';
+import { useWindowManager } from '../../context/WindowManagerProvider';
 
 export function EducationApp() {
   const { t, locale } = useI18n();
+  const { openWindow } = useWindowManager();
 
   return (
     <div className="scroll-thin h-full overflow-y-auto px-4 py-5 sm:px-6 sm:py-6">
@@ -17,8 +18,8 @@ export function EducationApp() {
         </header>
 
         <ol className="flex flex-col gap-4">
-          {education.map((entry) => (
-            <li key={entry.id}>
+          {education.map((entry, index) => (
+            <li key={entry.id} className="animate-rise-in" style={{ animationDelay: `${index * 70}ms` }}>
               <article className="card-surface relative overflow-hidden p-5">
                 <span
                   aria-hidden="true"
@@ -31,6 +32,12 @@ export function EducationApp() {
                   <p className="font-mono text-xs text-secondary">{entry.period}</p>
                 </div>
 
+                {entry.degreeAlt ? (
+                  <p className="mt-1.5 text-xs leading-relaxed text-muted">
+                    {resolveText(entry.degreeAlt, locale)}
+                  </p>
+                ) : null}
+
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--hover-surface)] px-2.5 py-1 text-[13px] font-medium text-ink">
                     <Icon name="school" size={15} className="text-accent" />
@@ -38,31 +45,29 @@ export function EducationApp() {
                   </span>
                   {entry.note ? <Tag tone="accent">{resolveText(entry.note, locale)}</Tag> : null}
                 </div>
+
+                {entry.schoolDetail ? (
+                  <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                    {resolveText(entry.schoolDetail, locale)}
+                  </p>
+                ) : null}
               </article>
             </li>
           ))}
         </ol>
 
-        {/* Certifications */}
-        <section aria-labelledby="certs-heading">
-          <h4 id="certs-heading" className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">
-            {t.certs.title}
-          </h4>
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {certifications.map((cert) => (
-              <li
-                key={cert.id}
-                className="flex items-center gap-2.5 rounded-lg border border-[var(--border)] px-3 py-2 text-[13px] text-secondary"
-              >
-                <Icon name="check-circle" size={15} className="shrink-0 text-[var(--success)]" />
-                <span className="min-w-0 truncate" title={cert.name}>
-                  {cert.name}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-3 text-[11px] leading-relaxed text-muted">{t.certs.note}</p>
-        </section>
+        <div className="rounded-xl border border-dashed border-[var(--border)] px-4 py-4">
+          <p className="text-[13px] leading-relaxed text-secondary">{t.certs.subtitle}</p>
+          <Button
+            size="sm"
+            variant="secondary"
+            className="mt-3"
+            icon={<Icon name="award" size={14} />}
+            onClick={() => openWindow('certifications')}
+          >
+            {t.apps.certifications}
+          </Button>
+        </div>
       </div>
     </div>
   );
