@@ -29,6 +29,7 @@ export const projectFilters = [
   'Automation',
   'Cloud-Native',
   'ERP',
+  'FinTech',
 ] as const;
 
 export type ProjectFilter = (typeof projectFilters)[number];
@@ -112,6 +113,86 @@ export const projects: Project[] = [
   },
 
   /* ---------------------------------------------------------- 02 */
+  {
+    id: 'finova',
+    title: 'Finova',
+    subtitle: {
+      en: 'Digital banking and smart transaction platform',
+      fr: 'Plateforme bancaire numérique et transactions intelligentes',
+    },
+    category: ['FinTech', 'Backend', 'Microservices', 'Distributed Systems'],
+    icon: 'landmark',
+    description: {
+      en: 'Event-driven banking platform: eight Spring Boot services behind a reactive API Gateway, a rule-based fraud engine scoring 0–100, Kafka-driven settlement with a transactional outbox, and a Vue 3 client that behaves like a real FinTech product.',
+      fr: 'Plateforme bancaire pilotée par les événements : huit services Spring Boot derrière une API Gateway réactive, un moteur de fraude à règles notant de 0 à 100, un règlement piloté par Kafka avec outbox transactionnelle, et un client Vue 3 qui se comporte comme un vrai produit FinTech.',
+    },
+    highlight: {
+      en: 'Deadlock-free settlement, an outbox that cannot lose money, and a fraud engine kept as a pure, unit-tested function.',
+      fr: 'Règlement sans risque d’interblocage, une outbox incapable de perdre d’argent, et un moteur de fraude gardé comme une fonction pure et testée.',
+    },
+    longDescription: {
+      en: 'Finova is built around the money path rather than around screens. A transfer is validated by ten rules, written as PENDING together with its domain event in the same database transaction, and settled only once the fraud engine approves it. Settlement locks both ledger rows in a global ascending order, so no wait-for cycle can form, and idempotency is enforced by a unique index on the key rather than by convention. Every event is published through a transactional outbox, so a broker outage delays events instead of losing money. Around that core sit a reactive gateway, service discovery, five bounded contexts with their own databases, a fraud-operations console, an immutable audit log, correlated structured logs in Kibana, and Kubernetes manifests with probes and disruption budgets.',
+      fr: 'Finova est construit autour du chemin de l’argent plutôt qu autour des écrans. Un virement est validé par dix règles, écrit en PENDING avec son événement de domaine dans la même transaction base de données, et n’est réglé qu’une fois le moteur de fraude l’ayant validé. Le règlement verrouille les deux lignes du grand livre dans un ordre croissant global, si bien qu’aucun cycle d’attente ne peut se former, et l’idempotence est garantie par un index unique sur la clé plutôt que par convention. Chaque événement est publié via une outbox transactionnelle : une panne du broker retarde les événements au lieu de perdre de l’argent. Autour de ce cœur gravitent une gateway réactive, la découverte de services, cinq contextes bornés dotés de leurs propres bases, une console d’opérations fraude, un journal d’audit immuable, des logs structurés corrélés dans Kibana, et des manifestes Kubernetes avec probes et budgets de rupture.',
+    },
+    problem: {
+      en: 'Money movement is where distributed systems usually break. Double-debits, events lost while the broker is down, deadlocks between two transfers in opposite directions, and “approved” confused with “completed” are all easy to ship by accident.',
+      fr: 'Le mouvement d’argent est précisément là où les systèmes distribués cassent. Le double débit, les événements perdus pendant une panne du broker, les interblocages entre deux virements en sens opposés, et la confusion entre « approuvé » et « terminé » sont autant d’erreurs faciles à livrer par mégarde.',
+    },
+    solution: {
+      en: 'Each bounded context is an independent Spring Boot service behind a Spring Cloud Gateway, with Eureka for discovery and nine explicitly provisioned Kafka topics — auto-creation is off so a typo fails loudly. Approval and completion are separate topics, so a consumer can never mistake “fraud cleared this” for “the money moved”. Deadlock is made impossible by a global lock ordering, idempotency by a unique index, and event loss by an outbox drained after commit.',
+      fr: 'Chaque contexte borné est un service Spring Boot indépendant derrière une Spring Cloud Gateway, avec Eureka pour la découverte et neuf topics Kafka provisionnés explicitement — l’autocréation est désactivée pour qu’une faute de frappe échoue bruyamment. L’approbation et l’achèvement sont deux topics distincts, afin qu’aucun consommateur ne puisse confondre « la fraude a validé » avec « l’argent a bougé ». L’interblocage est rendu impossible par un ordre de verrouillage global, l’idempotence par un index unique, et la perte d’événements par une outbox drainée après le commit.',
+    },
+    architecture: {
+      en: 'Vue 3 SPA → Spring Cloud Gateway (JWT, CORS, rate limiting, correlation id, unified error envelope) → Eureka discovery → five Spring Boot services (user, account, transaction, fraud, notification) → PostgreSQL 16 per bounded context and MongoDB 7 for fraud alerts, with Kafka 3.8 in KRaft mode between them and Elasticsearch/Kibana collecting the correlated structured logs.',
+      fr: 'SPA Vue 3 → Spring Cloud Gateway (JWT, CORS, rate limiting, correlation id, enveloppe d’erreur unifiée) → découverte Eureka → cinq services Spring Boot (user, account, transaction, fraud, notification) → PostgreSQL 16 par contexte borné et MongoDB 7 pour les alertes de fraude, avec Kafka 3.8 en mode KRaft entre eux et Elasticsearch/Kibana qui collecte les logs structurés corrélés.',
+    },
+    architectureFlow: [
+      'Vue 3 SPA — TypeScript · Pinia',
+      'API Gateway — JWT · rate limit · correlation id',
+      'Spring Boot services — user · account · transaction · fraud · notification',
+      'Kafka — 9 topics + transactional outbox',
+      'PostgreSQL 16 · MongoDB 7 · ELK',
+    ],
+    features: [
+      { en: 'Idempotent transfers enforced by a unique database index', fr: 'Virements idempotents garantis par un index unique en base' },
+      { en: 'Deadlock-free settlement with a global lock ordering', fr: 'Règlement sans interblocage grâce à un ordre de verrouillage global' },
+      { en: 'Transactional outbox: a broker outage cannot lose a transfer', fr: 'Outbox transactionnelle : une panne du broker ne perd aucun virement' },
+      { en: 'Rule-based fraud engine scoring 0–100 across five weighted rules', fr: 'Moteur de fraude à règles notant de 0 à 100 sur cinq règles pondérées' },
+      { en: 'Fraud console with per-alert timelines and audited review actions', fr: 'Console fraude avec chronologies par alerte et actions de revue auditées' },
+      { en: 'JWT auth with silent refresh and a unified error envelope carrying a correlation id', fr: 'Authentification JWT avec rafraîchissement silencieux et enveloppe d’erreur unifiée portant un correlation id' },
+      { en: 'Multi-currency accounts in TND, EUR and USD with a reconstructed balance history', fr: 'Comptes multi-devises TND, EUR et USD avec un historique de solde reconstruit' },
+      { en: 'Event-driven notifications for completed, failed and held transfers', fr: 'Notifications pilotées par les événements pour les virements terminés, échoués et retenus' },
+      { en: 'Immutable audit log filterable by action, actor, result and time', fr: 'Journal d’audit immuable filtrable par action, acteur, résultat et horodatage' },
+      { en: 'Structured logs correlated end-to-end into Kibana dashboards', fr: 'Logs structurés corrélés de bout en bout dans des tableaux de bord Kibana' },
+      { en: 'Kubernetes manifests with probes, disruption budgets and a hardened security context', fr: 'Manifestes Kubernetes avec probes, budgets de rupture et contexte de sécurité durci' },
+      { en: 'Testcontainers-backed suite across gateway, fraud, account and transaction', fr: 'Suite de tests avec Testcontainers couvrant gateway, fraude, comptes et transactions' },
+    ],
+    technologies: [
+      'Java 17',
+      'Spring Boot 3',
+      'Spring Cloud Gateway',
+      'Eureka',
+      'Kafka',
+      'PostgreSQL',
+      'MongoDB',
+      'Flyway',
+      'JWT',
+      'Vue 3',
+      'TypeScript',
+      'Docker',
+      'Kubernetes',
+      'Elasticsearch',
+      'Testcontainers',
+    ],
+    github: '',
+    demo: '',
+    featured: true,
+    published: true,
+    year: '2026',
+    role: { en: 'Backend / Distributed Systems Engineer', fr: 'Ingénieur Back-end / Systèmes distribués' },
+  },
+
+  /* ---------------------------------------------------------- 03 */
   {
     id: 'shopsphere',
     title: 'ShopSphere',
@@ -223,7 +304,7 @@ export const projects: Project[] = [
     ],
   },
 
-  /* ---------------------------------------------------------- 03 */
+  /* ---------------------------------------------------------- 04 */
   {
     id: 'logistics-platform',
     title: 'Logistics & Delivery Management Platform',
@@ -291,7 +372,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack / Distributed Systems Developer', fr: 'Développeur Full-Stack / Systèmes distribués' },
   },
 
-  /* ---------------------------------------------------------- 04 */
+  /* ---------------------------------------------------------- 05 */
   {
     id: 'odoo-invoice-automation',
     title: 'Odoo Invoice Automation',
@@ -339,7 +420,7 @@ export const projects: Project[] = [
     role: { en: 'Software Engineer Intern / PFE Developer', fr: 'Stagiaire ingénieur logiciel / Développeur PFE' },
   },
 
-  /* ---------------------------------------------------------- 05 */
+  /* ---------------------------------------------------------- 06 */
   {
     id: 'donation-event-platform',
     title: 'Donation & Event Management Platform',
@@ -386,7 +467,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
   },
 
-  /* ---------------------------------------------------------- 06 */
+  /* ---------------------------------------------------------- 07 */
   {
     id: 'time-tracking-app',
     title: 'Time-Tracking Application',
