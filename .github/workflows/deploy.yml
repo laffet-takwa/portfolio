@@ -39,7 +39,14 @@ jobs:
       - name: Build the site
         run: npm run build
 
-      - uses: actions/configure-pages@v5
+      - name: Enable and configure Pages
+        # `enablement: true` lets the workflow switch Pages to the GitHub
+        # Actions source itself, so a fresh repository needs no manual setup.
+        # It requires the repository to allow it — if it fails with a 404 here,
+        # set Settings → Pages → Source to "GitHub Actions" by hand.
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
