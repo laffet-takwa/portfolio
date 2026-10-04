@@ -38,6 +38,9 @@ also update the prefix in `useScreenshotSources`.
 | `beta-ai-soc` | `beta-ai-soc` |
 | `shopsphere-ecommerce` | `shopsphere` |
 | `finova` | `finova` |
+| `nexora-erp` | `nexora-erp` |
+| `focus` | `focus` |
+| `fleetflow` | `fleetflow` |
 | `logistics-platform` | `logistics-platform` |
 | `odoo-invoice-automation` | `odoo-invoice-automation` |
 | `donation-event-platform` | `donation-event-platform` |

@@ -516,6 +516,105 @@ export const projects = [
         published: true,
         year: '2026',
         role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+        screenshotFolder: 'nexora-erp',
+        screenshots: [
+            {
+                id: 'login',
+                caption: { en: 'Sign in', fr: 'Connexion' },
+                src: '/projects/nexora-erp/01-login.webp',
+            },
+            {
+                id: 'dashboard',
+                caption: {
+                    en: 'Dashboard — sales, stock and receivables at a glance',
+                    fr: 'Tableau de bord — ventes, stock et créances en un coup d’œil',
+                },
+                src: '/projects/nexora-erp/02-dashboard.webp',
+            },
+            {
+                id: 'customers',
+                caption: { en: 'CRM — customer records with search and pagination', fr: 'CRM — fiches clients avec recherche et pagination' },
+                src: '/projects/nexora-erp/03-customers.webp',
+            },
+            {
+                id: 'products',
+                caption: { en: 'Catalog with stock levels per product', fr: 'Catalogue avec le niveau de stock par produit' },
+                src: '/projects/nexora-erp/04-products.webp',
+            },
+            {
+                id: 'inventory',
+                caption: {
+                    en: 'Inventory — on-hand stock and movement history',
+                    fr: 'Stocks — quantité en main et historique des mouvements',
+                },
+                src: '/projects/nexora-erp/05-inventory.webp',
+            },
+            {
+                id: 'orders',
+                caption: {
+                    en: 'Orders with constrained status transitions',
+                    fr: 'Commandes avec transitions de statut contraintes',
+                },
+                src: '/projects/nexora-erp/06-orders.webp',
+            },
+            {
+                id: 'invoices',
+                caption: {
+                    en: 'Invoices generated from confirmed orders',
+                    fr: 'Factures générées à partir des commandes confirmées',
+                },
+                src: '/projects/nexora-erp/07-invoices.webp',
+            },
+            {
+                id: 'payments',
+                caption: {
+                    en: 'Payments checked against locked invoice balances',
+                    fr: 'Paiements contrôlés par rapport aux soldes de facture verrouillés',
+                },
+                src: '/projects/nexora-erp/08-payments.webp',
+            },
+            {
+                id: 'reports',
+                caption: {
+                    en: 'Sales, product, customer and finance reports',
+                    fr: 'Rapports ventes, produits, clients et finance',
+                },
+                src: '/projects/nexora-erp/09-reports.webp',
+            },
+            {
+                id: 'users',
+                caption: { en: 'Employee directory with role assignment', fr: 'Annuaire des employés avec attribution des rôles' },
+                src: '/projects/nexora-erp/10-users.webp',
+            },
+            {
+                id: 'roles',
+                caption: { en: 'Role-based access administration', fr: 'Administration des accès par rôle' },
+                src: '/projects/nexora-erp/11-roles.webp',
+            },
+            {
+                id: 'audit-logs',
+                caption: {
+                    en: 'Audit log of every privileged action',
+                    fr: 'Journal d’audit de chaque action privilégiée',
+                },
+                src: '/projects/nexora-erp/12-audit-logs.webp',
+            },
+            {
+                id: 'notifications',
+                caption: { en: 'In-app notifications with read state', fr: 'Notifications in-app avec état de lecture' },
+                src: '/projects/nexora-erp/13-notifications.webp',
+            },
+            {
+                id: 'settings',
+                caption: { en: 'Administrator-managed settings by key/value', fr: 'Paramètres administrés par groupe clé/valeur' },
+                src: '/projects/nexora-erp/14-settings.webp',
+            },
+            {
+                id: 'dashboard-dark',
+                caption: { en: 'Dark theme on the reporting dashboard', fr: 'Thème sombre sur le tableau de bord' },
+                src: '/projects/nexora-erp/15-dashboard-dark.webp',
+            },
+        ],
     },
     /* ---------------------------------------------------------- 06 */
     {
