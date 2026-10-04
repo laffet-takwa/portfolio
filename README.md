@@ -158,6 +158,34 @@ Settings.
 
 ---
 
+## Contact form
+
+The contact window collects a name, an email, an **optional phone number** and
+a message. Delivery has two paths, decided at build time:
+
+| `VITE_CONTACT_ENDPOINT` | Behaviour |
+| --- | --- |
+| empty | The form opens the visitor's mail client with the message pre-filled — the original behaviour. |
+| set | The form POSTs the submission as JSON and you receive it in your inbox. |
+
+```bash
+# .env.local — copy from .env.example
+VITE_CONTACT_ENDPOINT=https://api.web3forms.com/submit
+VITE_CONTACT_ACCESS_KEY=your-access-key   # Web3Forms only
+```
+
+Works with any endpoint that accepts a JSON `POST` — Formspree, Web3Forms,
+Getform, Basin. The payload carries `name`, `email`, `phone`, `message`,
+`subject` and `replyto`, plus `access_key` when one is configured. A hidden
+honeypot field drops bot submissions.
+
+Because Vite inlines `VITE_*` variables at build time, the deployed site needs
+them in the build environment: add `VITE_CONTACT_ENDPOINT` and
+`VITE_CONTACT_ACCESS_KEY` under **Settings → Secrets and variables → Actions**
+and `.github/workflows/deploy.yml` passes them to the build step.
+
+---
+
 ## Deployment
 
 Any static host works (Vercel, Netlify, Cloudflare Pages, GitHub Pages).

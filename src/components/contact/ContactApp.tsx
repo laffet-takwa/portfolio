@@ -3,20 +3,25 @@ import { profile } from '../../data/profile';
 import { useI18n } from '../../i18n/useI18n';
 import { resolveText, type IconName } from '../../types';
 import { assetUrl } from '../../lib/assets';
+import { hasContactEndpoint, isValidPhone, sendContactSubmission } from '../../lib/contact';
 import { Icon } from '../ui/Icon';
 import { Button, Tag } from '../ui/Primitives';
 
 interface FormErrors {
   name?: string;
   email?: string;
+  phone?: string;
   message?: string;
 }
 
+type Status = 'idle' | 'sending' | 'sent' | 'failed';
+
 export function ContactApp() {
   const { t, locale } = useI18n();
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', company: '' });
   const [errors, setErrors] = useState<FormErrors>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
+  const directDelivery = hasContactEndpoint();
 
 const opportunities: Array<{ icon: IconName; label: string }> = [
     { icon: 'shield', label: t.contact.opportunities.cybersecurity },
@@ -67,20 +72,41 @@ const opportunities: Array<{ icon: IconName; label: string }> = [
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const next: FormErrors = {};
     if (!form.name.trim()) next.name = t.contact.required;
     if (!form.email.trim()) next.email = t.contact.required;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) next.email = t.contact.invalidEmail;
+    if (!isValidPhone(form.phone)) next.phone = t.contact.invalidPhone;
     if (!form.message.trim()) next.message = t.contact.required;
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
-    const subject = encodeURIComponent(`${t.contact.formTitle} — ${form.name.trim()}`);
-    const body = encodeURIComponent(`${form.message.trim()}\n\n— ${form.name.trim()}\n${form.email.trim()}`);
-    setSent(true);
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+    const subject = `${t.contact.formTitle} — ${form.name.trim()}`;
+    const submission = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+      message: form.message.trim(),
+      company: form.company,
+    };
+
+    if (directDelivery) {
+      setStatus('sending');
+      const result = await sendContactSubmission(submission, subject);
+      setStatus(result.ok ? 'sent' : 'failed');
+      return;
+    }
+
+    const details = [submission.email, submission.phone].filter(Boolean).join('\n');
+    const body = encodeURIComponent(
+      `${submission.message}\n\n— ${submission.name}\n${details}`,
+    );
+    setStatus('sent');
+    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${body}`;
   };
 
   return (
@@ -165,8 +191,10 @@ const opportunities: Array<{ icon: IconName; label: string }> = [
 
         {/* Form */}
         <section className="card-surface p-4 sm:p-5">
-          <h4 className="text-sm font-semibold text-ink">{t.contact.formTitle}</h4>
-          <p className="mt-1 text-[11px] leading-relaxed text-muted">{t.contact.formIntro}</p>
+<h4 className="text-sm font-semibold text-ink">{t.contact.formTitle}</h4>
+          <p className="mt-1 text-[11px] leading-relaxed text-muted">
+            {directDelivery ? t.contact.formIntroDirect : t.contact.formIntro}
+          </p>
 
           <form onSubmit={onSubmit} noValidate className="mt-4 flex flex-col gap-3.5">
             <div>
@@ -215,6 +243,46 @@ const opportunities: Array<{ icon: IconName; label: string }> = [
               ) : null}
             </div>
 
+<div>
+              <label htmlFor="contact-phone" className="mb-1 block text-xs font-medium text-secondary">
+                {t.contact.phone}
+                <span className="ml-1.5 font-normal text-muted">({t.contact.optional})</span>
+              </label>
+              <input
+                id="contact-phone"
+                name="phone"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="+216 20 000 000"
+                value={form.phone}
+                onChange={update('phone')}
+                aria-invalid={Boolean(errors.phone)}
+                className={`w-full rounded-lg border bg-[var(--hover-surface)] px-3 py-2 text-sm text-ink placeholder:text-muted focus:outline-none ${
+                  errors.phone ? 'border-[var(--danger)]' : 'border-[var(--border)] focus:border-accent'
+                }`}
+              />
+              {errors.phone ? (
+                <p role="alert" className="mt-1 text-[11px] text-[var(--danger)]">
+                  {errors.phone}
+                </p>
+              ) : null}
+            </div>
+
+            {/* Honeypot: hidden from people, filled in by bots. */}
+            <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
+              <label htmlFor="contact-company">Company</label>
+              <input
+                id="contact-company"
+                name="company"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.company}
+                onChange={update('company')}
+              />
+            </div>
+
             <div>
               <label htmlFor="contact-message" className="mb-1 block text-xs font-medium text-secondary">
                 {t.contact.message}
@@ -237,12 +305,33 @@ const opportunities: Array<{ icon: IconName; label: string }> = [
               ) : null}
             </div>
 
-            <Button type="submit" variant="primary" icon={<Icon name="send" size={15} />} fullWidth>
-              {t.contact.send}
+<Button
+              type="submit"
+              variant="primary"
+              icon={<Icon name="send" size={15} />}
+              fullWidth
+              disabled={status === 'sending'}
+              aria-busy={status === 'sending'}
+            >
+              {status === 'sending'
+                ? directDelivery
+                  ? t.contact.sendingDirect
+                  : t.contact.sending
+                : t.contact.send}
             </Button>
 
-<p aria-live="polite" className="min-h-[1rem] text-center text-[11px] text-[var(--success)]">
-              {sent ? t.contact.formOpened : ''}
+            <p
+              aria-live="polite"
+              className={`min-h-[1rem] text-center text-[11px] ${
+                status === 'failed' ? 'text-[var(--danger)]' : 'text-[var(--success)]'
+              }`}
+            >
+              {status === 'sent'
+                ? directDelivery
+                  ? t.contact.formSent
+                  : t.contact.formOpened
+                : null}
+              {status === 'failed' ? `${t.contact.sendError} ${profile.email}.` : null}
             </p>
           </form>
         </section>

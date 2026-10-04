@@ -33,10 +33,18 @@ jobs:
       - name: Typecheck
         run: npm run lint
 
+      # Contact-form delivery is configured with repository secrets
+      # (Settings → Secrets and variables → Actions). Vite inlines VITE_*
+      # variables at build time, so they must reach this step. Unset secrets
+      # resolve to empty strings and the form falls back to mailto:.
+      #
       # The CV PDFs are committed artifacts, regenerated locally with
       # `npm run build:cv`. They are not rebuilt here on purpose: that step
       # needs a browser, and rebuilding would overwrite reviewed output.
       - name: Build the site
+        env:
+          VITE_CONTACT_ENDPOINT: ${{ secrets.VITE_CONTACT_ENDPOINT }}
+          VITE_CONTACT_ACCESS_KEY: ${{ secrets.VITE_CONTACT_ACCESS_KEY }}
         run: npm run build
 
       - name: Enable and configure Pages
