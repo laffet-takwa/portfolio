@@ -41,6 +41,8 @@ also update the prefix in `useScreenshotSources`.
 | `nexora-erp` | `nexora-erp` |
 | `focus` | `focus` |
 | `fleetflow` | `fleetflow` |
+| `stockly` | `stockly` |
+| `diva-store` | `diva-store` |
 | `logistics-platform` | `logistics-platform` |
 | `odoo-invoice-automation` | `odoo-invoice-automation` |
 | `donation-event-platform` | `donation-event-platform` |

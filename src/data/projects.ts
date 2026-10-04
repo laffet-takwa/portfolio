@@ -506,6 +506,151 @@ export const projects: Project[] = [
 
   /* ---------------------------------------------------------- 05 */
   {
+    id: 'stockly',
+    title: 'Stockly',
+    subtitle: {
+      en: 'Inventory management with a React interface and a FastAPI service',
+      fr: 'Gestion de stock avec une interface React et un service FastAPI',
+    },
+    category: ['Full-Stack', 'Backend'],
+    icon: 'archive',
+    description: {
+      en: 'Inventory management application pairing a React interface with a Python FastAPI API and a SQLite database: stock value, references, units and reorder alerts on a dashboard, product creation, edition and deletion, and stock movements that refuse an output larger than the available quantity.',
+      fr: 'Application de gestion de stock associant une interface React à une API Python FastAPI et à une base SQLite : valeur du stock, références, unités et alertes de réapprovisionnement sur un tableau de bord, création, modification et suppression de produits, et mouvements de stock qui refusent une sortie supérieure à la quantité disponible.',
+    },
+    highlight: {
+      en: 'An output larger than the stock on hand is refused by the API instead of driving the inventory negative, and every movement is journalled in SQLite.',
+      fr: 'Une sortie supérieure au stock disponible est refusée par l’API plutôt que de rendre l’inventaire négatif, et chaque mouvement est journalisé dans SQLite.',
+    },
+    longDescription: {
+      en: 'Stockly is a complete inventory stack kept deliberately small: a React single-page interface talking to a FastAPI service over a plain REST contract, with SQLite as the datastore. The dashboard answers what a stock manager checks first — total value, number of references, units on hand and the products that dropped below their reorder threshold. Each product carries a SKU, a category, a quantity, a minimum quantity and a unit price, and can be created, edited or deleted from the interface. Stock movements are the write path that matters: an entry (`in`) or an exit (`out`) is posted through the API with a quantity and an optional note, and the service checks the available quantity before accepting an output, so the inventory cannot silently go negative. Every movement is persisted with its type, quantity and note, which makes the history explain why the current quantity is what it is. The database is created on first startup from `backend/schema.sql`, which defines the `products` and `movements` tables, their constraints and the demo data — a fresh clone is usable immediately, with no manual seeding step. FastAPI generates interactive OpenAPI documentation at `/docs`, where the endpoints can be read and exercised without reading the code.',
+      fr: 'Stockly est une pile de gestion de stock complète et volontairement compacte : une interface React monopage qui dialogue avec un service FastAPI via un contrat REST simple, avec SQLite comme base de données. Le tableau de bord répond à ce qu’un gestionnaire de stock vérifie en premier — la valeur totale, le nombre de références, les unités en main et les produits passés sous leur seuil de réapprovisionnement. Chaque produit porte un SKU, une catégorie, une quantité, une quantité minimale et un prix unitaire, et peut être créé, modifié ou supprimé depuis l’interface. Les mouvements de stock constituent le chemin d’écriture qui compte : une entrée (`in`) ou une sortie (`out`) est envoyée à l’API avec une quantité et une note facultative, et le service contrôle la quantité disponible avant d’accepter une sortie, si bien que l’inventaire ne peut pas devenir négatif silencieusement. Chaque mouvement est persisté avec son type, sa quantité et sa note, ce qui fait de l’historique l’explication de la quantité actuelle. La base est créée au premier démarrage à partir de `backend/schema.sql`, qui définit les tables `products` et `movements`, leurs contraintes et les données de démonstration — un clone nouvellement lancé est utilisable immédiatement, sans étape d’initialisation manuelle. FastAPI génère une documentation OpenAPI interactive sur `/docs`, où les endpoints peuvent être lus et essayés sans lire le code.',
+    },
+    problem: {
+      en: 'Inventory kept in a spreadsheet drifts from reality the moment someone records a movement without updating the count. The quantities stop matching, low-stock items are discovered too late, and there is no history explaining how the current stock was reached.',
+      fr: 'Un stock tenu dans un tableur dérive de la réalité dès qu’un mouvement est saisi sans mettre le compte à jour. Les quantités ne correspondent plus, les ruptures sont découvertes trop tard, et aucun historique n’explique comment le stock actuel a été atteint.',
+    },
+    solution: {
+      en: 'Put the quantity behind an API that refuses impossible movements: products and movements live in SQLite, the FastAPI service validates each entry and output against the available quantity, writes the movement to the journal, and the React interface reads the same state so the dashboard, the filters and the history always agree.',
+      fr: 'Placer la quantité derrière une API qui refuse les mouvements impossibles : produits et mouvements vivent dans SQLite, le service FastAPI valide chaque entrée et sortie par rapport à la quantité disponible, écrit le mouvement au journal, et l’interface React lit le même état si bien que le tableau de bord, les filtres et l’historique sont toujours d’accord.',
+    },
+    architecture: {
+      en: 'React single-page interface (Vite, plain CSS) → REST calls to /api/products and /api/movements, with the base URL supplied by VITE_API_URL and defaulting to http://localhost:8000/api → FastAPI application served by Uvicorn with reload → SQLite database created at startup from backend/schema.sql, holding the products and movements tables with their constraints and the demo data.',
+      fr: 'Interface React monopage (Vite, CSS simple) → appels REST vers /api/products et /api/movements, l’URL de base étant fournie par VITE_API_URL et valant http://localhost:8000/api par défaut → application FastAPI servie par Uvicorn avec rechargement → base SQLite créée au démarrage à partir de backend/schema.sql, contenant les tables products et movements avec leurs contraintes et les données de démonstration.',
+    },
+    architectureFlow: [
+      'React SPA — Vite · plain CSS',
+      'REST contract — /api/products · /api/movements',
+      'FastAPI application — Uvicorn --reload',
+      'SQLite — products · movements',
+      'schema.sql — tables, constraints, demo data',
+    ],
+    features: [
+      { en: 'Dashboard with stock value, reference count, units on hand and reorder alerts', fr: 'Tableau de bord avec la valeur du stock, le nombre de références, les unités en main et les alertes de réapprovisionnement' },
+      { en: 'Search and filters by availability and category', fr: 'Recherche et filtres par disponibilité et par catégorie' },
+      { en: 'Product creation, edition and deletion with SKU, category, quantity, minimum quantity and unit price', fr: 'Création, modification et suppression de produits avec SKU, catégorie, quantité, quantité minimale et prix unitaire' },
+      { en: 'Stock entries and exits recorded through a single movement endpoint', fr: 'Entrées et sorties de stock enregistrées via une seule route de mouvement' },
+      { en: 'Available-quantity check that refuses an output larger than the stock on hand', fr: 'Contrôle de la quantité disponible qui refuse une sortie supérieure au stock en main' },
+      { en: 'Movement history with type, quantity and note, journalled in SQLite', fr: 'Historique des mouvements avec type, quantité et note, journalisé dans SQLite' },
+      { en: 'Database created on first startup from schema.sql, with demo data included', fr: 'Base créée au premier démarrage à partir de schema.sql, avec les données de démonstration incluses' },
+      { en: 'Interactive OpenAPI documentation generated by FastAPI at /docs', fr: 'Documentation OpenAPI interactive générée par FastAPI sur /docs' },
+      { en: 'API base URL configurable through the VITE_API_URL environment variable', fr: 'URL de base de l’API configurable par la variable d’environnement VITE_API_URL' },
+    ],
+    technologies: [
+      'React',
+      'JavaScript',
+      'Vite',
+      'CSS',
+      'FastAPI',
+      'Python',
+      'Uvicorn',
+      'SQLite',
+      'REST',
+      'OpenAPI',
+    ],
+    github: 'https://github.com/laffet-takwa/Stockly',
+    demo: '',
+    featured: false,
+    published: true,
+    year: '2026',
+    role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+  },
+
+  /* ---------------------------------------------------------- 06 */
+  {
+    id: 'diva-store',
+    title: 'DIVA STORE',
+    subtitle: {
+      en: 'Perfume house storefront with generated artwork instead of photography',
+      fr: 'Boutique d’une maison de parfum avec des visuels générés plutôt que des photographies',
+    },
+    category: ['Frontend'],
+    icon: 'star',
+    description: {
+      en: 'Front-end storefront for a fictional perfume house: catalogue of 26 fragrances, product pages, wishlist, cart, three-step checkout and a scent finder. There is no backend — payments, authentication and orders are simulated in the browser.',
+      fr: 'Boutique front end pour une maison de parfum fictive : catalogue de 26 parfums, fiches produit, liste d’envies, panier, paiement en trois étapes et scent finder. Il n’y a pas de back end — les paiements, l’authentification et les commandes sont simulés dans le navigateur.',
+    },
+    highlight: {
+      en: 'A 26-product catalogue with zero product photographs: every bottle is inline SVG generated from a colour-and-silhouette recipe, so the shop weighs nothing and never renders a broken image.',
+      fr: 'Un catalogue de 26 produits sans aucune photographie : chaque flacon est un SVG généré à partir d’une recette de couleurs et de silhouette, si bien que la boutique ne pèse rien et n’affiche jamais d’image cassée.',
+    },
+    longDescription: {
+      en: 'DIVA STORE is a storefront for an invented house — fictional names, no real brand packaging — built as a front-end only application, which pushes the interesting engineering to the client side. Instead of shipping product photography, each product carries an `art` recipe: five colours plus a silhouette, drawn as inline SVG by a BottleArt component and composed by ProductShot with a backdrop, a light pool and a plinth to read as a studio shot. Four view indices (front, detail, angled, label) give every product page a gallery with no assets at all, and the visual direction lives in the catalogue file rather than in a design tool: change a recipe and every surface using it updates. State is five nested contexts — Toast, Wishlist, Cart, Order, UI — with no state library, `useReducer` behind the cart and a toast queue capped at three. Cart and wishlist persist in versioned localStorage keys, listen for the `storage` event so two open tabs stay in sync, and validate stored lines against the catalogue on read so a removed product is dropped instead of resurrecting. Filtering, sorting and search are pure functions shared by the shop, the search overlay and the new-arrivals tabs, so the three surfaces cannot drift apart. Every route except the home page is lazy-loaded behind a Suspense skeleton with one shared motion transition, reduced-motion is honoured, drawers and modals trap and restore focus, and every piece of user-supplied text passes through a sanitizer before it reaches the DOM or the document title.',
+      fr: 'DIVA STORE est une boutique pour une maison inventée — des noms fictifs, aucun emballage de marque réelle — construite comme une application exclusivement front end, ce qui pousse l’ingénierie intéressante côté client. Au lieu d’expédier des photographies de produits, chaque produit porte une recette `art` : cinq couleurs et une silhouette, dessinées en SVG inline par un composant BottleArt puis composées par ProductShot avec un décor, un halo lumineux et un socle pour évoquer une photo de studio. Quatre indices de vue — face, détail, trois-quarts, étiquette — offrent à chaque fiche produit une galerie sans le moindre asset, et la direction artistique vit dans le fichier du catalogue plutôt que dans un outil de design : changer une recette met à jour toutes les surfaces qui l’utilisent. L’état tient dans cinq contextes imbriqués — Toast, Wishlist, Cart, Order, UI — sans bibliothèque d’état, avec un `useReducer` derrière le panier et une file de toasts plafonnée à trois. Le panier et la liste d’envies sont persistés dans des clés localStorage versionnées, écoutent l’événement `storage` pour rester synchronisés entre deux onglets, et valident les lignes enregistrées par rapport au catalogue à la lecture, afin qu’un produit retiré soit supprimé au lieu de réapparaître. Le filtrage, le tri et la recherche sont des fonctions pures partagées par la boutique, la recherche instantanée et les nouveautés, si bien que ces trois surfaces ne peuvent pas diverger. Toutes les routes sauf l’accueil sont chargées à la demande derrière un squelette, avec une transition de mouvement partagée ; la réduction des animations est respectée, les tiroirs et modales piègent puis restaurent le focus, et tout texte saisi par l’utilisateur passe par un assainisseur avant d’atteindre le DOM ou le titre du document.',
+    },
+    problem: {
+      en: 'A product catalogue is mostly images, and images are the expensive part: photographs need shooting, licensing, cropping, responsive variants and a CDN, and any missing file shows up as a broken card. A demo catalogue also has to invent products, and invented products cannot ship real brand packaging.',
+      fr: 'Un catalogue produits est surtout constitué d’images, et les images sont la partie coûteuse : photographies à shooter, à licencier, à recadrer, à décliner en plusieurs formats et à héberger, sans compter que tout fichier manquant se traduit par une carte cassée. Un catalogue de démonstration doit aussi inventer ses produits, et des produits inventés ne peuvent pas employer les emballages de marques réelles.',
+    },
+    solution: {
+      en: 'Make the artwork part of the data: a per-product recipe of five colours and a silhouette, rendered as inline SVG and composed into a studio-like shot, so the catalogue ships as code. Keep everything else honest about its scope — a front-end only build where cart, wishlist and checkout are real client-side logic and payments, auth and orders are explicitly simulated.',
+      fr: 'Faire des visuels une partie de la donnée : une recette par produit faite de cinq couleurs et d’une silhouette, rendue en SVG inline et composée en une image façon studio, si bien que le catalogue se livre sous forme de code. Garder tout le reste honnête sur son périmètre — une application front end où le panier, la liste d’envies et le paiement sont de vraie logique client, tandis que les paiements, l’authentification et les commandes sont explicitement simulées.',
+    },
+    architecture: {
+      en: 'React 19 single-page application (Vite 8, React Router 7, Tailwind CSS 4, framer-motion, lucide-react) → five nested context providers (Toast, Wishlist, Cart, Order, UI) persisted in versioned localStorage keys and synchronized across tabs through the storage event → a 26-product catalogue in a typed data module exposing pure filter, sort and search functions → inline SVG artwork generated from each product’s colour-and-silhouette recipe. No server: checkout and order confirmation run in the browser.',
+      fr: 'Application monopage React 19 (Vite 8, React Router 7, Tailwind CSS 4, framer-motion, lucide-react) → cinq fournisseurs de contexte imbriqués (Toast, Wishlist, Cart, Order, UI) persistés dans des clés localStorage versionnées et synchronisés entre onglets via l’événement storage → un catalogue de 26 produits dans un module de données typé exposant des fonctions pures de filtre, tri et recherche → des visuels SVG générés à partir de la recette couleur/silhouette de chaque produit. Aucun serveur : le paiement et la confirmation de commande s’exécutent dans le navigateur.',
+    },
+    architectureFlow: [
+      'React 19 SPA — Vite 8 · React Router 7',
+      'Contexts — Toast → Wishlist → Cart → Order → UI',
+      'localStorage — diva.cart.v1 · diva.wishlist.v1',
+      'Catalogue — 26 products · pure filter / sort / search',
+      'Generated SVG artwork — no image assets',
+    ],
+    features: [
+      { en: 'Catalogue of 26 fragrances — 11 women, 8 men, 7 unisex — each with a scent pyramid and a 30/50/100 ml price ladder', fr: 'Catalogue de 26 parfums — 11 femme, 8 homme, 7 unisexe — chacun avec sa pyramide olfactive et son palier de prix 30/50/100 ml' },
+      { en: 'Product pages with a four-view gallery drawn entirely as generated SVG artwork', fr: 'Fiches produit avec une galerie à quatre vues entièrement dessinée en SVG généré' },
+      { en: 'Wishlist and cart drawer with quantity stepper and order summary', fr: 'Liste d’envies et tiroir panier avec sélecteur de quantité et récapitulatif de commande' },
+      { en: 'Three-step checkout and order confirmation simulated in the browser', fr: 'Paiement en trois étapes et confirmation de commande simulés dans le navigateur' },
+      { en: 'Scent finder matching a fragrance by notes and intensity', fr: 'Scent finder associant un parfum à des notes et à une intensité' },
+      { en: 'Filters, sorting and search implemented once as pure functions and shared by the shop, the search overlay and new arrivals', fr: 'Filtres, tri et recherche implémentés une seule fois comme fonctions pures et partagés par la boutique, la recherche et les nouveautés' },
+      { en: 'Cart and wishlist persisted in localStorage, synchronized across tabs and validated against the catalogue on read', fr: 'Panier et wishlist persistés dans localStorage, synchronisés entre onglets et validés par rapport au catalogue à la lecture' },
+      { en: 'Five nested contexts with no state library, behind hooks that throw outside their provider', fr: 'Cinq contextes imbriqués sans bibliothèque d’état, derrière des hooks qui lèvent une erreur hors de leur fournisseur' },
+      { en: 'Code-split routes: every page except the home page is lazy-loaded behind a skeleton with one shared motion transition', fr: 'Routes découpées : toutes les pages sauf l’accueil sont chargées à la demande derrière un squelette, avec une transition de mouvement partagée' },
+      { en: 'Accessibility: skip link, focus-trapped drawers and modals, arrow-key gallery and the scent pyramid duplicated as a screen-reader list', fr: 'Accessibilité : lien d’évitement, tiroirs et modales avec piège de focus, galerie navigable aux flèches et pyramide olfactive dupliquée en liste pour lecteur d’écran' },
+      { en: 'Client-side SEO per route and sanitization of every user-supplied string before it reaches the DOM', fr: 'SEO côté client pour chaque route et assainissement de toute chaîne saisie par l’utilisateur avant injection dans le DOM' },
+    ],
+    technologies: [
+      'React 19',
+      'TypeScript',
+      'Vite',
+      'React Router',
+      'Tailwind CSS',
+      'framer-motion',
+      'lucide-react',
+      'SVG',
+      'Oxlint',
+    ],
+    github: 'https://github.com/laffet-takwa/diva-perfume-ecommerce',
+    demo: '',
+    featured: false,
+    published: true,
+    year: '2026',
+    role: { en: 'Front-End Developer', fr: 'Développeur Front-End' },
+  },
+
+  /* ---------------------------------------------------------- 07 */
+  {
     id: 'nexora-erp',
     title: 'Nexora ERP',
     subtitle: {
@@ -679,7 +824,7 @@ export const projects: Project[] = [
     ],
   },
 
-  /* ---------------------------------------------------------- 06 */
+  /* ---------------------------------------------------------- 08 */
   {
     id: 'shopsphere',
     title: 'ShopSphere',
@@ -851,7 +996,7 @@ export const projects: Project[] = [
     ],
   },
 
-  /* ---------------------------------------------------------- 07 */
+  /* ---------------------------------------------------------- 09 */
   {
     id: 'logistics-platform',
     title: 'Logistics & Delivery Management Platform',
@@ -919,7 +1064,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack / Distributed Systems Developer', fr: 'Développeur Full-Stack / Systèmes distribués' },
   },
 
-  /* ---------------------------------------------------------- 08 */
+  /* ---------------------------------------------------------- 10 */
   {
     id: 'odoo-invoice-automation',
     title: 'Odoo Invoice Automation',
@@ -967,7 +1112,7 @@ export const projects: Project[] = [
     role: { en: 'Software Engineer Intern / PFE Developer', fr: 'Stagiaire ingénieur logiciel / Développeur PFE' },
   },
 
-  /* ---------------------------------------------------------- 09 */
+  /* ---------------------------------------------------------- 11 */
   {
     id: 'donation-event-platform',
     title: 'Donation & Event Management Platform',
@@ -1014,7 +1159,7 @@ export const projects: Project[] = [
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
   },
 
-  /* ---------------------------------------------------------- 10 */
+  /* ---------------------------------------------------------- 12 */
   {
     id: 'time-tracking-app',
     title: 'Time-Tracking Application',
