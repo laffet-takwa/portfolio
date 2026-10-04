@@ -450,6 +450,58 @@ export const projects: Project[] = [
     published: true,
     year: '2026',
     role: { en: 'Backend / Distributed Systems Engineer', fr: 'Ingénieur Back-end / Systèmes distribués' },
+    screenshotFolder: 'fleetflow',
+    screenshots: [
+      {
+        id: 'operations-dashboard',
+        caption: {
+          en: 'Operations dashboard — live KPIs, active deliveries and a chart on real data',
+          fr: 'Tableau de bord des opérations — KPI en direct, livraisons actives et graphique sur données réelles',
+        },
+      },
+      {
+        id: 'order-detail',
+        caption: {
+          en: 'Order detail — timeline rebuilt from the status history, staff actions gated',
+          fr: 'Détail d’une commande — chronologie reconstruite depuis l’historique de statut, actions réservées au staff',
+        },
+      },
+      {
+        id: 'inventory',
+        caption: {
+          en: 'Inventory — low stock visible immediately, filters and adjustment dialog',
+          fr: 'Stocks — ruptures visibles immédiatement, filtres et dialogue d’ajustement',
+        },
+      },
+      {
+        id: 'operations-map',
+        caption: {
+          en: 'Live operations map — full-width Leaflet view, delivery list and live positions',
+          fr: 'Carte opérationnelle en direct — vue Leaflet pleine largeur, liste des livraisons et positions en direct',
+        },
+      },
+      {
+        id: 'customer-checkout',
+        caption: {
+          en: 'Customer checkout — four explicit steps, cash on delivery',
+          fr: 'Commande client — quatre étapes explicites, paiement à la livraison',
+        },
+      },
+      {
+        id: 'customer-tracking',
+        caption: {
+          en: 'Customer tracking — live map over Server-Sent Events, connection status and timeline',
+          fr: 'Suivi client — carte en direct via Server-Sent Events, état de connexion et chronologie',
+        },
+      },
+      {
+        id: 'driver-delivery',
+        caption: {
+          en: 'Driver delivery — large status, one primary action, demo simulation panel',
+          fr: 'Livraison chauffeur — grand statut, une action principale, panneau de simulation',
+        },
+      },
+    ],
   },
 
   /* ---------------------------------------------------------- 05 */
