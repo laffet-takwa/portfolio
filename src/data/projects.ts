@@ -692,10 +692,6 @@ export const projects: Project[] = [
         id: 'mobile-modale-produit',
         caption: { en: 'Mobile — product dialog', fr: 'Mobile — modale produit' },
       },
-      {
-        id: 'mobile-modale-mouvement',
-        caption: { en: 'Mobile — movement dialog', fr: 'Mobile — modale mouvement' },
-      },
     ],
   },
 
@@ -1023,15 +1019,7 @@ export const projects: Project[] = [
         },
         src: '/projects/diva-store/mobile-05-shop-unisex.jpg',
       },
-      {
-        id: 'mobile-06-shop-filtered-3ml',
-        caption: {
-          en: 'Mobile — filters applied together',
-          fr: 'Mobile — filtres appliqués ensemble',
-        },
-        src: '/projects/diva-store/mobile-06-shop-filtered-3ml.jpg',
-      },
-      {
+{
         id: 'mobile-07-product-sauvage',
         caption: {
           en: 'Mobile — product page',
@@ -1071,15 +1059,7 @@ export const projects: Project[] = [
         },
         src: '/projects/diva-store/mobile-11-collections-bestsellers.jpg',
       },
-      {
-        id: 'mobile-12-collections-try-first',
-        caption: {
-          en: 'Mobile — collections, try-first sets',
-          fr: 'Mobile — collections, coffrets d’essai',
-        },
-        src: '/projects/diva-store/mobile-12-collections-try-first.jpg',
-      },
-      {
+{
         id: 'mobile-13-about',
         caption: {
           en: 'Mobile — about',
@@ -1381,88 +1361,13 @@ export const projects: Project[] = [
       },
       {
         id: 'dashboard-dark',
-        caption: { en: 'Dark theme on the reporting dashboard', fr: 'Thème sombre sur le tableau de bord' },
+        caption: { en: 'Reporting dashboard in the dark theme', fr: 'Tableau de bord de reporting en thème sombre' },
         src: '/projects/nexora-erp/15-dashboard-dark.jpg',
       },
       {
-        id: 'dark-login',
-        caption: { en: 'Sign in, dark theme', fr: 'Connexion, thème sombre' },
-        src: '/projects/nexora-erp/login.jpg',
-      },
-      {
-        id: 'dark-dashboard',
-        caption: { en: 'Reporting dashboard, dark theme', fr: 'Tableau de bord de reporting, thème sombre' },
-        src: '/projects/nexora-erp/dashboard.jpg',
-      },
-      {
-        id: 'dark-dashboard-alt',
-        caption: { en: 'Reporting dashboard, alternate dark capture', fr: 'Tableau de bord de reporting, autre capture sombre' },
-        src: '/projects/nexora-erp/dashboard-dark.jpg',
-      },
-      {
-        id: 'dark-customers',
-        caption: { en: 'CRM records, dark theme', fr: 'Fiches clients, thème sombre' },
-        src: '/projects/nexora-erp/customers.jpg',
-      },
-      {
-        id: 'dark-products',
-        caption: { en: 'Catalog, dark theme', fr: 'Catalogue, thème sombre' },
-        src: '/projects/nexora-erp/products.jpg',
-      },
-      {
-        id: 'dark-products-alt',
-        caption: { en: 'Catalog, alternate dark capture', fr: 'Catalogue, autre capture sombre' },
+        id: 'products-dark',
+        caption: { en: 'Catalog in the dark theme', fr: 'Catalogue en thème sombre' },
         src: '/projects/nexora-erp/products-dark.jpg',
-      },
-      {
-        id: 'dark-inventory',
-        caption: { en: 'Inventory, dark theme', fr: 'Stocks, thème sombre' },
-        src: '/projects/nexora-erp/inventory.jpg',
-      },
-      {
-        id: 'dark-orders',
-        caption: { en: 'Orders, dark theme', fr: 'Commandes, thème sombre' },
-        src: '/projects/nexora-erp/orders.jpg',
-      },
-      {
-        id: 'dark-invoices',
-        caption: { en: 'Invoices, dark theme', fr: 'Factures, thème sombre' },
-        src: '/projects/nexora-erp/invoices.jpg',
-      },
-      {
-        id: 'dark-payments',
-        caption: { en: 'Payments, dark theme', fr: 'Paiements, thème sombre' },
-        src: '/projects/nexora-erp/payments.jpg',
-      },
-      {
-        id: 'dark-reports',
-        caption: { en: 'Reports, dark theme', fr: 'Rapports, thème sombre' },
-        src: '/projects/nexora-erp/reports.jpg',
-      },
-      {
-        id: 'dark-users',
-        caption: { en: 'Users, dark theme', fr: 'Utilisateurs, thème sombre' },
-        src: '/projects/nexora-erp/users.jpg',
-      },
-      {
-        id: 'dark-roles',
-        caption: { en: 'Roles and permissions, dark theme', fr: 'Rôles et permissions, thème sombre' },
-        src: '/projects/nexora-erp/roles.jpg',
-      },
-      {
-        id: 'dark-audit-logs',
-        caption: { en: 'Audit log, dark theme', fr: 'Journal d’audit, thème sombre' },
-        src: '/projects/nexora-erp/audit-logs.jpg',
-      },
-      {
-        id: 'dark-notifications',
-        caption: { en: 'Notifications, dark theme', fr: 'Notifications, thème sombre' },
-        src: '/projects/nexora-erp/notifications.jpg',
-      },
-      {
-        id: 'dark-settings',
-        caption: { en: 'Settings, dark theme', fr: 'Paramètres, thème sombre' },
-        src: '/projects/nexora-erp/settings.jpg',
       },
     ],
   },
@@ -1675,21 +1580,6 @@ export const projects: Project[] = [
         id: 'mobile-cart',
         caption: { en: 'Mobile — cart', fr: 'Mobile — panier' },
         src: '/projects/shopsphere-ecommerce/26-mobile-cart.jpg',
-      },
-      {
-        id: 'mobile-orders',
-        caption: { en: 'Mobile — order history', fr: 'Mobile — historique des commandes' },
-        src: '/projects/shopsphere-ecommerce/28-mobile-orders.jpg',
-      },
-      {
-        id: 'mobile-account',
-        caption: { en: 'Mobile — account', fr: 'Mobile — compte' },
-        src: '/projects/shopsphere-ecommerce/29-mobile-account.jpg',
-      },
-      {
-        id: 'mobile-admin',
-        caption: { en: 'Mobile — admin dashboard', fr: 'Mobile — tableau de bord admin' },
-        src: '/projects/shopsphere-ecommerce/30-mobile-admin.jpg',
       },
       {
         id: 'tablet-catalog',
