@@ -647,7 +647,7 @@ export const projects: Project[] = [
       'Puppeteer',
     ],
     github: 'https://github.com/laffet-takwa/diva-perfume-ecommerce',
-    demo: '',
+    demo: 'https://diva-perfume-ecommerce-src.vercel.app/',
     featured: true,
     published: true,
     year: '2026',
