@@ -459,22 +459,22 @@ export const projects: Project[] = [
           fr: 'Tableau de bord des opérations — KPI en direct, livraisons actives et graphique sur données réelles',
         },
       },
-      {
-        id: 'order-detail',
+{
+        id: 'operations-order-detail',
         caption: {
           en: 'Order detail — timeline rebuilt from the status history, staff actions gated',
-          fr: 'Détail d’une commande — chronologie reconstruite depuis l’historique de statut, actions réservées au staff',
+          fr: 'Détail d’une commande — chronologie reconstruite depuis l’historique de statut, actions du personnel réservées',
         },
       },
       {
-        id: 'inventory',
+        id: 'operations-inventory',
         caption: {
           en: 'Inventory — low stock visible immediately, filters and adjustment dialog',
           fr: 'Stocks — ruptures visibles immédiatement, filtres et dialogue d’ajustement',
         },
       },
       {
-        id: 'operations-map',
+        id: 'operations-tracking-map',
         caption: {
           en: 'Live operations map — full-width Leaflet view, delivery list and live positions',
           fr: 'Carte opérationnelle en direct — vue Leaflet pleine largeur, liste des livraisons et positions en direct',
@@ -483,22 +483,71 @@ export const projects: Project[] = [
       {
         id: 'customer-checkout',
         caption: {
-          en: 'Customer checkout — four explicit steps, cash on delivery',
-          fr: 'Commande client — quatre étapes explicites, paiement à la livraison',
+          en: 'Customer checkout — address, payment and review before confirming',
+          fr: 'Paiement client — adresse, règlement et récapitulatif avant confirmation',
         },
       },
       {
         id: 'customer-tracking',
         caption: {
-          en: 'Customer tracking — live map over Server-Sent Events, connection status and timeline',
-          fr: 'Suivi client — carte en direct via Server-Sent Events, état de connexion et chronologie',
+          en: 'Live tracking — courier position streamed over Server-Sent Events',
+          fr: 'Suivi en direct — position du livreur diffusée en Server-Sent Events',
         },
       },
       {
         id: 'driver-delivery',
         caption: {
-          en: 'Driver delivery — large status, one primary action, demo simulation panel',
-          fr: 'Livraison chauffeur — grand statut, une action principale, panneau de simulation',
+          en: 'Driver delivery — proof of delivery, status transitions',
+          fr: 'Livraison livreur — preuve de livraison, transitions de statut',
+        },
+      },
+      {
+        id: 'login',
+        caption: { en: 'Sign in', fr: 'Connexion' },
+      },
+      {
+        id: 'customer-home',
+        caption: { en: 'Customer home — active deliveries and recent orders', fr: 'Accueil client — livraisons actives et commandes récentes' },
+      },
+      {
+        id: 'customer-orders',
+        caption: { en: 'Order history', fr: 'Historique des commandes' },
+      },
+      {
+        id: 'driver-deliveries',
+        caption: { en: 'Driver — assigned deliveries for the day', fr: 'Livreur — livraisons assignées pour la journée' },
+      },
+      {
+        id: 'driver-today',
+        caption: { en: 'Driver — today’s route', fr: 'Livreur — tournée du jour' },
+      },
+      {
+        id: 'operations-deliveries',
+        caption: { en: 'Operations — delivery board by status', fr: 'Opérations — tableau des livraisons par statut' },
+      },
+      {
+        id: 'operations-inventory',
+        caption: {
+          en: 'Operations — warehouse inventory and adjustments',
+          fr: 'Opérations — stocks de l’entrepôt et ajustements',
+        },
+      },
+      {
+        id: 'operations-order-detail',
+        caption: {
+          en: 'Operations — order detail with status history and staff actions',
+          fr: 'Opérations — détail d’une commande, historique de statut et actions staff',
+        },
+      },
+      {
+        id: 'operations-orders',
+        caption: { en: 'Operations — order queue', fr: 'Opérations — file des commandes' },
+      },
+      {
+        id: 'operations-tracking-map',
+        caption: {
+          en: 'Operations — tracking map across all active deliveries',
+          fr: 'Opérations — carte de suivi de toutes les livraisons actives',
         },
       },
     ],
@@ -574,6 +623,101 @@ export const projects: Project[] = [
     published: true,
     year: '2026',
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+    screenshotFolder: 'stockly',
+    screenshots: [
+      {
+        id: 'inventaire-tableau-de-bord',
+        caption: {
+          en: 'Inventory dashboard — total value, references, units on hand and reorder alerts',
+          fr: 'Tableau de bord des stocks — valeur totale, références, unités en main et alertes de réapprovisionnement',
+        },
+      },
+      {
+        id: 'modale-nouveau-produit',
+        caption: {
+          en: 'New product dialog — SKU, category, quantity, minimum and unit price',
+          fr: 'Modale de nouveau produit — référence, catégorie, quantité, minimum et prix unitaire',
+        },
+      },
+      {
+        id: 'modale-produit-erreur-sku',
+        caption: {
+          en: 'Duplicate SKU refused by the service, with the field flagged',
+          fr: 'Référence en double refusée par le service, avec le champ signalé',
+        },
+      },
+      {
+        id: 'modale-modifier-produit',
+        caption: { en: 'Edit product dialog', fr: 'Modale de modification d’un produit' },
+      },
+      {
+        id: 'modale-mouvement-entree',
+        caption: { en: 'Stock-in movement with quantity and note', fr: 'Mouvement d’entrée avec quantité et note' },
+      },
+      {
+        id: 'modale-mouvement-sortie',
+        caption: { en: 'Stock-out movement', fr: 'Mouvement de sortie' },
+      },
+      {
+        id: 'modale-mouvement-stock-insuffisant',
+        caption: {
+          en: 'Output larger than available stock refused before it can drive the inventory negative',
+          fr: 'Sortie supérieure au stock disponible refusée avant de rendre l’inventaire négatif',
+        },
+      },
+      {
+        id: 'filtre-stock-faible',
+        caption: { en: 'Low-stock filter', fr: 'Filtre stock faible' },
+      },
+      {
+        id: 'filtre-categorie-papeterie',
+        caption: { en: 'Filtered by category', fr: 'Filtré par catégorie' },
+      },
+      {
+        id: 'recherche-resultats',
+        caption: { en: 'Search returning matches', fr: 'Recherche renvoyant des résultats' },
+      },
+      {
+        id: 'recherche-aucun-resultat',
+        caption: { en: 'Search with no results', fr: 'Recherche sans résultat' },
+      },
+      {
+        id: 'panneaux-repartition-et-activite',
+        caption: { en: 'Distribution and activity panels', fr: 'Panneaux de répartition et d’activité' },
+      },
+      {
+        id: 'notification-succes',
+        caption: { en: 'Success notification after a movement', fr: 'Notification de succès après un mouvement' },
+      },
+      {
+        id: 'api-indisponible',
+        caption: { en: 'API unreachable — error surfaced in the interface', fr: 'API injoignable — erreur remontée dans l’interface' },
+      },
+      {
+        id: 'largeur-1728-inventaire',
+        caption: { en: 'Wide layout, 1728px', fr: 'Mise en page large, 1728 px' },
+      },
+      {
+        id: 'tablette-inventaire',
+        caption: { en: 'Tablet layout', fr: 'Mise en page tablette' },
+      },
+      {
+        id: 'mobile-inventaire',
+        caption: { en: 'Mobile inventory', fr: 'Stocks sur mobile' },
+      },
+      {
+        id: 'mobile-inventaire-complet',
+        caption: { en: 'Mobile inventory, full page', fr: 'Stocks sur mobile, page complète' },
+      },
+      {
+        id: 'mobile-modale-produit',
+        caption: { en: 'Mobile — product dialog', fr: 'Mobile — modale produit' },
+      },
+      {
+        id: 'mobile-modale-mouvement',
+        caption: { en: 'Mobile — movement dialog', fr: 'Mobile — modale mouvement' },
+      },
+    ],
   },
 
   /* ---------------------------------------------------------- 06 */
@@ -826,6 +970,86 @@ export const projects: Project[] = [
         caption: { en: 'Dark theme on the reporting dashboard', fr: 'Thème sombre sur le tableau de bord' },
         src: '/projects/nexora-erp/15-dashboard-dark.webp',
       },
+      {
+        id: 'dark-login',
+        caption: { en: 'Sign in, dark theme', fr: 'Connexion, thème sombre' },
+        src: '/projects/nexora-erp/login.webp',
+      },
+      {
+        id: 'dark-dashboard',
+        caption: { en: 'Reporting dashboard, dark theme', fr: 'Tableau de bord de reporting, thème sombre' },
+        src: '/projects/nexora-erp/dashboard.webp',
+      },
+      {
+        id: 'dark-dashboard-alt',
+        caption: { en: 'Reporting dashboard, alternate dark capture', fr: 'Tableau de bord de reporting, autre capture sombre' },
+        src: '/projects/nexora-erp/dashboard-dark.webp',
+      },
+      {
+        id: 'dark-customers',
+        caption: { en: 'CRM records, dark theme', fr: 'Fiches clients, thème sombre' },
+        src: '/projects/nexora-erp/customers.webp',
+      },
+      {
+        id: 'dark-products',
+        caption: { en: 'Catalog, dark theme', fr: 'Catalogue, thème sombre' },
+        src: '/projects/nexora-erp/products.webp',
+      },
+      {
+        id: 'dark-products-alt',
+        caption: { en: 'Catalog, alternate dark capture', fr: 'Catalogue, autre capture sombre' },
+        src: '/projects/nexora-erp/products-dark.webp',
+      },
+      {
+        id: 'dark-inventory',
+        caption: { en: 'Inventory, dark theme', fr: 'Stocks, thème sombre' },
+        src: '/projects/nexora-erp/inventory.webp',
+      },
+      {
+        id: 'dark-orders',
+        caption: { en: 'Orders, dark theme', fr: 'Commandes, thème sombre' },
+        src: '/projects/nexora-erp/orders.webp',
+      },
+      {
+        id: 'dark-invoices',
+        caption: { en: 'Invoices, dark theme', fr: 'Factures, thème sombre' },
+        src: '/projects/nexora-erp/invoices.webp',
+      },
+      {
+        id: 'dark-payments',
+        caption: { en: 'Payments, dark theme', fr: 'Paiements, thème sombre' },
+        src: '/projects/nexora-erp/payments.webp',
+      },
+      {
+        id: 'dark-reports',
+        caption: { en: 'Reports, dark theme', fr: 'Rapports, thème sombre' },
+        src: '/projects/nexora-erp/reports.webp',
+      },
+      {
+        id: 'dark-users',
+        caption: { en: 'Users, dark theme', fr: 'Utilisateurs, thème sombre' },
+        src: '/projects/nexora-erp/users.webp',
+      },
+      {
+        id: 'dark-roles',
+        caption: { en: 'Roles and permissions, dark theme', fr: 'Rôles et permissions, thème sombre' },
+        src: '/projects/nexora-erp/roles.webp',
+      },
+      {
+        id: 'dark-audit-logs',
+        caption: { en: 'Audit log, dark theme', fr: 'Journal d’audit, thème sombre' },
+        src: '/projects/nexora-erp/audit-logs.webp',
+      },
+      {
+        id: 'dark-notifications',
+        caption: { en: 'Notifications, dark theme', fr: 'Notifications, thème sombre' },
+        src: '/projects/nexora-erp/notifications.webp',
+      },
+      {
+        id: 'dark-settings',
+        caption: { en: 'Settings, dark theme', fr: 'Paramètres, thème sombre' },
+        src: '/projects/nexora-erp/settings.webp',
+      },
     ],
   },
 
@@ -997,6 +1221,66 @@ export const projects: Project[] = [
         id: 'tablet-home',
         caption: { en: 'Tablet layout', fr: 'Mise en page tablette' },
         src: '/projects/shopsphere-ecommerce/32-tablet-home.webp',
+      },
+      {
+        id: 'about',
+        caption: { en: 'About page', fr: 'Page à propos' },
+        src: '/projects/shopsphere-ecommerce/04-about.webp',
+      },
+      {
+        id: 'cart-empty',
+        caption: { en: 'Empty cart state', fr: 'Panier vide' },
+        src: '/projects/shopsphere-ecommerce/07-cart-empty.webp',
+      },
+      {
+        id: 'not-found',
+        caption: { en: '404 — route not found', fr: '404 — route introuvable' },
+        src: '/projects/shopsphere-ecommerce/08-not-found.webp',
+      },
+      {
+        id: 'admin-orders',
+        caption: { en: 'Admin — order management', fr: 'Admin — gestion des commandes' },
+        src: '/projects/shopsphere-ecommerce/18-admin-orders.webp',
+      },
+      {
+        id: 'admin-inventory',
+        caption: { en: 'Admin — inventory levels', fr: 'Admin — niveaux de stock' },
+        src: '/projects/shopsphere-ecommerce/19-admin-inventory.webp',
+      },
+      {
+        id: 'admin-customers',
+        caption: { en: 'Admin — customer records', fr: 'Admin — fiches clients' },
+        src: '/projects/shopsphere-ecommerce/20-admin-customers.webp',
+      },
+      {
+        id: 'admin-settings',
+        caption: { en: 'Admin — storefront settings', fr: 'Admin — paramètres de la boutique' },
+        src: '/projects/shopsphere-ecommerce/22-admin-settings.webp',
+      },
+      {
+        id: 'mobile-cart',
+        caption: { en: 'Mobile — cart', fr: 'Mobile — panier' },
+        src: '/projects/shopsphere-ecommerce/26-mobile-cart.webp',
+      },
+      {
+        id: 'mobile-orders',
+        caption: { en: 'Mobile — order history', fr: 'Mobile — historique des commandes' },
+        src: '/projects/shopsphere-ecommerce/28-mobile-orders.webp',
+      },
+      {
+        id: 'mobile-account',
+        caption: { en: 'Mobile — account', fr: 'Mobile — compte' },
+        src: '/projects/shopsphere-ecommerce/29-mobile-account.webp',
+      },
+      {
+        id: 'mobile-admin',
+        caption: { en: 'Mobile — admin dashboard', fr: 'Mobile — tableau de bord admin' },
+        src: '/projects/shopsphere-ecommerce/30-mobile-admin.webp',
+      },
+      {
+        id: 'tablet-catalog',
+        caption: { en: 'Tablet — catalog browsing', fr: 'Tablette — navigation du catalogue' },
+        src: '/projects/shopsphere-ecommerce/31-tablet-catalog.webp',
       },
     ],
   },

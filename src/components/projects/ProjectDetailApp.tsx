@@ -8,8 +8,6 @@ import { assetUrl } from '../../lib/assets';
 import { Button, EmptyState, Tag } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
 
-const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
-
 /** A resolved shot: WebP for modern browsers, PNG master as the fallback. */
 interface ScreenshotSource {
   webp?: string;
@@ -17,38 +15,51 @@ interface ScreenshotSource {
 }
 
 /**
- * Candidate file names for one declared shot, in the order they are tried.
+ * Base file names for one declared shot, in the order they are preferred.
  *
  * An explicit `src` is used as-is. Otherwise the shot is looked up by convention
- * under the project's screenshot folder, covering the three naming shapes the
- * captures actually use on disk: `<folder>-NN-<id>`, `NN-<id>` and `<id>`.
- * Trying all three means dropping a correctly named image into the folder is
- * enough to publish it, with no code change and no broken image while the file
- * is absent.
+ * under the project's screenshot folder, covering the naming shapes the captures
+ * actually use on disk: `<folder>-NN-<id>`, `NN-<id>` and `<id>`. Trying all of
+ * them means dropping a correctly named image into the folder is enough to
+ * publish it, with no code change and no broken image while the file is absent.
  */
-function screenshotCandidates(folder: string, index: number, shotId: string, src?: string): string[] {
-  if (src) return [assetUrl(src)];
+function screenshotPathGroups(
+  folder: string,
+  index: number,
+  shotId: string,
+  src?: string,
+): { webp: string; png: string }[] {
+  if (src) {
+    const stem = src.replace(/\.[^.]+$/, '');
+    return [{ webp: `${stem}.webp`, png: `${stem}.png` }];
+  }
 
   const stem = String(index + 1).padStart(2, '0');
   const names = [`${folder}-${stem}-${shotId}`, `${stem}-${shotId}`, shotId];
 
-  return names.flatMap((name) =>
-    IMAGE_EXTENSIONS.map((ext) => assetUrl(`/projects/${folder}/${name}.${ext}`)),
-  );
+  return names.map((name) => ({
+    webp: `/projects/${folder}/${name}.webp`,
+    png: `/projects/${folder}/${name}.png`,
+  }));
 }
 
-/** The PNG master that sits beside a WebP of the same shot, if there is one. */
-function pngFallback(url: string): string | undefined {
-  if (!url.endsWith('.webp')) return undefined;
-  return assetUrl(`${url.slice(0, -'.webp'.length)}.png`);
+/** True when the server answers with a real image for this URL. */
+async function servesImage(url: string): Promise<boolean> {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    const type = response.headers.get('content-type') ?? '';
+    return response.ok && type.startsWith('image/');
+  } catch {
+    return false;
+  }
 }
 
 /**
- * Resolves each declared screenshot to real images.
+ * Resolves each declared screenshot to the files that actually exist.
  *
- * Returns the WebP where the folder has one and the PNG master alongside it, so
- * the card can serve WebP to browsers that support it and fall back to PNG for
- * the rest.
+ * WebP and PNG are probed independently, so a folder holding only WebP never
+ * falls back to a PNG path that was never captured, and one holding both serves
+ * WebP with the PNG master behind it.
  */
 function useScreenshotSources(project: Project): Record<string, ScreenshotSource> {
   const shots = project.screenshots ?? [];
@@ -57,34 +68,33 @@ function useScreenshotSources(project: Project): Record<string, ScreenshotSource
 
   useEffect(() => {
     let cancelled = false;
-    const found: Record<string, ScreenshotSource> = {};
 
     const resolve = async () => {
       const folder = project.screenshotFolder ?? project.id;
 
-      for (const [index, shot] of shots.entries()) {
-        if (cancelled) return;
+      // Names are probed in preference order and the first hit wins, so a folder
+        // using the plain `<NN>-<id>` shape costs two requests rather than
+        // probing every convention for every shot.
+        const resolveShot = async (shot: ProjectScreenshot, index: number) => {
+          for (const paths of screenshotPathGroups(folder, index, shot.id, shot.src)) {
+            const webp = assetUrl(paths.webp);
+            const png = assetUrl(paths.png);
 
-        const webp: string[] = [];
-        const png: string[] = [];
-
-        for (const url of screenshotCandidates(folder, index, shot.id, shot.src)) {
-          try {
-            const response = await fetch(url, { method: 'HEAD' });
-            const type = response.headers.get('content-type') ?? '';
-            if (!response.ok || !type.startsWith('image/')) continue;
-
-            if (url.endsWith('.webp')) webp.push(url);
-            else png.push(url);
-          } catch {
-            /* candidate missing — try the next name */
+            const [hasWebp, hasPng] = await Promise.all([servesImage(webp), servesImage(png)]);
+            if (hasWebp || hasPng) {
+              return [
+                shot.id,
+                { webp: hasWebp ? webp : undefined, png: hasPng ? png : undefined },
+              ] as const;
+            }
           }
-        }
+          return null;
+        };
 
-        const primary = webp[0] ?? png[0];
-        if (primary) found[shot.id] = { webp: webp[0], png: png[0] ?? pngFallback(primary) };
-      }
-      if (!cancelled) setSources(found);
+      const resolved = await Promise.all(shots.map((shot, index) => resolveShot(shot, index)));
+
+      if (cancelled) return;
+      setSources(Object.fromEntries(resolved.filter((entry) => entry !== null)));
     };
 
     void resolve();
@@ -134,9 +144,9 @@ function Screenshot({
     return (
       <figure className="overflow-hidden rounded-xl border border-[var(--border)]">
         <picture>
-          {source.webp ? <source srcSet={source.webp} type="image/webp" /> : null}
+          {source.webp && source.png ? <source srcSet={source.webp} type="image/webp" /> : null}
           <img
-            src={source.webp ?? source.png}
+            src={source.webp && source.png ? source.png : (source.webp ?? source.png)}
             alt={caption}
             loading="lazy"
             className="h-36 w-full object-cover sm:h-44"
