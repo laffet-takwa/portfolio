@@ -526,29 +526,8 @@ export const projects: Project[] = [
         caption: { en: 'Operations — delivery board by status', fr: 'Opérations — tableau des livraisons par statut' },
       },
       {
-        id: 'operations-inventory',
-        caption: {
-          en: 'Operations — warehouse inventory and adjustments',
-          fr: 'Opérations — stocks de l’entrepôt et ajustements',
-        },
-      },
-      {
-        id: 'operations-order-detail',
-        caption: {
-          en: 'Operations — order detail with status history and staff actions',
-          fr: 'Opérations — détail d’une commande, historique de statut et actions staff',
-        },
-      },
-      {
         id: 'operations-orders',
         caption: { en: 'Operations — order queue', fr: 'Opérations — file des commandes' },
-      },
-      {
-        id: 'operations-tracking-map',
-        caption: {
-          en: 'Operations — tracking map across all active deliveries',
-          fr: 'Opérations — carte de suivi de toutes les livraisons actives',
-        },
       },
     ],
   },
@@ -777,6 +756,441 @@ export const projects: Project[] = [
       { en: 'Code-split routes: every page except the home page is lazy-loaded behind a skeleton with one shared motion transition', fr: 'Routes découpées : toutes les pages sauf l’accueil sont chargées à la demande derrière un squelette, avec une transition de mouvement partagée' },
       { en: 'Accessibility: skip link, focus-trapped drawers and modals, arrow-key gallery and the scent pyramid duplicated as a screen-reader list', fr: 'Accessibilité : lien d’évitement, tiroirs et modales avec piège de focus, galerie navigable aux flèches et pyramide olfactive dupliquée en liste pour lecteur d’écran' },
       { en: 'Client-side SEO per route and sanitization of every user-supplied string before it reaches the DOM', fr: 'SEO côté client pour chaque route et assainissement de toute chaîne saisie par l’utilisateur avant injection dans le DOM' },
+    ],
+    screenshotFolder: 'diva-store',
+    screenshots: [
+      {
+        id: '01-home',
+        caption: {
+          en: 'Home — hero, featured fragrances and the scent finder entry',
+          fr: 'Accueil — héros, parfums en vedette et accès au scent finder',
+        },
+        src: '/projects/diva-store/01-home.jpg',
+      },
+      {
+        id: '02-shop-all',
+        caption: {
+          en: 'Shop, all — the full catalogue with filters and sorting',
+          fr: 'Boutique, tout — le catalogue complet avec filtres et tri',
+        },
+        src: '/projects/diva-store/02-shop-all.jpg',
+      },
+      {
+        id: '03-shop-women',
+        caption: {
+          en: 'Shop filtered to the women’s collection',
+          fr: 'Boutique filtrée sur la collection femme',
+        },
+        src: '/projects/diva-store/03-shop-women.jpg',
+      },
+      {
+        id: '04-shop-men',
+        caption: {
+          en: 'Shop filtered to the men’s collection',
+          fr: 'Boutique filtrée sur la collection homme',
+        },
+        src: '/projects/diva-store/04-shop-men.jpg',
+      },
+      {
+        id: '05-shop-unisex',
+        caption: {
+          en: 'Shop filtered to the shared unisex collection',
+          fr: 'Boutique filtrée sur la collection unisexe commune',
+        },
+        src: '/projects/diva-store/05-shop-unisex.jpg',
+      },
+      {
+        id: '06-shop-filtered-3ml',
+        caption: {
+          en: 'Filters applied together — 3 ml travel sizes across every family',
+          fr: 'Filtres appliqués ensemble — formats 3 ml dans toutes les familles',
+        },
+        src: '/projects/diva-store/06-shop-filtered-3ml.jpg',
+      },
+      {
+        id: '07-product-sauvage',
+        caption: {
+          en: 'Product page — Sauvage: gallery, scent pyramid and the 30/50/100 ml price ladder',
+          fr: 'Fiche produit — Sauvage : galerie, pyramide olfactive et palier 30/50/100 ml',
+        },
+        src: '/projects/diva-store/07-product-sauvage.jpg',
+      },
+      {
+        id: '08-product-you-dark',
+        caption: {
+          en: 'Product page — a dark-backdrop frame keeping its own measured tone',
+          fr: 'Fiche produit — un cadre sur fond sombre qui conserve sa tonalité mesurée',
+        },
+        src: '/projects/diva-store/08-product-you-dark.jpg',
+      },
+      {
+        id: '09-product-bergamote',
+        caption: {
+          en: 'Product page — Bergamote: notes, sizes and add to cart',
+          fr: 'Fiche produit — Bergamote : notes, formats et ajout au panier',
+        },
+        src: '/projects/diva-store/09-product-bergamote.jpg',
+      },
+      {
+        id: '10-collections',
+        caption: {
+          en: 'Collections index — the house groupings',
+          fr: 'Index des collections — les regroupements de la maison',
+        },
+        src: '/projects/diva-store/10-collections.jpg',
+      },
+      {
+        id: '11-collections-bestsellers',
+        caption: {
+          en: 'Collections — bestsellers',
+          fr: 'Collections — les plus vendus',
+        },
+        src: '/projects/diva-store/11-collections-bestsellers.jpg',
+      },
+      {
+        id: '12-collections-try-first',
+        caption: {
+          en: 'Collections — try-first sampling sets',
+          fr: 'Collections — coffrets d’essai',
+        },
+        src: '/projects/diva-store/12-collections-try-first.jpg',
+      },
+      {
+        id: '13-about',
+        caption: {
+          en: 'About — the house story',
+          fr: 'À propos — l’histoire de la maison',
+        },
+        src: '/projects/diva-store/13-about.jpg',
+      },
+      {
+        id: '14-wishlist',
+        caption: {
+          en: 'Wishlist — saved fragrances',
+          fr: 'Liste d’envies — parfums enregistrés',
+        },
+        src: '/projects/diva-store/14-wishlist.jpg',
+      },
+      {
+        id: '15-cart',
+        caption: {
+          en: 'Cart — line items and order summary',
+          fr: 'Panier — lignes et récapitulatif',
+        },
+        src: '/projects/diva-store/15-cart.jpg',
+      },
+      {
+        id: '16-checkout',
+        caption: {
+          en: 'Checkout — shipping, payment and review',
+          fr: 'Paiement — livraison, règlement et récapitulatif',
+        },
+        src: '/projects/diva-store/16-checkout.jpg',
+      },
+      {
+        id: '17-order-success',
+        caption: {
+          en: 'Order confirmation',
+          fr: 'Confirmation de commande',
+        },
+        src: '/projects/diva-store/17-order-success.jpg',
+      },
+      {
+        id: '18-account',
+        caption: {
+          en: 'Account — order history and personal details',
+          fr: 'Compte — historique des commandes et informations personnelles',
+        },
+        src: '/projects/diva-store/18-account.jpg',
+      },
+      {
+        id: '19-help',
+        caption: {
+          en: 'Help centre index',
+          fr: 'Index du centre d’aide',
+        },
+        src: '/projects/diva-store/19-help.jpg',
+      },
+      {
+        id: '20-help-contact',
+        caption: {
+          en: 'Help — contact channels',
+          fr: 'Aide — canaux de contact',
+        },
+        src: '/projects/diva-store/20-help-contact.jpg',
+      },
+      {
+        id: '21-help-shipping',
+        caption: {
+          en: 'Help — shipping',
+          fr: 'Aide — livraison',
+        },
+        src: '/projects/diva-store/21-help-shipping.jpg',
+      },
+      {
+        id: '22-help-returns',
+        caption: {
+          en: 'Help — returns',
+          fr: 'Aide — retours',
+        },
+        src: '/projects/diva-store/22-help-returns.jpg',
+      },
+      {
+        id: '23-help-faq',
+        caption: {
+          en: 'Help — FAQ',
+          fr: 'Aide — questions fréquentes',
+        },
+        src: '/projects/diva-store/23-help-faq.jpg',
+      },
+      {
+        id: '24-help-track-order',
+        caption: {
+          en: 'Help — tracking an order',
+          fr: 'Aide — suivi d’une commande',
+        },
+        src: '/projects/diva-store/24-help-track-order.jpg',
+      },
+      {
+        id: '25-not-found',
+        caption: {
+          en: 'Not-found route',
+          fr: 'Route introuvable',
+        },
+        src: '/projects/diva-store/25-not-found.jpg',
+      },
+      {
+        id: '26-cart-drawer',
+        caption: {
+          en: 'Cart drawer — opened over the catalogue with focus trapped',
+          fr: 'Tiroir panier — ouvert sur le catalogue avec piège de focus',
+        },
+        src: '/projects/diva-store/26-cart-drawer.jpg',
+      },
+      {
+        id: '27-search-overlay',
+        caption: {
+          en: 'Search overlay — matching across the catalogue',
+          fr: 'Overlay de recherche — correspondance dans tout le catalogue',
+        },
+        src: '/projects/diva-store/27-search-overlay.jpg',
+      },
+      {
+        id: '28-footer',
+        caption: {
+          en: 'Footer — navigation, legal notices and payment marks',
+          fr: 'Pied de page — navigation, mentions légales et marques de paiement',
+        },
+        src: '/projects/diva-store/28-footer.jpg',
+      },
+      {
+        id: 'mobile-01-home',
+        caption: {
+          en: 'Mobile — home',
+          fr: 'Mobile — accueil',
+        },
+        src: '/projects/diva-store/mobile-01-home.jpg',
+      },
+      {
+        id: 'mobile-02-shop-all',
+        caption: {
+          en: 'Mobile — shop, all',
+          fr: 'Mobile — boutique, tout',
+        },
+        src: '/projects/diva-store/mobile-02-shop-all.jpg',
+      },
+      {
+        id: 'mobile-03-shop-women',
+        caption: {
+          en: 'Mobile — shop, women',
+          fr: 'Mobile — boutique, femme',
+        },
+        src: '/projects/diva-store/mobile-03-shop-women.jpg',
+      },
+      {
+        id: 'mobile-04-shop-men',
+        caption: {
+          en: 'Mobile — shop, men',
+          fr: 'Mobile — boutique, homme',
+        },
+        src: '/projects/diva-store/mobile-04-shop-men.jpg',
+      },
+      {
+        id: 'mobile-05-shop-unisex',
+        caption: {
+          en: 'Mobile — shop, unisex',
+          fr: 'Mobile — boutique, unisexe',
+        },
+        src: '/projects/diva-store/mobile-05-shop-unisex.jpg',
+      },
+      {
+        id: 'mobile-06-shop-filtered-3ml',
+        caption: {
+          en: 'Mobile — filters applied together',
+          fr: 'Mobile — filtres appliqués ensemble',
+        },
+        src: '/projects/diva-store/mobile-06-shop-filtered-3ml.jpg',
+      },
+      {
+        id: 'mobile-07-product-sauvage',
+        caption: {
+          en: 'Mobile — product page',
+          fr: 'Mobile — fiche produit',
+        },
+        src: '/projects/diva-store/mobile-07-product-sauvage.jpg',
+      },
+      {
+        id: 'mobile-08-product-you-dark',
+        caption: {
+          en: 'Mobile — product page, dark frame',
+          fr: 'Mobile — fiche produit, cadre sombre',
+        },
+        src: '/projects/diva-store/mobile-08-product-you-dark.jpg',
+      },
+      {
+        id: 'mobile-09-product-bergamote',
+        caption: {
+          en: 'Mobile — product page, Bergamote',
+          fr: 'Mobile — fiche produit, Bergamote',
+        },
+        src: '/projects/diva-store/mobile-09-product-bergamote.jpg',
+      },
+      {
+        id: 'mobile-10-collections',
+        caption: {
+          en: 'Mobile — collections index',
+          fr: 'Mobile — index des collections',
+        },
+        src: '/projects/diva-store/mobile-10-collections.jpg',
+      },
+      {
+        id: 'mobile-11-collections-bestsellers',
+        caption: {
+          en: 'Mobile — collections, bestsellers',
+          fr: 'Mobile — collections, plus vendus',
+        },
+        src: '/projects/diva-store/mobile-11-collections-bestsellers.jpg',
+      },
+      {
+        id: 'mobile-12-collections-try-first',
+        caption: {
+          en: 'Mobile — collections, try-first sets',
+          fr: 'Mobile — collections, coffrets d’essai',
+        },
+        src: '/projects/diva-store/mobile-12-collections-try-first.jpg',
+      },
+      {
+        id: 'mobile-13-about',
+        caption: {
+          en: 'Mobile — about',
+          fr: 'Mobile — à propos',
+        },
+        src: '/projects/diva-store/mobile-13-about.jpg',
+      },
+      {
+        id: 'mobile-14-wishlist',
+        caption: {
+          en: 'Mobile — wishlist',
+          fr: 'Mobile — liste d’envies',
+        },
+        src: '/projects/diva-store/mobile-14-wishlist.jpg',
+      },
+      {
+        id: 'mobile-15-cart',
+        caption: {
+          en: 'Mobile — cart',
+          fr: 'Mobile — panier',
+        },
+        src: '/projects/diva-store/mobile-15-cart.jpg',
+      },
+      {
+        id: 'mobile-16-checkout',
+        caption: {
+          en: 'Mobile — checkout',
+          fr: 'Mobile — paiement',
+        },
+        src: '/projects/diva-store/mobile-16-checkout.jpg',
+      },
+      {
+        id: 'mobile-17-order-success',
+        caption: {
+          en: 'Mobile — order confirmation',
+          fr: 'Mobile — confirmation de commande',
+        },
+        src: '/projects/diva-store/mobile-17-order-success.jpg',
+      },
+      {
+        id: 'mobile-18-account',
+        caption: {
+          en: 'Mobile — account',
+          fr: 'Mobile — compte',
+        },
+        src: '/projects/diva-store/mobile-18-account.jpg',
+      },
+      {
+        id: 'mobile-19-help',
+        caption: {
+          en: 'Mobile — help centre',
+          fr: 'Mobile — centre d’aide',
+        },
+        src: '/projects/diva-store/mobile-19-help.jpg',
+      },
+      {
+        id: 'mobile-20-help-contact',
+        caption: {
+          en: 'Mobile — help, contact',
+          fr: 'Mobile — aide, contact',
+        },
+        src: '/projects/diva-store/mobile-20-help-contact.jpg',
+      },
+      {
+        id: 'mobile-21-help-shipping',
+        caption: {
+          en: 'Mobile — help, shipping',
+          fr: 'Mobile — aide, livraison',
+        },
+        src: '/projects/diva-store/mobile-21-help-shipping.jpg',
+      },
+      {
+        id: 'mobile-22-help-returns',
+        caption: {
+          en: 'Mobile — help, returns',
+          fr: 'Mobile — aide, retours',
+        },
+        src: '/projects/diva-store/mobile-22-help-returns.jpg',
+      },
+      {
+        id: 'mobile-23-help-faq',
+        caption: {
+          en: 'Mobile — help, FAQ',
+          fr: 'Mobile — aide, questions fréquentes',
+        },
+        src: '/projects/diva-store/mobile-23-help-faq.jpg',
+      },
+      {
+        id: 'mobile-24-help-track-order',
+        caption: {
+          en: 'Mobile — help, order tracking',
+          fr: 'Mobile — aide, suivi de commande',
+        },
+        src: '/projects/diva-store/mobile-24-help-track-order.jpg',
+      },
+      {
+        id: 'mobile-25-not-found',
+        caption: {
+          en: 'Mobile — not-found route',
+          fr: 'Mobile — route introuvable',
+        },
+        src: '/projects/diva-store/mobile-25-not-found.jpg',
+      },
+      {
+        id: 'mobile-29-menu',
+        caption: {
+          en: 'Mobile — navigation drawer',
+          fr: 'Mobile — tiroir de navigation',
+        },
+        src: '/projects/diva-store/mobile-29-menu.jpg',
+      },
     ],
     technologies: [
       'React 19',

@@ -95,19 +95,26 @@ for (const folder of folders) {
 
   for (const stem of [...stems].sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))) {
     const jpgPath = join(dir, `${stem}.jpg`);
-    const master = pngs.includes(`${stem}.png`)
-      ? join(dir, `${stem}.png`)
-      : webps.includes(`${stem}.webp`)
-        ? join(dir, `${stem}.webp`)
-        : null;
+    const hasJpg = jpgs.includes(`${stem}.jpg`);
+
+    /** True when this JPEG already matches the spec: capped width, 16:10 ratio. */
+    const onSpec = async (path) => {
+      const meta = await sharp(path).metadata();
+      if (!meta.width || !meta.height) return { ok: false, meta };
+      const ratio = meta.width / meta.height;
+      return {
+        ok: meta.width <= SPEC.width && Math.abs(ratio - SPEC.width / SPEC.height) < 0.02,
+        meta,
+      };
+    };
 
     // A JPEG already on spec is the finished asset; nothing left to do but drop
     // the WebP that used to be served in its place.
-    if (jpgs.includes(`${stem}.jpg`)) {
-      const meta = await sharp(jpgPath).metadata();
-      if (meta.width === SPEC.width && meta.height === SPEC.height) {
-        if (webps.includes(`${stem}.webp`) && !DRY) await rm(join(dir, `${stem}.webp`), { force: true });
+    if (hasJpg) {
+      const { ok, meta } = await onSpec(jpgPath);
+      if (ok) {
         if (webps.includes(`${stem}.webp`)) {
+          if (!DRY) await rm(join(dir, `${stem}.webp`), { force: true });
           retired += 1;
           console.log(`  ${`${stem}.webp`.padEnd(36)} retired, ${stem}.jpg already on spec`);
         } else {
@@ -119,20 +126,45 @@ for (const folder of folders) {
       }
     }
 
+    // A PNG master is the best source, then a leftover WebP. Failing both, an
+    // off-spec JPEG is re-encoded from itself, which is how a folder that only
+    // ever received JPGs gets brought onto the spec.
+    const master = pngs.includes(`${stem}.png`)
+      ? join(dir, `${stem}.png`)
+      : webps.includes(`${stem}.webp`)
+        ? join(dir, `${stem}.webp`)
+        : hasJpg
+          ? jpgPath
+          : null;
+
     if (!master) {
-      skipped.push(`${folder}/${stem} (no PNG or WebP source)`);
+      skipped.push(`${folder}/${stem} (no PNG, WebP or JPG source)`);
       continue;
     }
 
     const original = await stat(master);
+
+    const source = await sharp(master).metadata();
+    if (!source.width || !source.height) {
+      skipped.push(`${folder}/${stem} (unreadable metadata)`);
+      continue;
+    }
+
+    // A phone capture is ~390px wide and there is no more detail in it than that.
+    // Upscaling it to the full card width would look soft, so a narrow source
+    // keeps its own width and is cropped to the same 16:10 ratio instead. Every
+    // gallery then reads at one aspect while each file holds every pixel its
+    // capture actually had.
+    const targetWidth = Math.min(SPEC.width, source.width);
+    const targetHeight = Math.round((targetWidth * SPEC.height) / SPEC.width);
 
     // sharp holds the output handle open until its promise settles, so writing to
     // a staging path and then unlinking it races into EBUSY on Windows. Encoding
     // to a buffer releases the source before the destination is opened.
     const encoded = await sharp(master)
       .resize({
-        width: SPEC.width,
-        height: SPEC.height,
+        width: targetWidth,
+        height: targetHeight,
         fit: 'cover',
         position: 'top',
       })
@@ -154,7 +186,8 @@ for (const folder of folders) {
     const sourceExt = extname(master);
 
     console.log(
-      `  ${`${stem}${sourceExt}`.padEnd(36)} ${String(SPEC.width).padStart(4)}x${String(SPEC.height).padEnd(5)} -> ` +
+      `  ${`${stem}${sourceExt}`.padEnd(36)} ${String(source.width).padStart(5)}x${String(source.height).padEnd(6)} -> ` +
+        `${String(targetWidth).padStart(4)}x${String(targetHeight).padEnd(4)}  ` +
         `${String(Math.round(encoded.length / 1024)).padStart(4)} KB jpg  ` +
         `(from ${String(Math.round(original.size / 1024)).padStart(4)} KB ${sourceExt.slice(1)}, -${pct}%)`,
     );
