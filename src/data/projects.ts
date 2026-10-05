@@ -1020,6 +1020,14 @@ export const projects: Project[] = [
         src: '/projects/diva-store/mobile-05-shop-unisex.jpg',
       },
 {
+        id: 'mobile-06-shop-filtered-3ml',
+        caption: {
+          en: 'Mobile — filters applied together, 3 ml travel sizes',
+          fr: 'Mobile — filtres appliqués ensemble, formats 3 ml',
+        },
+        src: '/projects/diva-store/mobile-06-shop-filtered-3ml.jpg',
+      },
+      {
         id: 'mobile-07-product-sauvage',
         caption: {
           en: 'Mobile — product page',
@@ -1060,6 +1068,14 @@ export const projects: Project[] = [
         src: '/projects/diva-store/mobile-11-collections-bestsellers.jpg',
       },
 {
+        id: 'mobile-12-collections-try-first',
+        caption: {
+          en: 'Mobile — collections, try-first sets',
+          fr: 'Mobile — collections, coffrets d’essai',
+        },
+        src: '/projects/diva-store/mobile-12-collections-try-first.jpg',
+      },
+      {
         id: 'mobile-13-about',
         caption: {
           en: 'Mobile — about',
