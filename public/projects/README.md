@@ -79,3 +79,23 @@ the resize and encode; under ~250 KB per published image is plenty for a
 card-sized preview.
 
 Remove the `.gitkeep` in a folder once it contains a real image.
+
+## Before publishing: check for duplicates
+
+Two captures of the same screen, saved under two names, quietly make the gallery
+show one picture twice under different captions. `scripts/audit-duplicates.mjs`
+finds them:
+
+```bash
+node scripts/audit-duplicates.mjs
+```
+
+It reports two tiers. `identical` means the bytes match exactly — one file
+copied to another name, always a bug. `near` means the frames are within 0.4%
+perceptually: usually the same screen re-encoded, occasionally two views of the
+same dialog differing by one value, so those are worth a glance rather than
+automatic deletion. Pages that merely share a layout score well above that and
+are not reported.
+
+The check runs on the files on disk, not the declared slots, so it also catches
+a duplicate capture that has not been wired up yet.
