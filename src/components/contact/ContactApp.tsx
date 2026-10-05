@@ -121,6 +121,20 @@ const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
             <p className="mt-1.5 text-[13px] leading-relaxed text-secondary">{t.contact.intro}</p>
           </header>
 
+          <section className="rounded-xl border border-[color-mix(in_srgb,var(--accent)_35%,transparent)] bg-accent-soft p-4">
+            <h4 className="text-sm font-semibold text-ink">{t.contact.calendarTitle}</h4>
+            <a
+              href={profile.calendly}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-3.5 py-2 text-sm font-medium text-[var(--accent-contrast)] shadow-sm transition-colors hover:bg-[var(--accent-hover)]"
+            >
+              <Icon name="clock" size={15} />
+              {t.contact.calendarButton}
+            </a>
+            <p className="mt-2 text-[11px] leading-relaxed text-muted">{t.contact.calendarNote}</p>
+          </section>
+
           <section>
             <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-muted">
               {t.contact.opportunitiesLabel}

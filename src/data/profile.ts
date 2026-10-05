@@ -20,6 +20,7 @@ export const profile: Profile = {
   linkedin: 'https://www.linkedin.com/in/takwa-laffet-883239211/',
   github: 'https://github.com/takwa-laffet',
   portfolioUrl: 'https://laffet-takwa.github.io/portfolio/',
+  calendly: 'https://calendly.com/takwa5laffet/30min',
   handles: { github: 'takwa-laffet', linkedin: 'takwa-laffet-883239211' },
   resumes: [
     {

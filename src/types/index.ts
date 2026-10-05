@@ -207,6 +207,8 @@ export interface Profile {
   linkedin: string;
   github: string;
   portfolioUrl: string;
+  /** Calendly scheduling link for intro calls. */
+  calendly: string;
   /** Handles shown next to the icons, without the domain. */
   handles: { github: string; linkedin: string };
   /** Published CVs, most recent language first. */
