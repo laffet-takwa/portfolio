@@ -74,12 +74,18 @@ async function servesImage(url: string): Promise<boolean> {
  * falls back to a path that was never captured, and one still holding a WebP or
  * a PNG master gets them alongside the JPEG.
  */
-function useScreenshotSources(project: Project): Record<string, ScreenshotSource> {
-  const shots = project.screenshots ?? [];
-  const signature = `${project.id}:${shots.map((shot) => shot.id).join(',')}`;
+function useScreenshotSources(project: Project | undefined): Record<string, ScreenshotSource> {
+  const shots = project?.screenshots ?? [];
+  const signature = project
+    ? `${project.id}:${shots.map((shot) => shot.id).join(',')}`
+    : '';
   const [sources, setSources] = useState<Record<string, ScreenshotSource>>({});
 
   useEffect(() => {
+    if (!project) {
+      setSources({});
+      return;
+    }
     let cancelled = false;
 
     const resolve = async () => {
@@ -203,6 +209,7 @@ export function ProjectDetailApp({ projectId }: { projectId?: string }) {
   const { t, locale } = useI18n();
   const { openWindow, closeWindow } = useWindowManager();
   const project = getProjectById(projectId);
+  const sources = useScreenshotSources(project);
 
   if (!project) {
     return (
@@ -223,7 +230,6 @@ export function ProjectDetailApp({ projectId }: { projectId?: string }) {
 const others = publishedProjects.filter((item) => item.id !== project.id).slice(0, 4);
   const features = (project.features ?? []).map((feature) => resolveText(feature, locale));
   const screenshots = project.screenshots ?? [];
-  const sources = useScreenshotSources(project);
 
   const openSibling = (id: string) => openWindow('project-detail', { projectId: id });
 
