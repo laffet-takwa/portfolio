@@ -8,49 +8,81 @@ import { assetUrl } from '../../lib/assets';
 import { Button, EmptyState, Tag } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
 
-const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp'];
+const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
+
+/** A resolved shot: WebP for modern browsers, PNG master as the fallback. */
+interface ScreenshotSource {
+  webp?: string;
+  png?: string;
+}
 
 /**
- * Resolves each declared screenshot to a real image.
+ * Candidate file names for one declared shot, in the order they are tried.
  *
- * An explicit `src` always wins. Otherwise the file is looked up by
- * convention — `/projects/<project-id>/<project-id>-NN-<shot-id>.<ext>` — so
- * dropping a correctly named image into the folder is enough to publish it,
- * with no code change and no broken image while the file is absent.
+ * An explicit `src` is used as-is. Otherwise the shot is looked up by convention
+ * under the project's screenshot folder, covering the three naming shapes the
+ * captures actually use on disk: `<folder>-NN-<id>`, `NN-<id>` and `<id>`.
+ * Trying all three means dropping a correctly named image into the folder is
+ * enough to publish it, with no code change and no broken image while the file
+ * is absent.
  */
-function useScreenshotSources(project: Project): Record<string, string> {
+function screenshotCandidates(folder: string, index: number, shotId: string, src?: string): string[] {
+  if (src) return [assetUrl(src)];
+
+  const stem = String(index + 1).padStart(2, '0');
+  const names = [`${folder}-${stem}-${shotId}`, `${stem}-${shotId}`, shotId];
+
+  return names.flatMap((name) =>
+    IMAGE_EXTENSIONS.map((ext) => assetUrl(`/projects/${folder}/${name}.${ext}`)),
+  );
+}
+
+/** The PNG master that sits beside a WebP of the same shot, if there is one. */
+function pngFallback(url: string): string | undefined {
+  if (!url.endsWith('.webp')) return undefined;
+  return assetUrl(`${url.slice(0, -'.webp'.length)}.png`);
+}
+
+/**
+ * Resolves each declared screenshot to real images.
+ *
+ * Returns the WebP where the folder has one and the PNG master alongside it, so
+ * the card can serve WebP to browsers that support it and fall back to PNG for
+ * the rest.
+ */
+function useScreenshotSources(project: Project): Record<string, ScreenshotSource> {
   const shots = project.screenshots ?? [];
   const signature = `${project.id}:${shots.map((shot) => shot.id).join(',')}`;
-  const [sources, setSources] = useState<Record<string, string>>({});
+  const [sources, setSources] = useState<Record<string, ScreenshotSource>>({});
 
   useEffect(() => {
     let cancelled = false;
-    const found: Record<string, string> = {};
+    const found: Record<string, ScreenshotSource> = {};
 
     const resolve = async () => {
+      const folder = project.screenshotFolder ?? project.id;
+
       for (const [index, shot] of shots.entries()) {
         if (cancelled) return;
 
-        const candidates = shot.src
-          ? [assetUrl(shot.src)]
-          : IMAGE_EXTENSIONS.map((ext) => {
-              const stem = `${String(index + 1).padStart(2, '0')}-${shot.id}`;
-              const folder = project.screenshotFolder ?? project.id;
-              return assetUrl(`/projects/${folder}/${folder}-${stem}.${ext}`);
-            });
+        const webp: string[] = [];
+        const png: string[] = [];
 
-        for (const url of candidates) {
+        for (const url of screenshotCandidates(folder, index, shot.id, shot.src)) {
           try {
             const response = await fetch(url, { method: 'HEAD' });
             const type = response.headers.get('content-type') ?? '';
-            if (response.ok && type.startsWith('image/')) {
-              found[shot.id] = url;
-              break;
-            }
+            if (!response.ok || !type.startsWith('image/')) continue;
+
+            if (url.endsWith('.webp')) webp.push(url);
+            else png.push(url);
           } catch {
-            /* candidate missing — try the next extension */
+            /* candidate missing — try the next name */
           }
         }
+
+        const primary = webp[0] ?? png[0];
+        if (primary) found[shot.id] = { webp: webp[0], png: png[0] ?? pngFallback(primary) };
       }
       if (!cancelled) setSources(found);
     };
@@ -89,24 +121,27 @@ function Screenshot({
   shot,
   project,
   locale,
-  src,
+  source,
 }: {
   shot: ProjectScreenshot;
   project: Project;
   locale: Locale;
-  src?: string;
+  source?: ScreenshotSource;
 }) {
   const caption = resolveText(shot.caption, locale);
 
-  if (src) {
+  if (source) {
     return (
       <figure className="overflow-hidden rounded-xl border border-[var(--border)]">
-        <img
-          src={src}
-          alt={caption}
-          loading="lazy"
-          className="h-36 w-full object-cover sm:h-44"
-        />
+        <picture>
+          {source.webp ? <source srcSet={source.webp} type="image/webp" /> : null}
+          <img
+            src={source.webp ?? source.png}
+            alt={caption}
+            loading="lazy"
+            className="h-36 w-full object-cover sm:h-44"
+          />
+        </picture>
         <figcaption className="border-t border-[var(--border)] px-3 py-2 text-[11px] text-muted">
           {caption}
         </figcaption>
@@ -325,7 +360,7 @@ const others = publishedProjects.filter((item) => item.id !== project.id).slice(
           <Block title={t.detail.screenshots} icon="image">
             <div className="grid gap-3 sm:grid-cols-2">
               {screenshots.map((shot) => (
-                <Screenshot key={shot.id} shot={shot} project={project} locale={locale} src={sources[shot.id]} />
+                <Screenshot key={shot.id} shot={shot} project={project} locale={locale} source={sources[shot.id]} />
               ))}
             </div>
           </Block>
