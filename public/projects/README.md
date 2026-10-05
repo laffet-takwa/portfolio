@@ -5,10 +5,10 @@ everything under `public/`, so each file is served from
 `/projects/<project-id>/<file>`.
 
 ```
-public/projects/shopsphere-ecommerce/shopsphere-01-catalog.png
-public/projects/shopsphere-ecommerce/shopsphere-02-cart.png
-public/projects/shopsphere-ecommerce/shopsphere-03-orders.png
-public/projects/shopsphere-ecommerce/shopsphere-04-kafka.png
+public/projects/shopsphere-ecommerce/shopsphere-01-catalog.jpg
+public/projects/shopsphere-ecommerce/shopsphere-02-cart.jpg
+public/projects/shopsphere-ecommerce/shopsphere-03-orders.jpg
+public/projects/shopsphere-ecommerce/shopsphere-04-kafka.jpg
 ```
 
 ## No wiring needed
@@ -17,8 +17,11 @@ public/projects/shopsphere-ecommerce/shopsphere-04-kafka.png
 *n*-th screenshot whose `id` is `<id>`, it looks for:
 
 ```
-<project-id>-<nn>-<id>.png  →  .jpg  →  .jpeg  →  .webp
+<project-id>-<nn>-<id>.jpg  →  .webp  →  .png
 ```
+
+JPG is the published asset. A `.webp` or `.png` next to it is picked up
+automatically, so a folder that predates the JPG pass still renders.
 
 The first file that exists is displayed; if none exists the card stays a
 labelled placeholder. So publishing a screenshot needs no code change — and an
@@ -48,32 +51,31 @@ also update the prefix in `useScreenshotSources`.
 | `donation-event-platform` | `donation-event-platform` |
 | `time-tracking-app` | `time-tracking-app` |
 
-## Optimising before publishing
+## Masters and the published asset
 
-Repository screenshots are captured at 2x (2880px wide, sometimes 5000px
-tall) and weigh several megabytes per project, while the portfolio only renders
-them as ~300-600px card previews. Downscale and re-encode before committing:
+A folder holds two kinds of file:
+
+| File | Role |
+| --- | --- |
+| `<name>.jpg` | the published asset the gallery serves, one spec for every shot |
+| `<name>.png` | the lossless master, kept so a JPG can always be re-derived |
+
+`scripts/normalize-screenshots.mjs` is what keeps them in step. It rewrites every
+published JPG to 1100×688, cropped from the top, and retires the WebP that used
+to be served:
 
 ```bash
 npm install --no-save sharp
-node scripts/optimize-screenshots.mjs --in=<repo>/docs/screenshots \
-                                      --out=public/projects/<folder> \
-                                      --width=1100 --quality=68
+node scripts/normalize-screenshots.mjs [--quality=78] [--dry]
 ```
 
-Tall phone captures can be capped as well, which crops the never-rendered tail:
+Where a PNG master sits behind a JPG, the JPG is re-encoded from the PNG rather
+than from the older WebP, so a later quality bump starts from the better source.
 
-```bash
-node scripts/optimize-screenshots.mjs --in=<repo>/docs/screenshots/mobile \
-                                      --out=public/projects/<folder> \
-                                      --width=560 --height=1400 --quality=70
-```
+## Suggested capture format
 
-Finova's 35 screenshots went from 8.7 MB to 457 KB that way.
-
-## Suggested format
-
-16:10 or 16:9, roughly 1280×800. JPG or WebP keeps the page fast; under
-~250 KB per image is plenty for a card-sized preview.
+16:10 or 16:9, roughly 1280×800. Capture as PNG and let the normaliser handle
+the resize and encode; under ~250 KB per published image is plenty for a
+card-sized preview.
 
 Remove the `.gitkeep` in a folder once it contains a real image.

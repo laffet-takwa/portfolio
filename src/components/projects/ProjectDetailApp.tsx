@@ -8,11 +8,23 @@ import { assetUrl } from '../../lib/assets';
 import { Button, EmptyState, Tag } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
 
-/** A resolved shot: WebP for modern browsers, PNG master as the fallback. */
+/**
+ * A resolved shot.
+ *
+ * `jpg` is the published asset every gallery serves. `webp` is only set when a
+ * capture still carries one, so those few shots keep the smaller modern format
+ * through a `<picture>`; `png` is the lossless master left on disk behind either.
+ */
 interface ScreenshotSource {
+  jpg?: string;
   webp?: string;
   png?: string;
 }
+
+/** Extensions probed for one declared shot, most preferred first. */
+const EXTENSIONS = ['jpg', 'webp', 'png'] as const;
+
+type Paths = Record<(typeof EXTENSIONS)[number], string>;
 
 /**
  * Base file names for one declared shot, in the order they are preferred.
@@ -28,16 +40,17 @@ function screenshotPathGroups(
   index: number,
   shotId: string,
   src?: string,
-): { webp: string; png: string }[] {
+): Paths[] {
   if (src) {
     const stem = src.replace(/\.[^.]+$/, '');
-    return [{ webp: `${stem}.webp`, png: `${stem}.png` }];
+    return [{ jpg: `${stem}.jpg`, webp: `${stem}.webp`, png: `${stem}.png` }];
   }
 
   const stem = String(index + 1).padStart(2, '0');
   const names = [`${folder}-${stem}-${shotId}`, `${stem}-${shotId}`, shotId];
 
   return names.map((name) => ({
+    jpg: `/projects/${folder}/${name}.jpg`,
     webp: `/projects/${folder}/${name}.webp`,
     png: `/projects/${folder}/${name}.png`,
   }));
@@ -57,9 +70,9 @@ async function servesImage(url: string): Promise<boolean> {
 /**
  * Resolves each declared screenshot to the files that actually exist.
  *
- * WebP and PNG are probed independently, so a folder holding only WebP never
- * falls back to a PNG path that was never captured, and one holding both serves
- * WebP with the PNG master behind it.
+ * Every extension is probed independently, so a folder serving only JPEG never
+ * falls back to a path that was never captured, and one still holding a WebP or
+ * a PNG master gets them alongside the JPEG.
  */
 function useScreenshotSources(project: Project): Record<string, ScreenshotSource> {
   const shots = project.screenshots ?? [];
@@ -77,15 +90,19 @@ function useScreenshotSources(project: Project): Record<string, ScreenshotSource
         // probing every convention for every shot.
         const resolveShot = async (shot: ProjectScreenshot, index: number) => {
           for (const paths of screenshotPathGroups(folder, index, shot.id, shot.src)) {
-            const webp = assetUrl(paths.webp);
-            const png = assetUrl(paths.png);
+            const found = await Promise.all(
+              EXTENSIONS.map(async (ext) => {
+                const url = assetUrl(paths[ext]);
+                return { ext, url, found: await servesImage(url) };
+              }),
+            );
 
-            const [hasWebp, hasPng] = await Promise.all([servesImage(webp), servesImage(png)]);
-            if (hasWebp || hasPng) {
-              return [
-                shot.id,
-                { webp: hasWebp ? webp : undefined, png: hasPng ? png : undefined },
-              ] as const;
+            const source = Object.fromEntries(
+              found.filter((entry) => entry.found).map((entry) => [entry.ext, entry.url]),
+            ) as ScreenshotSource;
+
+            if (found.some((entry) => entry.found)) {
+              return [shot.id, source] as const;
             }
           }
           return null;
@@ -143,10 +160,13 @@ function Screenshot({
   if (source) {
     return (
       <figure className="overflow-hidden rounded-xl border border-[var(--border)]">
+        {/* The JPEG is the normalised asset, so it leads even where a master
+            PNG sits next to it. A leftover WebP is smaller still and is offered
+            through `<picture>` only when the JPEG is there to fall back to. */}
         <picture>
-          {source.webp && source.png ? <source srcSet={source.webp} type="image/webp" /> : null}
+          {source.webp && source.jpg ? <source srcSet={source.webp} type="image/webp" /> : null}
           <img
-            src={source.webp && source.png ? source.png : (source.webp ?? source.png)}
+            src={source.jpg ?? source.webp ?? source.png}
             alt={caption}
             loading="lazy"
             className="h-36 w-full object-cover sm:h-44"

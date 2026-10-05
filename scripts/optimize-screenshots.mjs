@@ -1,14 +1,16 @@
 /**
- * Optimises project screenshots for the portfolio.
+ * Prepares project screenshots for publication.
  *
  * Repository screenshots are captured at 2x (2880px wide, sometimes 5000px
- * tall) and total several megabytes per project, while the portfolio only
- * ever renders them as ~300-600px card previews. This script downscales and
- * re-encodes them to WebP so a project page stays light.
+ * tall) and total several megabytes per project, while the portfolio only ever
+ * renders them as ~300-600px card previews. This script copies them into a
+ * project folder at a card-appropriate size and leaves the encode to
+ * `normalize-screenshots.mjs`, which is the single place that decides what the
+ * published asset looks like. PNG masters are kept alongside.
  *
  * Usage:
  *   node scripts/optimize-screenshots.mjs --in=<source dir> --out=<target dir>
- *                                          [--width=1100] [--height=] [--quality=68]
+ *                                          [--width=1100] [--height=] [--quality=78]
  *
  * Example:
  *   node scripts/optimize-screenshots.mjs \
@@ -31,7 +33,6 @@ const targetDir = args.out;
 const maxWidth = Number(args.width ?? 1100);
 /** Optional cap for very tall mobile captures (e.g. 780x9118). */
 const maxHeight = args.height ? Number(args.height) : null;
-const quality = Number(args.quality ?? 68);
 
 if (!sourceDir || !targetDir) {
   console.error('Missing --in=<source dir> or --out=<target dir>.');
@@ -52,7 +53,9 @@ let after = 0;
 
 for (const name of files) {
   const input = join(sourceDir, name);
-  const output = join(targetDir, `${parse(name).name}.webp`);
+  // Masters are kept as PNG so the published JPG can always be re-derived at a
+  // different size or quality without going back to the original repository.
+  const output = join(targetDir, `${parse(name).name}.png`);
 
   const source = await stat(input);
   before += source.size;
@@ -65,7 +68,7 @@ for (const name of files) {
           { width: maxWidth, height: maxHeight, fit: 'cover', position: 'top' }
         : { width: maxWidth, withoutEnlargement: true },
     )
-    .webp({ quality, effort: 5 })
+    .png({ compressionLevel: 9 })
     .toFile(output);
 
   const written = await stat(output);
@@ -82,6 +85,7 @@ for (const name of files) {
 }
 
 console.log(
-  `\n${files.length} images: ${(before / 1024 / 1024).toFixed(2)} MB -> ${(after / 1024 / 1024).toFixed(2)} MB ` +
+  `\n${files.length} masters: ${(before / 1024 / 1024).toFixed(2)} MB -> ${(after / 1024 / 1024).toFixed(2)} MB ` +
     `(-${Math.round((1 - after / before) * 100)}%)`,
 );
+console.log('run `node scripts/normalize-screenshots.mjs` to publish the JPGs');

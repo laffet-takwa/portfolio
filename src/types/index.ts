@@ -82,7 +82,7 @@ export interface AppDefinition {
 export interface ProjectScreenshot {
   id: string;
   caption: TText;
-  /** Optional asset path, e.g. '/projects/beta/soc-overview.png'. */
+  /** Optional asset path, e.g. '/projects/beta/soc-overview.jpg'. */
   src?: string;
 }
 
