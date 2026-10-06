@@ -2,6 +2,8 @@ import { useI18n } from '../../i18n/useI18n';
 import { resolveText, type Project } from '../../types';
 import { Tag } from '../ui/Primitives';
 import { Icon } from '../ui/Icon';
+import { assetUrl } from '../../lib/assets';
+import { useState } from 'react';
 
 interface ProjectCardProps {
   project: Project;
@@ -10,6 +12,37 @@ interface ProjectCardProps {
 }
 
 const MAX_TAGS = 5;
+
+function ThumbnailStrip({ project }: { project: Project }) {
+  const shots = project.screenshots ?? [];
+  if (shots.length === 0) return null;
+
+  const [broken, setBroken] = useState<Set<string>>(new Set());
+
+  return (
+    <div className="mt-3 flex gap-2 overflow-x-auto pb-1 scroll-thin">
+      {shots.map((shot) => {
+        const src = shot.src ? assetUrl(shot.src) : '';
+        if (!src || broken.has(shot.id)) return null;
+        return (
+          <img
+            key={shot.id}
+            src={src}
+            alt=""
+            loading="lazy"
+            draggable={false}
+            className="h-16 w-24 shrink-0 cursor-pointer rounded-lg border border-[var(--border)] object-cover transition-colors hover:border-accent/60"
+            onClick={() => {
+              const main = document.querySelector(`[data-project-card="${project.id}"]`);
+              main?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+            }}
+            onError={() => setBroken((current) => new Set(current).add(shot.id))}
+          />
+        );
+      })}
+    </div>
+  );
+}
 
 export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
   const { t, locale, fmt } = useI18n();
@@ -21,6 +54,7 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
 
   return (
     <article
+      data-project-card={project.id}
       className={[
         'card-surface group flex flex-col overflow-hidden',
         featured ? 'sm:col-span-2 sm:flex-row' : '',
@@ -116,6 +150,8 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
         >
           {description}
         </p>
+
+        <ThumbnailStrip project={project} />
 
         {visibleTags.length > 0 ? (
           <ul className="flex flex-wrap gap-1">
