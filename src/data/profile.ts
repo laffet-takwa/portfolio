@@ -21,6 +21,40 @@ export const profile: Profile = {
   github: 'https://github.com/takwa-laffet',
   portfolioUrl: 'https://laffet-takwa.github.io/portfolio/',
   calendly: 'https://calendly.com/takwa5laffet/30min',
+  booking: {
+    duration: '30 min',
+    type: 'Introduction Call',
+    description: {
+      en: 'A focused introductory conversation to discuss cybersecurity, full-stack development, DevOps/DevSecOps opportunities, or potential collaboration.',
+      fr: 'Une conversation introductive ciblée pour discuter des opportunités en cybersécurité, développement full-stack, DevOps/DevSecOps, ou d\'une collaboration potentielle.',
+    },
+    agenda: {
+      en: [
+        'Brief introduction and background',
+        'Discussion of your needs / project context',
+        'Overview of my experience in cybersecurity, full-stack and cloud',
+        'Next steps and follow-up plan',
+      ],
+      fr: [
+        'Brève introduction et parcours',
+        'Discussion de vos besoins / contexte du projet',
+        'Aperçu de mon expérience en cybersécurité, full-stack et cloud',
+        'Prochaines étapes et plan de suivi',
+      ],
+    },
+    prepare: {
+      en: [
+        'Have your project or role description ready',
+        'Think about key security or scalability concerns',
+        'Prepare any questions about my technical background',
+      ],
+      fr: [
+        'Préparez la description de votre projet ou poste',
+        'Identifiez vos principales préoccupations en sécurité ou scalabilité',
+        'Préparez vos questions sur mon parcours technique',
+      ],
+    },
+  },
   handles: { github: 'takwa-laffet', linkedin: 'takwa-laffet-883239211' },
   resumes: [
     {
@@ -70,6 +104,7 @@ export const apps = {
   },
   resume: { id: 'resume', icon: 'file-text', size: { width: 900, height: 700 }, pinned: true, mobileNav: false },
   contact: { id: 'contact', icon: 'mail', size: { width: 760, height: 660 }, pinned: true, mobileNav: true },
+  booking: { id: 'booking', icon: 'clock', size: { width: 1020, height: 680 }, pinned: false, mobileNav: false },
   terminal: { id: 'terminal', icon: 'terminal', size: { width: 820, height: 500 }, pinned: true, mobileNav: false },
   settings: { id: 'settings', icon: 'settings', size: { width: 880, height: 620 }, pinned: true, mobileNav: true },
 } as const;
@@ -136,6 +171,7 @@ export const appLabelKey: Record<WindowId, keyof Dictionary['apps']> = {
   certifications: 'certifications',
   resume: 'resume',
   contact: 'contact',
+  booking: 'booking',
   terminal: 'terminal',
   settings: 'settings',
 };

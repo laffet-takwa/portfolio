@@ -42,6 +42,7 @@ export type WindowId =
   | 'certifications'
   | 'resume'
   | 'contact'
+  | 'booking'
   | 'terminal'
   | 'settings';
 
@@ -209,6 +210,14 @@ export interface Profile {
   portfolioUrl: string;
   /** Calendly scheduling link for intro calls. */
   calendly: string;
+  /** Event details shown on the booking page. */
+  booking: {
+    duration: string;
+    type: string;
+    description: { en: string; fr: string };
+    agenda: { en: string[]; fr: string[] };
+    prepare: { en: string[]; fr: string[] };
+  };
   /** Handles shown next to the icons, without the domain. */
   handles: { github: string; linkedin: string };
   /** Published CVs, most recent language first. */

@@ -40,6 +40,7 @@ const en = {
     certifications: 'Certifications',
     resume: 'Resume',
     contact: 'Contact',
+    booking: 'Book a Meeting',
     terminal: 'Terminal',
     settings: 'Settings',
   },
@@ -212,8 +213,8 @@ const en = {
     cvLabel: 'CV',
     downloadCv: 'Download CV',
     calendarTitle: 'Ready to talk? Pick a time that works for you.',
-    calendarButton: 'Open My Calendar →',
-    calendarNote: 'Opens in a new tab · Free 30-min intro call available',
+    calendarButton: 'Open Booking Page',
+    calendarNote: 'Free 30-min intro call available',
     formTitle: 'Send a message',
     formIntro: 'The form opens your email client with the message pre-filled.',
     formIntroDirect: 'Your message is delivered straight to my inbox.',
@@ -236,6 +237,13 @@ const en = {
     linkedin: 'LinkedIn',
     github: 'GitHub',
     portfolio: 'Portfolio',
+  },
+
+  booking: {
+    title: 'Book a 30-Minute Introduction',
+    agendaTitle: 'What to expect',
+    prepareTitle: 'How to prepare',
+    whoLabel: 'Who you will meet',
   },
 
   about: {

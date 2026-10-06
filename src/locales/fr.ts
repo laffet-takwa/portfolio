@@ -43,6 +43,7 @@ const fr: Dictionary = {
     certifications: 'Certifications',
     resume: 'CV',
     contact: 'Contact',
+    booking: 'Réserver un appel',
     terminal: 'Terminal',
     settings: 'Paramètres',
   },
@@ -215,8 +216,8 @@ const fr: Dictionary = {
     cvLabel: 'CV',
     downloadCv: 'Télécharger le CV',
     calendarTitle: 'Prêt à discuter ? Choisissez un créneau qui vous convient.',
-    calendarButton: 'Ouvrir mon calendrier →',
-    calendarNote: 'S’ouvre dans un nouvel onglet · Appel d’introduction gratuit de 30 min disponible',
+    calendarButton: 'Ouvrir la page de réservation',
+    calendarNote: 'Appel d\'introduction gratuit de 30 min disponible',
     formTitle: 'Envoyer un message',
     formIntro: 'Le formulaire ouvre votre client de messagerie avec le message pré-rempli.',
     formIntroDirect: 'Votre message est livré directement dans ma boîte de réception.',
@@ -239,6 +240,13 @@ const fr: Dictionary = {
     linkedin: 'LinkedIn',
     github: 'GitHub',
     portfolio: 'Portfolio',
+  },
+
+  booking: {
+    title: 'Réserver un appel d\'introduction de 30 min',
+    agendaTitle: 'Au programme',
+    prepareTitle: 'Comment se préparer',
+    whoLabel: 'Vous serez reçu par',
   },
 
   about: {

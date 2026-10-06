@@ -6,6 +6,7 @@ import { assetUrl } from '../../lib/assets';
 import { hasContactEndpoint, isValidPhone, sendContactSubmission } from '../../lib/contact';
 import { Icon } from '../ui/Icon';
 import { Button, Tag } from '../ui/Primitives';
+import { useWindowManager } from '../../context/WindowManagerProvider';
 
 interface FormErrors {
   name?: string;
@@ -18,6 +19,7 @@ type Status = 'idle' | 'sending' | 'sent' | 'failed';
 
 export function ContactApp() {
   const { t, locale } = useI18n();
+  const { openWindow } = useWindowManager();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '', company: '' });
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<Status>('idle');
@@ -123,15 +125,13 @@ const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
           <section className="rounded-xl border border-[color-mix(in_srgb,var(--accent)_35%,transparent)] bg-accent-soft p-4">
             <h4 className="text-sm font-semibold text-ink">{t.contact.calendarTitle}</h4>
-            <a
-              href={profile.calendly}
-              target="_blank"
-              rel="noreferrer noopener"
+            <button
+              onClick={() => openWindow('booking')}
               className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-3.5 py-2 text-sm font-medium text-[var(--accent-contrast)] shadow-sm transition-colors hover:bg-[var(--accent-hover)]"
             >
               <Icon name="clock" size={15} />
               {t.contact.calendarButton}
-            </a>
+            </button>
             <p className="mt-2 text-[11px] leading-relaxed text-muted">{t.contact.calendarNote}</p>
           </section>
 

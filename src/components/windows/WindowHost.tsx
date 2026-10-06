@@ -11,6 +11,7 @@ import { EducationApp } from '../education/EducationApp';
 import { CertificationsApp } from '../certifications/CertificationsApp';
 import { ResumeApp } from '../resume/ResumeApp';
 import { ContactApp } from '../contact/ContactApp';
+import { BookingApp } from '../booking/BookingApp';
 import { TerminalApp } from '../terminal/TerminalApp';
 import { SettingsApp } from '../settings/SettingsApp';
 import type { ManagedWindow } from '../../types';
@@ -35,6 +36,8 @@ function WindowBody({ win }: { win: ManagedWindow }) {
       return <ResumeApp />;
     case 'contact':
       return <ContactApp />;
+    case 'booking':
+      return <BookingApp />;
     case 'terminal':
       return <TerminalApp />;
     case 'settings':
