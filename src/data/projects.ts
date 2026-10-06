@@ -705,6 +705,7 @@ export const projects: Project[] = [
     },
     category: ['Frontend', 'Full-Stack'],
     icon: 'star',
+    image: '/projects/diva-store/01-home.jpg',
     description: {
       en: 'Front-end storefront for a fictional perfume house: catalogue of 26 fragrances, product pages, wishlist, cart, three-step checkout and a scent finder. There is no backend — payments, authentication and orders are simulated in the browser.',
       fr: 'Boutique front end pour une maison de parfum fictive : catalogue de 26 parfums, fiches produit, liste d’envies, panier, paiement en trois étapes et scent finder. Il n’y a pas de back end — les paiements, l’authentification et les commandes sont simulés dans le navigateur.',
