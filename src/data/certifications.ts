@@ -82,8 +82,6 @@ export const certifications: CertificationEntry[] = [
   },
   {
     id: 'tryhackme-completion',
-    // TODO: the certificate PDF is a raster image, so the room it covers cannot
-    // be read from it. Replace the title with the room name once confirmed.
     name: 'TryHackMe — Certificate of Completion',
     issuer: 'TryHackMe',
     group: 'other',

@@ -268,7 +268,6 @@ const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                placeholder="+216 20 000 000"
                 value={form.phone}
                 onChange={update('phone')}
                 aria-invalid={Boolean(errors.phone)}

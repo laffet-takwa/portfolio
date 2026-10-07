@@ -1807,27 +1807,6 @@ export const projects: Project[] = [
     year: '2022',
     role: { en: 'Full-Stack Developer Intern', fr: 'Stagiaire développement Full-Stack' },
   },
-
-  /* ---------------------------------------------------------------
-     TEMPLATE — copy this block for a new project.
-     Drafts stay hidden (`published: false`) and never reach the UI.
-     Set `published: true` once the content is real.
-     Leave `github` and `demo` empty until a public link exists.
-     --------------------------------------------------------------- */
-  {
-    id: 'project-template',
-    title: 'Project title',
-    category: ['Full-Stack'],
-    description: 'One or two sentences describing what the project does.',
-    longDescription: 'A longer summary: the context, the constraints and what was actually built.',
-    highlight: 'The single most useful takeaway of this project.',
-    technologies: [],
-    github: '',
-    demo: '',
-    icon: 'folder',
-    featured: false,
-    published: false,
-  },
 ];
 
 /* ---------------- Derived collections ---------------- */
