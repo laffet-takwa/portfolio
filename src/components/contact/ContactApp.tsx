@@ -47,6 +47,13 @@ const opportunities: Array<{ icon: IconName; label: string }> = [
       external: false,
     },
     {
+      icon: 'whatsapp',
+      label: t.contact.whatsapp,
+      value: profile.whatsapp,
+      href: `https://wa.me/${profile.whatsapp.replace(/\D/g, '')}`,
+      external: true,
+    },
+    {
       icon: 'briefcase',
       label: t.contact.linkedin,
       value: `linkedin.com/in/${profile.handles.linkedin}`,
