@@ -42,6 +42,13 @@ export function DesktopHome() {
       icon: 'mail',
       external: false,
     },
+    {
+      label: t.desktop.whatsappLabel,
+      value: profile.whatsapp,
+      href: `https://wa.me/21693250946`,
+      icon: 'whatsapp',
+      external: true,
+    },
   ];
 
   return (

@@ -207,6 +207,7 @@ export interface Profile {
   email: string;
   linkedin: string;
   github: string;
+  whatsapp: string;
   portfolioUrl: string;
   /** Calendly scheduling link for intro calls. */
   calendly: string;

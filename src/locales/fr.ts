@@ -64,6 +64,7 @@ const fr: Dictionary = {
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
     emailLabel: 'E-mail',
+    whatsappLabel: 'WhatsApp',
     portfolioLabel: 'Portfolio',
     keyboardHint: 'CTRL + K pour rechercher, ÉCHAP pour fermer la fenêtre active',
     reduceMotionHint: 'Animations réduites activées',
@@ -239,6 +240,7 @@ const fr: Dictionary = {
     availability: 'Disponible immédiatement',
     linkedin: 'LinkedIn',
     github: 'GitHub',
+    whatsapp: 'WhatsApp',
     portfolio: 'Portfolio',
   },
 

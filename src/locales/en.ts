@@ -61,6 +61,7 @@ const en = {
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
     emailLabel: 'Email',
+    whatsappLabel: 'WhatsApp',
     portfolioLabel: 'Portfolio',
     keyboardHint: 'Press CTRL + K to search, ESC to close the active window',
     reduceMotionHint: 'Reduced motion is enabled',
@@ -236,6 +237,7 @@ const en = {
     availability: 'Available immediately',
     linkedin: 'LinkedIn',
     github: 'GitHub',
+    whatsapp: 'WhatsApp',
     portfolio: 'Portfolio',
   },
 

@@ -59,7 +59,8 @@ export type IconName =
   | 'download'
   | 'printer'
   | 'clock'
-  | 'sparkle';
+  | 'sparkle'
+  | 'whatsapp';
 
 export const ICON_NAMES: IconName[] = [
   'folder', 'file-text', 'terminal', 'settings', 'user', 'shield', 'shield-check',
@@ -69,5 +70,5 @@ export const ICON_NAMES: IconName[] = [
   'info', 'school', 'star', 'external-link', 'help', 'lightbulb', 'layers', 'wrench',
   'image', 'chevron-down', 'arrow-right', 'arrow-left', 'cpu', 'landmark',
   'shopping-cart', 'radar', 'receipt', 'archive', 'link', 'git-branch', 'send',
-  'download', 'printer', 'clock', 'sparkle',
+  'download', 'printer', 'clock', 'sparkle', 'whatsapp',
 ];

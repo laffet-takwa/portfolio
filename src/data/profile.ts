@@ -19,6 +19,7 @@ export const profile: Profile = {
   email: 'takwa.laffet@esprit.tn',
   linkedin: 'https://www.linkedin.com/in/takwa-laffet-883239211/',
   github: 'https://github.com/takwa-laffet',
+  whatsapp: '+21693250946',
   portfolioUrl: 'https://laffet-takwa.github.io/portfolio/',
   calendly: 'https://calendly.com/takwa5laffet/30min',
   booking: {
