@@ -1869,6 +1869,74 @@ export const projects: Project[] = [
     published: true,
     year: '2025',
     role: { en: 'Front-End Developer', fr: 'Développeur Front-End' },
+    screenshotFolder: 'brodashop',
+    screenshots: [
+      {
+        id: 'home',
+        caption: { en: 'Home page — hero, featured products and navigation', fr: 'Page d\'accueil — héros, produits en vedette et navigation' },
+        src: '/projects/brodashop/home.jpg',
+      },
+      {
+        id: 'shop',
+        caption: { en: 'Shop page — product grid with filters', fr: 'Page boutique — grille de produits avec filtres' },
+        src: '/projects/brodashop/shop.jpg',
+      },
+      {
+        id: 'product-detail',
+        caption: { en: 'Product detail — gallery, description and add to cart', fr: 'Détail produit — galerie, description et ajout au panier' },
+        src: '/projects/brodashop/product-detail.jpg',
+      },
+      {
+        id: 'lookbook',
+        caption: { en: 'Lookbook — curated collections', fr: 'Lookbook — collections sélectionnées' },
+        src: '/projects/brodashop/lookbook.jpg',
+      },
+      {
+        id: 'journal',
+        caption: { en: 'Journal — blog and style guides', fr: 'Journal — blog et guides de style' },
+        src: '/projects/brodashop/journal.jpg',
+      },
+      {
+        id: 'journal-post',
+        caption: { en: 'Journal post — article detail', fr: 'Article du journal — détail' },
+        src: '/projects/brodashop/journal-post.jpg',
+      },
+      {
+        id: 'story',
+        caption: { en: 'Our story — brand narrative', fr: 'Notre histoire — récit de la marque' },
+        src: '/projects/brodashop/story.jpg',
+      },
+      {
+        id: 'account',
+        caption: { en: 'Account — order history and profile', fr: 'Compte — historique des commandes et profil' },
+        src: '/projects/brodashop/account.jpg',
+      },
+      {
+        id: 'wishlist',
+        caption: { en: 'Wishlist — saved items', fr: 'Liste d\'envies — articles enregistrés' },
+        src: '/projects/brodashop/wishlist.jpg',
+      },
+      {
+        id: 'checkout',
+        caption: { en: 'Checkout — shipping, payment and review', fr: 'Paiement — livraison, paiement et récapitulatif' },
+        src: '/projects/brodashop/checkout.jpg',
+      },
+      {
+        id: 'contact',
+        caption: { en: 'Contact page', fr: 'Page de contact' },
+        src: '/projects/brodashop/contact.jpg',
+      },
+      {
+        id: 'size-guide',
+        caption: { en: 'Size guide — measurements and fit', fr: 'Guide des tailles — mesures et coupe' },
+        src: '/projects/brodashop/size-guide.jpg',
+      },
+      {
+        id: '404',
+        caption: { en: '404 — not found page', fr: '404 — page introuvable' },
+        src: '/projects/brodashop/404.jpg',
+      },
+    ],
   },
 
   /* ---------------------------------------------------------- 14 */
