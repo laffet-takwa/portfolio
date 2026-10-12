@@ -1807,6 +1807,276 @@ export const projects: Project[] = [
     year: '2022',
     role: { en: 'Full-Stack Developer Intern', fr: 'Stagiaire développement Full-Stack' },
   },
+
+  /* ---------------------------------------------------------- 13 */
+  {
+    id: 'brodashop',
+    title: 'Brodashop',
+    subtitle: {
+      en: 'Fashion e-commerce demo — React 19, TypeScript, Tailwind CSS 4 & Framer Motion',
+      fr: 'Démo e-commerce mode — React 19, TypeScript, Tailwind CSS 4 & Framer Motion',
+    },
+    category: ['Frontend', 'Full-Stack'],
+    icon: 'shopping-cart',
+    description: {
+      en: 'Fashion e-commerce demo built with React 19, TypeScript, Tailwind CSS 4 and Framer Motion: product catalogue, cart, checkout flow and animated UI.',
+      fr: 'Démo e-commerce mode construite avec React 19, TypeScript, Tailwind CSS 4 et Framer Motion : catalogue produits, panier, parcours de paiement et UI animée.',
+    },
+    highlight: {
+      en: 'Modern fashion storefront with React 19, TypeScript, Tailwind 4 and Framer Motion.',
+      fr: 'Boutique mode moderne avec React 19, TypeScript, Tailwind 4 et Framer Motion.',
+    },
+    longDescription: {
+      en: 'Brodashop is a fashion e-commerce demonstration showcasing a modern front-end stack. The application features a product catalogue with filtering, a shopping cart, a multi-step checkout flow and fluid animations powered by Framer Motion. Built with React 19, TypeScript, Vite and Tailwind CSS 4, it demonstrates responsive design patterns and component-driven architecture.',
+      fr: 'Brodashop est une démonstration e-commerce mode mettant en valeur une pile front-end moderne. L\'application propose un catalogue produits avec filtrage, un panier d\'achat, un parcours de paiement en plusieurs étapes et des animations fluides grâce à Framer Motion. Construite avec React 19, TypeScript, Vite et Tailwind CSS 4, elle illustre des patrons de conception responsive et une architecture pilotée par les composants.',
+    },
+    problem: {
+      en: 'Building a performant, animated e-commerce front end requires careful state management, responsive layouts and smooth transitions.',
+      fr: 'Construire un front end e-commerce performant et animé demande une gestion d\'état soignée, des mises en page responsives et des transitions fluides.',
+    },
+    solution: {
+      en: 'Leverage React 19 with TypeScript for type safety, Tailwind CSS 4 for utility-first styling, and Framer Motion for declarative animations — all orchestrated by Vite for fast development and optimized builds.',
+      fr: 'Tirer parti de React 19 avec TypeScript pour la sûreté de type, Tailwind CSS 4 pour le style utility-first, et Framer Motion pour les animations déclaratives — le tout orchestré par Vite pour un développement rapide et des builds optimisés.',
+    },
+    architecture: {
+      en: 'React 19 + TypeScript SPA (Vite) → Tailwind CSS 4 utility classes → Framer Motion for page transitions, cart drawer and product animations → component-driven structure with shared UI primitives.',
+      fr: 'SPA React 19 + TypeScript (Vite) → classes utilitaires Tailwind CSS 4 → Framer Motion pour les transitions de page, le tiroir panier et les animations produit → structure pilotée par les composants avec primitives UI partagées.',
+    },
+    architectureFlow: [
+      'React 19 + TypeScript — Vite',
+      'Tailwind CSS 4',
+      'Framer Motion',
+      'Component-driven architecture',
+    ],
+    features: [
+      { en: 'Product catalogue with category filtering', fr: 'Catalogue produits avec filtrage par catégorie' },
+      { en: 'Shopping cart with quantity management', fr: 'Panier d\'achat avec gestion des quantités' },
+      { en: 'Multi-step checkout flow', fr: 'Parcours de paiement en plusieurs étapes' },
+      { en: 'Framer Motion page transitions and micro-interactions', fr: 'Transitions de page et micro-interactions Framer Motion' },
+      { en: 'Responsive design for mobile, tablet and desktop', fr: 'Conception responsive pour mobile, tablette et bureau' },
+      { en: 'Type-safe components with TypeScript', fr: 'Composants type-safe avec TypeScript' },
+    ],
+    technologies: [
+      'React 19',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS 4',
+      'Framer Motion',
+    ],
+    github: 'https://github.com/laffet-takwa/brodashop',
+    demo: '',
+    featured: false,
+    published: true,
+    year: '2025',
+    role: { en: 'Front-End Developer', fr: 'Développeur Front-End' },
+  },
+
+  /* ---------------------------------------------------------- 14 */
+  {
+    id: 'mailscale',
+    title: 'MailScale',
+    subtitle: {
+      en: 'Scalable email communication platform — Java, Spring Boot, Kotlin, React, PostgreSQL, Kafka, Redis',
+      fr: 'Plateforme de communication email scalable — Java, Spring Boot, Kotlin, React, PostgreSQL, Kafka, Redis',
+    },
+    category: ['Full-Stack', 'Backend', 'Microservices', 'Distributed Systems'],
+    icon: 'mail',
+    description: {
+      en: 'Scalable email communication platform with asynchronous email processing, concurrent workers, REST APIs, campaign management and real-time analytics. Built with Java, Spring Boot, Kotlin, React, PostgreSQL, Kafka and Redis.',
+      fr: 'Plateforme de communication email scalable avec traitement asynchrone des emails, workers concurrents, API REST, gestion de campagnes et analytique temps réel. Construite avec Java, Spring Boot, Kotlin, React, PostgreSQL, Kafka et Redis.',
+    },
+    highlight: {
+      en: 'High-throughput email platform with async processing, Kafka event backbone and React dashboard.',
+      fr: 'Plateforme email à haut débit avec traitement asynchrone, backbone événementiel Kafka et tableau de bord React.',
+    },
+    longDescription: {
+      en: 'MailScale handles millions of emails through an event-driven architecture. Spring Boot services orchestrate email ingestion, validation, templating and delivery via Kafka topics. Concurrent workers process sends with retry logic and exponential backoff. The React dashboard provides campaign management, real-time delivery metrics, bounce/complaint tracking and template editing. PostgreSQL stores campaigns, contacts and events; Redis caches hot data and powers rate limiting.',
+      fr: 'MailScale gère des millions d\'emails via une architecture pilotée par les événements. Les services Spring Boot orchestrent l\'ingestion, la validation, le templating et la livraison d\'emails via des topics Kafka. Des workers concurrents traitent les envois avec logique de retry et backoff exponentiel. Le tableau de bord React offre la gestion de campagnes, des métriques de livraison temps réel, le suivi des bounces/plaintes et l\'édition de templates. PostgreSQL stocke campagnes, contacts et événements ; Redis met en cache les données chaudes et alimente le rate limiting.',
+    },
+    problem: {
+      en: 'Sending email at scale requires reliability, observability and horizontal scalability — synchronous sending blocks threads, retries are inconsistent, and delivery visibility is poor.',
+      fr: 'Envoyer des emails à grande échelle exige fiabilité, observabilité et scalabilité horizontale — l\'envoi synchrone bloque les threads, les retries sont inconsistants, et la visibilité de livraison est faible.',
+    },
+    solution: {
+      en: 'Decouple ingestion from delivery with Kafka: API accepts emails instantly, workers consume asynchronously with idempotent sends, dead-letter handling and per-campaign analytics. A React dashboard surfaces real-time metrics.',
+      fr: 'Découpler l\'ingestion de la livraison avec Kafka : l\'API accepte les emails instantanément, les workers consomment de façon asynchrone avec envois idempotents, gestion des dead-letters et analytique par campagne. Un dashboard React affiche les métriques temps réel.',
+    },
+    architecture: {
+      en: 'React dashboard → Spring Cloud Gateway → Spring Boot/Kotlin services (ingestion, validation, templating, delivery, analytics) → Kafka topics for async processing → PostgreSQL for persistence, Redis for caching/rate-limiting.',
+      fr: 'Dashboard React → Spring Cloud Gateway → services Spring Boot/Kotlin (ingestion, validation, templating, livraison, analytique) → topics Kafka pour le traitement asynchrone → PostgreSQL pour la persistance, Redis pour le cache/rate-limiting.',
+    },
+    architectureFlow: [
+      'React + TypeScript dashboard',
+      'Spring Cloud Gateway',
+      'Spring Boot / Kotlin microservices',
+      'Kafka event backbone',
+      'PostgreSQL + Redis',
+    ],
+    features: [
+      { en: 'Asynchronous email ingestion and delivery via Kafka', fr: 'Ingestion et livraison email asynchrones via Kafka' },
+      { en: 'Concurrent workers with retry logic and exponential backoff', fr: 'Workers concurrents avec logique de retry et backoff exponentiel' },
+      { en: 'Campaign management with scheduling and segmentation', fr: 'Gestion de campagnes avec planification et segmentation' },
+      { en: 'Real-time delivery metrics: sent, delivered, bounced, complained', fr: 'Métriques de livraison temps réel : envoyés, délivrés, rebondis, plaints' },
+      { en: 'Template engine with variable substitution and preview', fr: 'Moteur de template avec substitution de variables et aperçu' },
+      { en: 'Rate limiting and IP reputation protection', fr: 'Rate limiting et protection de réputation IP' },
+      { en: 'Dead-letter queue for failed deliveries', fr: 'File d\'attente dead-letter pour les livraisons échouées' },
+    ],
+    technologies: [
+      'Java',
+      'Spring Boot',
+      'Kotlin',
+      'React',
+      'TypeScript',
+      'PostgreSQL',
+      'Kafka',
+      'Redis',
+      'Spring Cloud',
+    ],
+    github: 'https://github.com/laffet-takwa/mailscale',
+    demo: '',
+    featured: true,
+    published: true,
+    year: '2025',
+    role: { en: 'Full-Stack / Backend Engineer', fr: 'Ingénieur Full-Stack / Back-End' },
+  },
+
+  /* ---------------------------------------------------------- 15 */
+  {
+    id: 'defiguard',
+    title: 'DeFiGuard',
+    subtitle: {
+      en: 'Single-collateral DeFi lending protocol — Solidity/Foundry & React+Vite dashboard',
+      fr: 'Protocole de prêt DeFi à collatéral unique — Solidity/Foundry & dashboard React+Vite',
+    },
+    category: ['Frontend', 'Blockchain'],
+    icon: 'shield',
+    description: {
+      en: 'A simplified single-collateral DeFi lending protocol with Solidity/Foundry smart contracts and a React+Vite dashboard. Educational use only — deposit collateral, borrow, repay and liquidate.',
+      fr: 'Un protocole de prêt DeFi simplifié à collatéral unique avec contrats intelligents Solidity/Foundry et un dashboard React+Vite. Usage éducatif uniquement — déposer du collatéral, emprunter, rembourser et liquider.',
+    },
+    highlight: {
+      en: 'DeFi lending protocol with Solidity contracts, Foundry testing and a React dashboard.',
+      fr: 'Protocole de prêt DeFi avec contrats Solidity, tests Foundry et dashboard React.',
+    },
+    longDescription: {
+      en: 'DeFiGuard implements a minimal lending protocol for learning purposes. The smart contracts — written in Solidity and tested with Foundry — handle collateral deposits, borrowing against the collateral, interest accrual, repayment and liquidation when the collateral ratio falls below the threshold. The React+Vite front end connects via ethers.js to display positions, health factors and allows users to interact with the protocol. Everything runs on a local Anvil chain or testnet.',
+      fr: 'DeFiGuard implémente un protocole de prêt minimal à des fins d\'apprentissage. Les contrats intelligents — écrits en Solidity et testés avec Foundry — gèrent les dépôts de collatéral, l\'emprunt contre collatéral, l\'accumulation d\'intérêts, le remboursement et la liquidation quand le ratio de collatéral tombe sous le seuil. Le front end React+Vite se connecte via ethers.js pour afficher les positions, les facteurs de santé et permettre l\'interaction avec le protocole. Tout tourne sur une chaîne Anvil locale ou un testnet.',
+    },
+    problem: {
+      en: 'Understanding DeFi lending mechanics requires a working implementation — reading whitepapers alone leaves gaps in how liquidation, interest accrual and collateral ratios behave in practice.',
+      fr: 'Comprendre la mécanique des prêts DeFi demande une implémentation fonctionnelle — lire des whitepapers laisse des trous sur le comportement réel de la liquidation, de l\'accumulation d\'intérêts et des ratios de collatéral.',
+    },
+    solution: {
+      en: 'Build a minimal but complete lending protocol: Solidity contracts for the core logic, Foundry for fast testing and fuzzing, and a React dashboard to visualize and interact with positions in real time.',
+      fr: 'Construire un protocole de prêt minimal mais complet : contrats Solidity pour la logique core, Foundry pour les tests rapides et le fuzzing, et un dashboard React pour visualiser et interagir avec les positions en temps réel.',
+    },
+    architecture: {
+      en: 'Solidity contracts (Foundry) → Anvil/local testnet → ethers.js → React + Vite + TypeScript dashboard → Tailwind CSS for styling.',
+      fr: 'Contrats Solidity (Foundry) → Anvil/testnet local → ethers.js → Dashboard React + Vite + TypeScript → Tailwind CSS pour le style.',
+    },
+    architectureFlow: [
+      'Solidity smart contracts',
+      'Foundry testing & fuzzing',
+      'Anvil local chain',
+      'ethers.js provider',
+      'React + Vite + TypeScript dashboard',
+      'Tailwind CSS',
+    ],
+    features: [
+      { en: 'Collateral deposit and withdrawal', fr: 'Dépôt et retrait de collatéral' },
+      { en: 'Borrow against collateral with dynamic interest', fr: 'Emprunt contre collatéral avec intérêt dynamique' },
+      { en: 'Repayment and position management', fr: 'Remboursement et gestion de position' },
+      { en: 'Liquidation when collateral ratio breaches threshold', fr: 'Liquidation quand le ratio de collatéral franchit le seuil' },
+      { en: 'Health factor calculation and real-time display', fr: 'Calcul du health factor et affichage temps réel' },
+      { en: 'Foundry test suite with fuzzing', fr: 'Suite de tests Foundry avec fuzzing' },
+      { en: 'React dashboard with wallet connection', fr: 'Dashboard React avec connexion wallet' },
+    ],
+    technologies: [
+      'Solidity',
+      'Foundry',
+      'React',
+      'TypeScript',
+      'Vite',
+      'ethers.js',
+      'Tailwind CSS',
+      'Anvil',
+    ],
+    github: 'https://github.com/laffet-takwa/DeFiGuard',
+    demo: '',
+    featured: false,
+    published: true,
+    year: '2025',
+    role: { en: 'Blockchain / Front-End Developer', fr: 'Développeur Blockchain / Front-End' },
+  },
+
+  /* ---------------------------------------------------------- 16 */
+  {
+    id: 'startstore',
+    title: 'StartStore',
+    subtitle: {
+      en: 'Full-stack e-commerce MVP — Django REST, Supabase, React 19, TypeScript, Vite',
+      fr: 'MVP e-commerce full-stack — Django REST, Supabase, React 19, TypeScript, Vite',
+    },
+    category: ['Full-Stack', 'Frontend', 'Backend'],
+    icon: 'shopping-cart',
+    description: {
+      en: 'Full-stack e-commerce MVP: Django REST + Supabase Auth/Postgres API with a React 19 + TypeScript + Vite storefront and admin console. Cart, wishlist, checkout, JWT rotation, staff dashboard.',
+      fr: 'MVP e-commerce full-stack : Django REST + API Supabase Auth/Postgres avec une boutique React 19 + TypeScript + Vite et une console admin. Panier, wishlist, paiement, rotation JWT, dashboard staff.',
+    },
+    highlight: {
+      en: 'Django REST + Supabase backend with React 19 storefront — cart, wishlist, checkout, JWT auth and admin dashboard.',
+      fr: 'Backend Django REST + Supabase avec boutique React 19 — panier, wishlist, paiement, auth JWT et dashboard admin.',
+    },
+    longDescription: {
+      en: 'StartStore is a complete e-commerce MVP demonstrating a modern full-stack architecture. The backend exposes a Django REST Framework API with Supabase handling authentication (JWT with rotation) and PostgreSQL. The React 19 + TypeScript + Vite storefront provides catalogue browsing, cart, wishlist, multi-step checkout and order history. A separate admin console gives staff product management, order processing and analytics. Cart and wishlist persist in Supabase for cross-device sync.',
+      fr: 'StartStore est un MVP e-commerce complet démontrant une architecture full-stack moderne. Le backend expose une API Django REST Framework avec Supabase pour l\'authentification (JWT avec rotation) et PostgreSQL. La boutique React 19 + TypeScript + Vite offre la navigation catalogue, panier, wishlist, paiement multi-étapes et historique des commandes. Une console admin séparée donne au staff la gestion produits, le traitement des commandes et l\'analytique. Panier et wishlist persistent dans Supabase pour la synchronisation cross-device.',
+    },
+    problem: {
+      en: 'Building a production-ready e-commerce stack requires auth, payments, inventory, orders and an admin interface — all working together without custom glue code for each integration.',
+      fr: 'Construire une stack e-commerce production-ready exige auth, paiements, stock, commandes et une interface admin — le tout fonctionnant ensemble sans code de liaison custom pour chaque intégration.',
+    },
+    solution: {
+      en: 'Use Django REST for business logic and Supabase for auth/Postgres, keeping the API clean. The React storefront consumes the API directly, with Supabase client handling auth state and real-time updates for cart/wishlist sync.',
+      fr: 'Utiliser Django REST pour la logique métier et Supabase pour l\'auth/Postgres, gardant l\'API propre. La boutique React consomme l\'API directement, le client Supabase gérant l\'état auth et les mises à jour temps réel pour la sync panier/wishlist.',
+    },
+    architecture: {
+      en: 'React 19 + TypeScript + Vite storefront & admin console → Django REST Framework API (Supabase Auth + PostgreSQL) → JWT with access/refresh rotation → Supabase Realtime for cart/wishlist sync.',
+      fr: 'Boutique & console admin React 19 + TypeScript + Vite → API Django REST Framework (Supabase Auth + PostgreSQL) → JWT avec rotation access/refresh → Supabase Realtime pour la sync panier/wishlist.',
+    },
+    architectureFlow: [
+      'React 19 + TypeScript — Vite',
+      'Django REST Framework',
+      'Supabase Auth + PostgreSQL',
+      'JWT rotation (access/refresh)',
+      'Supabase Realtime',
+    ],
+    features: [
+      { en: 'Product catalogue with search, filters and pagination', fr: 'Catalogue produits avec recherche, filtres et pagination' },
+      { en: 'Shopping cart and wishlist synced via Supabase Realtime', fr: 'Panier et wishlist synchronisés via Supabase Realtime' },
+      { en: 'Multi-step checkout with order summary', fr: 'Paiement multi-étapes avec récapitulatif de commande' },
+      { en: 'JWT authentication with access/refresh token rotation', fr: 'Authentification JWT avec rotation access/refresh token' },
+      { en: 'Staff admin console: products, orders, analytics', fr: 'Console admin staff : produits, commandes, analytique' },
+      { en: 'Order history and status tracking for customers', fr: 'Historique des commandes et suivi de statut pour les clients' },
+      { en: 'Responsive storefront for all device sizes', fr: 'Boutique responsive pour toutes les tailles d\'écran' },
+    ],
+    technologies: [
+      'React 19',
+      'TypeScript',
+      'Vite',
+      'Django',
+      'Django REST Framework',
+      'Supabase',
+      'PostgreSQL',
+      'JWT',
+      'Tailwind CSS',
+    ],
+    github: 'https://github.com/laffet-takwa/StartStore',
+    demo: '',
+    featured: true,
+    published: true,
+    year: '2025',
+    role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+  },
 ];
 
 /* ---------------- Derived collections ---------------- */
