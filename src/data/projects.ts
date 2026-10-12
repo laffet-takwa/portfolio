@@ -1864,7 +1864,7 @@ export const projects: Project[] = [
       'Framer Motion',
     ],
     github: 'https://github.com/laffet-takwa/brodashop',
-    demo: '',
+    demo: 'https://brodashop.vercel.app/',
     featured: false,
     published: true,
     year: '2025',
