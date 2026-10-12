@@ -52,11 +52,19 @@ export function ProjectCard({ project, onOpen, featured }: ProjectCardProps) {
   const overflow = project.technologies.length - visibleTags.length;
   const hasLinks = Boolean(project.github || project.demo);
 
+  const handleCardClick = (event: React.MouseEvent) => {
+    // Don't trigger if clicking on links or buttons
+    const target = event.target as HTMLElement;
+    if (target.closest('a, button')) return;
+    onOpen(project.id);
+  };
+
   return (
     <article
       data-project-card={project.id}
+      onClick={handleCardClick}
       className={[
-        'card-surface group flex flex-col overflow-hidden',
+        'card-surface group flex flex-col overflow-hidden cursor-pointer',
         featured ? 'sm:col-span-2 sm:flex-row' : '',
       ].join(' ')}
     >
