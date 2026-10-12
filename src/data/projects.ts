@@ -1869,72 +1869,72 @@ export const projects: Project[] = [
     published: true,
     year: '2025',
     role: { en: 'Front-End Developer', fr: 'Développeur Front-End' },
-    screenshotFolder: 'brodashop',
+    screenshotFolder: 'BrodaShop',
     screenshots: [
       {
         id: 'home',
         caption: { en: 'Home page — hero, featured products and navigation', fr: 'Page d\'accueil — héros, produits en vedette et navigation' },
-        src: '/projects/brodashop/home.jpg',
+        src: '/projects/BrodaShop/home.jpg',
       },
       {
         id: 'shop',
         caption: { en: 'Shop page — product grid with filters', fr: 'Page boutique — grille de produits avec filtres' },
-        src: '/projects/brodashop/shop.jpg',
+        src: '/projects/BrodaShop/shop.jpg',
       },
       {
         id: 'product-detail',
         caption: { en: 'Product detail — gallery, description and add to cart', fr: 'Détail produit — galerie, description et ajout au panier' },
-        src: '/projects/brodashop/product-detail.jpg',
+        src: '/projects/BrodaShop/product-detail.jpg',
       },
       {
         id: 'lookbook',
         caption: { en: 'Lookbook — curated collections', fr: 'Lookbook — collections sélectionnées' },
-        src: '/projects/brodashop/lookbook.jpg',
+        src: '/projects/BrodaShop/lookbook.jpg',
       },
       {
         id: 'journal',
         caption: { en: 'Journal — blog and style guides', fr: 'Journal — blog et guides de style' },
-        src: '/projects/brodashop/journal.jpg',
+        src: '/projects/BrodaShop/journal.jpg',
       },
       {
         id: 'journal-post',
         caption: { en: 'Journal post — article detail', fr: 'Article du journal — détail' },
-        src: '/projects/brodashop/journal-post.jpg',
+        src: '/projects/BrodaShop/journal-post.jpg',
       },
       {
         id: 'story',
         caption: { en: 'Our story — brand narrative', fr: 'Notre histoire — récit de la marque' },
-        src: '/projects/brodashop/story.jpg',
+        src: '/projects/BrodaShop/story.jpg',
       },
       {
         id: 'account',
         caption: { en: 'Account — order history and profile', fr: 'Compte — historique des commandes et profil' },
-        src: '/projects/brodashop/account.jpg',
+        src: '/projects/BrodaShop/account.jpg',
       },
       {
         id: 'wishlist',
         caption: { en: 'Wishlist — saved items', fr: 'Liste d\'envies — articles enregistrés' },
-        src: '/projects/brodashop/wishlist.jpg',
+        src: '/projects/BrodaShop/wishlist.jpg',
       },
       {
         id: 'checkout',
         caption: { en: 'Checkout — shipping, payment and review', fr: 'Paiement — livraison, paiement et récapitulatif' },
-        src: '/projects/brodashop/checkout.jpg',
+        src: '/projects/BrodaShop/checkout.jpg',
       },
       {
         id: 'contact',
         caption: { en: 'Contact page', fr: 'Page de contact' },
-        src: '/projects/brodashop/contact.jpg',
+        src: '/projects/BrodaShop/contact.jpg',
       },
       {
         id: 'size-guide',
         caption: { en: 'Size guide — measurements and fit', fr: 'Guide des tailles — mesures et coupe' },
-        src: '/projects/brodashop/size-guide.jpg',
+        src: '/projects/BrodaShop/size-guide.jpg',
       },
       {
         id: '404',
         caption: { en: '404 — not found page', fr: '404 — page introuvable' },
-        src: '/projects/brodashop/404.jpg',
+        src: '/projects/BrodaShop/404.jpg',
       },
     ],
   },
@@ -2075,6 +2075,44 @@ export const projects: Project[] = [
     published: true,
     year: '2025',
     role: { en: 'Blockchain / Front-End Developer', fr: 'Développeur Blockchain / Front-End' },
+    screenshotFolder: 'DeFiGuard',
+    screenshots: [
+      {
+        id: '01-initial-no-wallet',
+        caption: { en: 'Initial state — no wallet connected', fr: 'État initial — aucun portefeuille connecté' },
+        src: '/projects/DeFiGuard/01-initial-no-wallet.jpg',
+      },
+      {
+        id: '02-wallet-connected-pool',
+        caption: { en: 'Wallet connected — select liquidity pool', fr: 'Portefeuille connecté — sélection du pool de liquidités' },
+        src: '/projects/DeFiGuard/02-wallet-connected-pool.jpg',
+      },
+      {
+        id: '03-action-withdraw',
+        caption: { en: 'Withdraw action — remove liquidity', fr: 'Action de retrait — retirer la liquidité' },
+        src: '/projects/DeFiGuard/03-action-withdraw.jpg',
+      },
+      {
+        id: '04-action-borrow',
+        caption: { en: 'Borrow action — take a loan', fr: 'Action d\'emprunt — prendre un prêt' },
+        src: '/projects/DeFiGuard/04-action-borrow.jpg',
+      },
+      {
+        id: '05-action-repay',
+        caption: { en: 'Repay action — return borrowed funds', fr: 'Action de remboursement — retourner les fonds empruntés' },
+        src: '/projects/DeFiGuard/05-action-repay.jpg',
+      },
+      {
+        id: '06-action-deposit',
+        caption: { en: 'Deposit action — add collateral', fr: 'Action de dépôt — ajouter du collatéral' },
+        src: '/projects/DeFiGuard/06-action-deposit.jpg',
+      },
+      {
+        id: '07-test-faucet-events',
+        caption: { en: 'Test faucet events — simulate transactions', fr: 'Événements du robinet de test — simuler des transactions' },
+        src: '/projects/DeFiGuard/07-test-faucet-events.jpg',
+      },
+    ]
   },
 
   /* ---------------------------------------------------------- 16 */
