@@ -43,8 +43,8 @@ const LINKS = {
   },
   portfolio: {
     label: 'Portfolio',
-    display: 'laffet-takwa.github.io/portfolio',
-    url: 'https://laffet-takwa.github.io/portfolio/',
+    display: 'portfolio-ucrf.onrender.com',
+    url: 'https://portfolio-ucrf.onrender.com/',
   },
 };
 
