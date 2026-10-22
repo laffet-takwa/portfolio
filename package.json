@@ -1,31 +1,36 @@
 {
-  "name": "takwa-laffet-portfolio",
+  "name": "portfolio-windows",
   "private": true,
-  "version": "1.0.0",
-  "description": "Takwa Laffet — Professional Development OS. A Windows-inspired interactive portfolio.",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/generate-sitemap.mjs",
     "preview": "vite preview",
-    "build:cv": "node scripts/build-cv-pdf.mjs",
-    "typecheck": "tsc -b",
-    "lint": "tsc -b"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "framer-motion": "^12.23.22",
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-helmet-async": "^2.0.5"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.0",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "tailwindcss": "^4.1.0",
-    "typescript": "^5.7.0",
-    "vite": "^7.0.0"
-  },
-  "allowScripts": {
-    "esbuild@0.28.2": true
+    "@eslint/js": "^9.36.0",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.3",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.4.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.44.0",
+    "vite": "^7.1.7"
   }
 }
