@@ -2182,6 +2182,7 @@ export const projects: Project[] = [
     published: true,
     year: '2025',
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+  },
   /* ---------------------------------------------------------- 17 */
   {
     id: 'soc-incident-response-automation',
