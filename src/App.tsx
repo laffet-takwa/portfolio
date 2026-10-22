@@ -13,6 +13,7 @@ import { StartMenu } from './components/start-menu/StartMenu';
 import { SearchOverlay } from './components/start-menu/SearchOverlay';
 import { CursorGlow } from './components/ui/CursorGlow';
 import { Icon } from './components/ui/Icon';
+import { SEO } from './components/seo/SEO';
 
 function Shell() {
   const { t } = useI18n();
@@ -67,6 +68,7 @@ function Shell() {
 
   return (
     <div className="relative h-full w-full overflow-hidden">
+      <SEO />
       <a
         href="#main-content"
         className="sr-only-focusable absolute left-3 top-3 z-[9500] rounded-lg bg-accent px-3 py-2 text-sm text-[var(--accent-contrast)]"
