@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { useI18n } from '../i18n/useI18n';
-import { profile } from '../data/profile';
-import { projects } from '../data/projects';
-import { resolveText } from '../types';
+import { useI18n } from '../../i18n/useI18n';
+import { profile } from '../../data/profile';
+import { projects } from '../../data/projects';
+import { resolveText } from '../../types';
 
 export function SEO() {
   const { locale } = useI18n();
@@ -57,7 +57,7 @@ export function SEO() {
           '@context': 'https://schema.org',
           '@type': 'ItemList',
           name: 'Featured Projects',
-          itemListElement: projects.filter(p => p.featured && p.published !== false).slice(0, 10).map((p, i) => ({
+          itemListElement: projects.filter(p => p.featured && p.published !== false).slice(0, 10).map((p: any, i: number) => ({
             '@type': 'ListItem',
             position: i + 1,
             item: {
