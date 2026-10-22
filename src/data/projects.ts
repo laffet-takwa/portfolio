@@ -2188,33 +2188,33 @@ export const projects: Project[] = [
     title: 'SOC Incident Response Automation',
     subtitle: {
       en: 'Human-in-the-loop SOC playbook: Wazuh alert → IOC enrichment → TheHive case → approval → response',
-      fr: 'Playbook SOC human-in-the-loop : alerte Wazuh → enrichissement IOC → cas TheHive → approbation → réponse',
+      fr: "Playbook SOC human-in-the-loop : alerte Wazuh -> enrichissement IOC -> cas TheHive -> approbation -> reponse",
     },
     category: ['Cybersecurity', 'SOC', 'Automation'],
     icon: 'shield-check',
     description: {
       en: 'Human-in-the-loop SOC playbook: Wazuh alert → IOC enrichment (VirusTotal, AbuseIPDB, OTX) → TheHive case → Slack/Telegram approval → response. n8n + Python, with measured time savings.',
-      fr: 'Playbook SOC human-in-the-loop : alerte Wazuh → enrichissement IOC (VirusTotal, AbuseIPDB, OTX) → cas TheHive → approbation Slack/Telegram → réponse. n8n + Python, avec gains de temps mesurés.',
+      fr: "Playbook SOC human-in-the-loop : alerte Wazuh -> enrichissement IOC (VirusTotal, AbuseIPDB, OTX) -> cas TheHive -> approbation Slack/Telegram -> reponse. n8n + Python, avec gains de temps mesures.",
     },
     highlight: {
       en: 'Automated SOC incident response with human approval gates, measured time savings.',
-      fr: 'Réponse automatisée aux incidents SOC avec portes d’approbation humaine et gains de temps mesurés.',
+      fr: "Reponse automatisee aux incidents SOC avec portes d'approbation humaine et gains de temps mesures.",
     },
     longDescription: {
       en: 'An end-to-end SOC incident response playbook built with n8n and Python. A Wazuh alert triggers IOC enrichment across VirusTotal, AbuseIPDB and OTX, creates a case in TheHive, and routes an approval request via Slack/Telegram before executing the response action. Designed to reduce analyst triage time while keeping humans in the loop for high-impact actions.',
-      fr: 'Un playbook de réponse aux incidents SOC de bout en bout construit avec n8n et Python. Une alerte Wazuh déclenche l’enrichissement des IOC sur VirusTotal, AbuseIPDB et OTX, crée un cas dans TheHive et achemine une demande d’approbation via Slack/Telegram avant d’exécuter l’action de réponse. Conçu pour réduire le temps de triage analyste tout en gardant l’humain dans la boucle pour les actions à fort impact.',
+      fr: "Un playbook de reponse aux incidents SOC de bout en bout construit avec n8n et Python. Une alerte Wazuh declenche l'enrichissement des IOC sur VirusTotal, AbuseIPDB et OTX, cree un cas dans TheHive et achemine une demande d'approbation via Slack/Telegram avant d'executer l'action de reponse. Concu pour reduire le temps de triage analyste tout en gardant l'humain dans la boucle pour les actions a fort impact.",
     },
     problem: {
       en: 'Manual SOC triage and response is slow and inconsistent, delaying containment of real threats.',
-      fr: 'Le triage et la réponse SOC manuels sont lents et incohérents, retardant l’endiguement des menaces réelles.',
+      fr: "Le triage et la reponse SOC manuels sont lents et incoherents, retardant l'endiguement des menaces reelles.",
     },
     solution: {
       en: 'Automate enrichment and case creation with n8n + Python, gating response actions behind Slack/Telegram human approval.',
-      fr: 'Automatiser l’enrichissement et la création de cas avec n8n + Python, en conditionnant les actions de réponse à une approbation humaine via Slack/Telegram.',
+      fr: "Automatiser l'enrichissement et la creation de cas avec n8n + Python, en conditionnant les actions de reponse a une approbation humaine via Slack/Telegram.",
     },
     architecture: {
       en: 'Wazuh alert → n8n workflow → Python IOC enrichment (VirusTotal, AbuseIPDB, OTX) → TheHive case → Slack/Telegram approval → response action.',
-      fr: 'Alerte Wazuh → workflow n8n → enrichissement IOC Python (VirusTotal, AbuseIPDB, OTX) → cas TheHive → approbation Slack/Telegram → action de réponse.',
+      fr: "Alerte Wazuh -> workflow n8n -> enrichissement IOC Python (VirusTotal, AbuseIPDB, OTX) -> cas TheHive -> approbation Slack/Telegram -> action de reponse.",
     },
     architectureFlow: [
       'Wazuh alert',
@@ -2226,10 +2226,10 @@ export const projects: Project[] = [
       'Response action',
     ],
     features: [
-      { en: 'Automated IOC enrichment across VirusTotal, AbuseIPDB and OTX', fr: 'Enrichissement automatisé des IOC sur VirusTotal, AbuseIPDB et OTX' },
-      { en: 'Automatic TheHive case creation with enriched context', fr: 'Création automatique de cas TheHive avec contexte enrichi' },
-      { en: 'Human approval gates via Slack and Telegram', fr: 'Portes d’approbation humaine via Slack et Telegram' },
-      { en: 'Measured time savings for SOC triage', fr: 'Gains de temps mesurés pour le triage SOC' },
+      { en: 'Automated IOC enrichment across VirusTotal, AbuseIPDB and OTX', fr: "Enrichissement automatise des IOC sur VirusTotal, AbuseIPDB et OTX" },
+      { en: 'Automatic TheHive case creation with enriched context', fr: "Creation automatique de cas TheHive avec contexte enrichi" },
+      { en: 'Human approval gates via Slack and Telegram', fr: "Portes d'approbation humaine via Slack et Telegram" },
+      { en: 'Measured time savings for SOC triage', fr: "Gains de temps mesures pour le triage SOC" },
     ],
     technologies: [
       'Python',
@@ -2247,7 +2247,7 @@ export const projects: Project[] = [
     featured: true,
     published: true,
     year: '2025',
-    role: { en: 'Security Engineer', fr: 'Ingénieur Sécurité' },
+    role: { en: 'Security Engineer', fr: "Ingenieur Securite" },
   },
 ];
 
