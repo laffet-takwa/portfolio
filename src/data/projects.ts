@@ -2182,6 +2182,72 @@ export const projects: Project[] = [
     published: true,
     year: '2025',
     role: { en: 'Full-Stack Developer', fr: 'Développeur Full-Stack' },
+  /* ---------------------------------------------------------- 17 */
+  {
+    id: 'soc-incident-response-automation',
+    title: 'SOC Incident Response Automation',
+    subtitle: {
+      en: 'Human-in-the-loop SOC playbook: Wazuh alert → IOC enrichment → TheHive case → approval → response',
+      fr: 'Playbook SOC human-in-the-loop : alerte Wazuh → enrichissement IOC → cas TheHive → approbation → réponse',
+    },
+    category: ['Cybersecurity', 'SOC', 'Automation'],
+    icon: 'shield-check',
+    description: {
+      en: 'Human-in-the-loop SOC playbook: Wazuh alert → IOC enrichment (VirusTotal, AbuseIPDB, OTX) → TheHive case → Slack/Telegram approval → response. n8n + Python, with measured time savings.',
+      fr: 'Playbook SOC human-in-the-loop : alerte Wazuh → enrichissement IOC (VirusTotal, AbuseIPDB, OTX) → cas TheHive → approbation Slack/Telegram → réponse. n8n + Python, avec gains de temps mesurés.',
+    },
+    highlight: {
+      en: 'Automated SOC incident response with human approval gates, measured time savings.',
+      fr: 'Réponse automatisée aux incidents SOC avec portes d’approbation humaine et gains de temps mesurés.',
+    },
+    longDescription: {
+      en: 'An end-to-end SOC incident response playbook built with n8n and Python. A Wazuh alert triggers IOC enrichment across VirusTotal, AbuseIPDB and OTX, creates a case in TheHive, and routes an approval request via Slack/Telegram before executing the response action. Designed to reduce analyst triage time while keeping humans in the loop for high-impact actions.',
+      fr: 'Un playbook de réponse aux incidents SOC de bout en bout construit avec n8n et Python. Une alerte Wazuh déclenche l’enrichissement des IOC sur VirusTotal, AbuseIPDB et OTX, crée un cas dans TheHive et achemine une demande d’approbation via Slack/Telegram avant d’exécuter l’action de réponse. Conçu pour réduire le temps de triage analyste tout en gardant l’humain dans la boucle pour les actions à fort impact.',
+    },
+    problem: {
+      en: 'Manual SOC triage and response is slow and inconsistent, delaying containment of real threats.',
+      fr: 'Le triage et la réponse SOC manuels sont lents et incohérents, retardant l’endiguement des menaces réelles.',
+    },
+    solution: {
+      en: 'Automate enrichment and case creation with n8n + Python, gating response actions behind Slack/Telegram human approval.',
+      fr: 'Automatiser l’enrichissement et la création de cas avec n8n + Python, en conditionnant les actions de réponse à une approbation humaine via Slack/Telegram.',
+    },
+    architecture: {
+      en: 'Wazuh alert → n8n workflow → Python IOC enrichment (VirusTotal, AbuseIPDB, OTX) → TheHive case → Slack/Telegram approval → response action.',
+      fr: 'Alerte Wazuh → workflow n8n → enrichissement IOC Python (VirusTotal, AbuseIPDB, OTX) → cas TheHive → approbation Slack/Telegram → action de réponse.',
+    },
+    architectureFlow: [
+      'Wazuh alert',
+      'n8n workflow',
+      'Python IOC enrichment',
+      'VirusTotal / AbuseIPDB / OTX',
+      'TheHive case',
+      'Slack/Telegram approval',
+      'Response action',
+    ],
+    features: [
+      { en: 'Automated IOC enrichment across VirusTotal, AbuseIPDB and OTX', fr: 'Enrichissement automatisé des IOC sur VirusTotal, AbuseIPDB et OTX' },
+      { en: 'Automatic TheHive case creation with enriched context', fr: 'Création automatique de cas TheHive avec contexte enrichi' },
+      { en: 'Human approval gates via Slack and Telegram', fr: 'Portes d’approbation humaine via Slack et Telegram' },
+      { en: 'Measured time savings for SOC triage', fr: 'Gains de temps mesurés pour le triage SOC' },
+    ],
+    technologies: [
+      'Python',
+      'n8n',
+      'Wazuh',
+      'TheHive',
+      'VirusTotal',
+      'AbuseIPDB',
+      'OTX',
+      'Slack',
+      'Telegram',
+    ],
+    github: 'https://github.com/laffet-takwa/soc-incident-response-automation',
+    demo: '',
+    featured: true,
+    published: true,
+    year: '2025',
+    role: { en: 'Security Engineer', fr: 'Ingénieur Sécurité' },
   },
 ];
 
